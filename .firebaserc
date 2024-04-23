@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "webfejl-pe-2024": {
+      "hosting": {
+        "web-dev-fw-project": [
+          "webfejl-pe-2024"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "webfejl-pe-2024"
+  }
+}
