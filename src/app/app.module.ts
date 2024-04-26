@@ -9,6 +9,12 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 
 import { MenuComponent } from './shared/menu/menu.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconButton} from "@angular/material/button";
+import {MatIcon} from "@angular/material/icon";
+import {MatListItem, MatNavList} from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -16,14 +22,29 @@ import { MenuComponent } from './shared/menu/menu.component';
     MenuComponent
   ],
   imports: [
+    MatSidenavModule,
+    MatToolbarModule,
     BrowserModule,
     AppRoutingModule,
-    provideFirebaseApp(() => initializeApp({"projectId":"webfejl-pe-2024","appId":"1:546988117878:web:97ed92e63556e486c1b457","storageBucket":"webfejl-pe-2024.appspot.com","apiKey":"AIzaSyD30x2Xx0NY_IS0ObtZTfEOvaKVBBvFKy8","authDomain":"webfejl-pe-2024.firebaseapp.com","messagingSenderId":"546988117878"})),
+    provideFirebaseApp(() => initializeApp({
+      "projectId": "webfejl-pe-2024",
+      "appId": "1:546988117878:web:97ed92e63556e486c1b457",
+      "storageBucket": "webfejl-pe-2024.appspot.com",
+      "apiKey": "AIzaSyD30x2Xx0NY_IS0ObtZTfEOvaKVBBvFKy8",
+      "authDomain": "webfejl-pe-2024.firebaseapp.com",
+      "messagingSenderId": "546988117878"
+    })),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
+    MatIconButton,
+    MatIcon,
+    MatNavList,
+    MatListItem
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

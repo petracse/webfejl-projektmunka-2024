@@ -1,0 +1,44 @@
+.navigation-items {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.navigation-items li {
+  margin-left: 2vw; // Itt állíthatod be a kívánt gap-et
+}
+
+.navigation-items a:hover, a:active {
+  color: lightgray;
+}
+
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation-items a {
+  text-decoration: None;
+  color: white;
+}
+
+.main-title a {
+  text-decoration: None;
+  color: white;
+}
+
+.sidenav-parent {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: max-content;
+}
+
+
+
+
+
+
+
+
