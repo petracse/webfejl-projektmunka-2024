@@ -15,6 +15,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatListItem, MatNavList} from "@angular/material/list";
+import {LoginComponent} from "./pages/login/login.component";
 
 @NgModule({
   declarations: [
