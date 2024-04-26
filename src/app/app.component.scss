@@ -5,7 +5,7 @@
   margin: 0;
 }
 .navigation-items li {
-  margin-left: 2vw; // Itt állíthatod be a kívánt gap-et
+  margin-left: 2vw;
 }
 
 .navigation-items a:hover, a:active {
@@ -33,7 +33,39 @@
   flex-direction: column;
   width: 200px;
   height: max-content;
+  border-radius: 0 20px 20px 0;
 }
+
+@media (max-width: 480px) {
+  .desktop-navbar {
+    display: none;
+  }
+  .mobile-navbar {
+    display: block;
+  }
+}
+
+@media (min-width: 481px) {
+  .desktop-navbar {
+    display: block;
+  }
+  .mobile-navbar {
+    display: none;
+  }
+}
+
+@media (max-width: 200px) {
+  .main-title {
+    display: none;
+  }
+}
+
+@media (min-width: 201px) {
+  .main-title {
+    display: block;
+  }
+}
+
 
 
 

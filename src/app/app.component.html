@@ -4,7 +4,7 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <div>
+      <div class="mobile-navbar">
         <button mat-icon-button (click)="onToggleSidenav(sidenav)">
           <mat-icon>
             menu
@@ -12,7 +12,7 @@
         </button>
       </div>
       <div class="main-title"><a routerLink="/">My App</a></div>
-      <div>
+      <div class="desktop-navbar">
         <ul class="navigation-items">
 
           <li><a routerLink="/login">Login</a></li>
