@@ -10,7 +10,7 @@ import {Observable} from "rxjs";
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit{
-  authService = inject(AuthService);
+  constructor(protected authService: AuthService) {}
 
   title = 'web-dev-fw-project';
 
