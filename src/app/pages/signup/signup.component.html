@@ -1,1 +1,13 @@
-<p>signup works!</p>
+<div class="main_component">
+  @if (signupErrorMessage) {
+    <div>{{ signupErrorMessage }}</div>
+  }
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <span><label>Username: </label><input formControlName="username" type="text" /></span>
+    <span><label>Email: </label><input formControlName="email" type="text" /></span>
+    <span><label>Password: </label><input formControlName="password" type="password" /></span>
+    <span>
+      <button type="submit">Submit</button>
+    </span>
+  </form>
+</div>

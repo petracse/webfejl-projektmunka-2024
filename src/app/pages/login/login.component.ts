@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {AuthService} from "../../auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -7,19 +9,32 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   styleUrl: './login.component.scss'
 })
 export class LoginComponent{
-
-  form: FormGroup;
+  authService = inject(AuthService);
+  loginForm: FormGroup;
+  loginErrorMessage: string | null = null;
+  router = inject(Router);
 
   constructor(private formBuilder: FormBuilder) {
-    // FormGroup létrehozása a FormBuilder segítségével
-    this.form = this.formBuilder.group({
-      email: [''], // email formControl
-      password: [''] // password formControl
+    this.loginForm = this.formBuilder.group({
+      email: [''],
+      password: ['']
     });
   }
 
+
+
   onSubmit() {
-    console.log('Email:', this.form.get('email')?.value); // Null ellenőrzés
+    const rawForm = this.loginForm.getRawValue();
+    this.authService.login(rawForm.email,rawForm.password)
+      .subscribe({
+        next: () => {
+            this.router.navigateByUrl("/")
+          },
+        error: (err) => {
+          this.loginErrorMessage = err.code;
+        }
+        }
+      )
   }
 
 }

@@ -1,5 +1,8 @@
 <div class="main_component">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  @if (loginErrorMessage) {
+    <div>{{ loginErrorMessage }}</div>
+  }
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <span><label>Email: </label><input formControlName="email" type="text" /></span>
     <span><label>Password: </label><input formControlName="password" type="password" /></span>
     <span>
