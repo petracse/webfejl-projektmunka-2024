@@ -9,12 +9,11 @@ import {Router} from "@angular/router";
   styleUrl: './login.component.scss'
 })
 export class LoginComponent{
-  authService = inject(AuthService);
   loginForm: FormGroup;
   loginErrorMessage: string | null = null;
   router = inject(Router);
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(protected authService: AuthService,private formBuilder: FormBuilder) {
     this.loginForm = this.formBuilder.group({
       email: [''],
       password: ['']

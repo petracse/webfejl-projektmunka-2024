@@ -28,6 +28,13 @@ export class AuthService {
     return from(promise);
   }
 
+  isUserLoggedIn(): boolean {
+    if (this.currentUserSig() == null) {
+      return false;
+    }
+    return true
+  }
+
   login(email:string, password:string): Observable<void> {
     const promise = signInWithEmailAndPassword(this.firebaseAuth, email, password).then(()=>{});
     return from(promise);

@@ -14,11 +14,11 @@
       <div class="main-title"><a routerLink="/">My App</a></div>
       <div class="desktop-navbar">
         <ul class="navigation-items">
-          @if (authService.currentUserSig() == null) {
+          @if (!authService.isUserLoggedIn()) {
             <li><a routerLink="/login">Login</a></li>
             <li><a routerLink="/signup">Signup</a></li>
           }
-          @if (authService.currentUserSig()) {
+          @else {
             <li><a routerLink="/login" (click)="logout()">Logout</a></li>
           }
 
