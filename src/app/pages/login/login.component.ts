@@ -12,8 +12,10 @@ export class LoginComponent{
   loginForm: FormGroup;
   loginErrorMessage: string | null = null;
   router = inject(Router);
+  authService = inject(AuthService);
 
-  constructor(protected authService: AuthService,private formBuilder: FormBuilder) {
+
+  constructor(private formBuilder: FormBuilder) {
     this.loginForm = this.formBuilder.group({
       email: [''],
       password: ['']

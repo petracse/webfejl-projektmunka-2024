@@ -8,12 +8,19 @@ export const authGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  if (inject(AuthService).currentUserSig()) {
-    return true;
-  } else {
+  const authService = inject(AuthService);
+
+  const user = JSON.parse(localStorage.getItem('user') as string);
+
+  if (authService.currentUserSig() === null) {
+
     inject(Router).navigate(['login']);
     return false;
+  } else if (authService.currentUserSig() ===  undefined){
+    return false;
   }
+  console.log(user.uid);
+  return true;
 };
 
 

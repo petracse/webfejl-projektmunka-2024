@@ -14,21 +14,9 @@ import {User} from "../interfaces/user.interface";
   providedIn: 'root'
 })
 export class AuthService {
+  firebaseAuth = inject(Auth)
   currentUserSig = signal<User | null | undefined>(undefined);
   user$ = user(this.firebaseAuth);
-
-  constructor(private firebaseAuth: Auth) {
-    this.user$.subscribe(user => {
-      if (user) {
-        this.currentUserSig.set({
-          email: user.email!,
-          username: user.displayName!
-        });
-      } else {
-        this.currentUserSig.set(null);
-      }
-    });
-  }
 
   register(email: string, username: string, password: string): Observable<void> {
     const promise = createUserWithEmailAndPassword(

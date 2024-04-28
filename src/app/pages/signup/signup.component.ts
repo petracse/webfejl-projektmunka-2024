@@ -11,10 +11,10 @@ import {Router} from "@angular/router";
 export class SignupComponent {
   signupForm: FormGroup;
   signupErrorMessage: string | null = null;
-
+  authService = inject(AuthService);
   router = inject(Router);
 
-  constructor(protected authService: AuthService,private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder) {
     this.signupForm = this.formBuilder.group({
       email: [''],
       username: [''],
