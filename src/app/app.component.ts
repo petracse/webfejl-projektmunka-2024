@@ -27,7 +27,7 @@ export class AppComponent implements OnInit{
         localStorage.setItem('user', JSON.stringify(user));
       } else {
         this.authService.currentUserSig.set(null);
-        localStorage.setItem('user', JSON.stringify('null'));
+        localStorage.setItem('user', JSON.stringify(null));
       }
     });
   }
