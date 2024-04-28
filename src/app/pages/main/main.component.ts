@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
+import {AuthService} from "../../shared/services/auth.service";
+
 
 @Component({
   selector: 'app-main',
@@ -6,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
+  authService = inject(AuthService);
 
 }

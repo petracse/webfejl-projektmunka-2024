@@ -30,6 +30,10 @@ export class AuthService {
     return !!this.currentUserSig();
   }
 
+  getUsername(): string | undefined {
+    return this.currentUserSig()?.username;
+  }
+
   login(email: string, password: string): Observable<void> {
     const promise = signInWithEmailAndPassword(this.firebaseAuth, email, password).then(() => { });
     return from(promise);
