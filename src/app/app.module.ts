@@ -16,6 +16,7 @@ import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {LoginComponent} from "./pages/login/login.component";
+import {environment} from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -27,14 +28,7 @@ import {LoginComponent} from "./pages/login/login.component";
     MatToolbarModule,
     BrowserModule,
     AppRoutingModule,
-    provideFirebaseApp(() => initializeApp({
-      "projectId": "webfejl-pe-2024",
-      "appId": "1:546988117878:web:97ed92e63556e486c1b457",
-      "storageBucket": "webfejl-pe-2024.appspot.com",
-      "apiKey": "AIzaSyD30x2Xx0NY_IS0ObtZTfEOvaKVBBvFKy8",
-      "authDomain": "webfejl-pe-2024.firebaseapp.com",
-      "messagingSenderId": "546988117878"
-    })),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
