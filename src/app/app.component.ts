@@ -2,7 +2,6 @@ import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import {MatSidenav} from "@angular/material/sidenav";
 import {AuthService} from "./shared/services/auth.service";
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -31,8 +30,6 @@ export class AppComponent implements OnInit{
       }
     });
   }
-
-
 
   onClose($event: any, sidenav: MatSidenav) {
     if ($event === true) {

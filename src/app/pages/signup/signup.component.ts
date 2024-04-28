@@ -32,7 +32,6 @@ export class SignupComponent {
       error: (err) => {
         this.signupErrorMessage = err.code;
       }
-    })
-
+    });
   }
 }

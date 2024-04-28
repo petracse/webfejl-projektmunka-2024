@@ -11,13 +11,13 @@ export const authGuard: CanActivateFn = (
 
   const user = JSON.parse(localStorage.getItem('user') as string);
 
-  if (user === null) {
+  if (user) {
+    return true;
 
-    inject(Router).navigate(['login']);
-    return false;
   }
-  
-  return true;
+  inject(Router).navigate(['login']);
+  return false;
+
 };
 
 
