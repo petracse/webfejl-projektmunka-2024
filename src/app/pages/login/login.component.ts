@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit{
     const rawForm = this.loginForm.getRawValue();
     this.authService.login(rawForm.email,rawForm.password)
       .subscribe({
-        next: () => {
+        next: (succ) => {
             this.router.navigateByUrl("/")
           },
         error: (err) => {

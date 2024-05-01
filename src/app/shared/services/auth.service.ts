@@ -3,12 +3,12 @@ import {
   Auth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut,
+  signOut, updatePassword,
   updateProfile,
-  user
+  EmailAuthProvider,
+  user, reauthenticateWithCredential
 } from "@angular/fire/auth";
-import {from, Observable} from "rxjs";
-import {User} from "../models/user.interface";
+import {from, Observable, throwError} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Injectable({
@@ -67,5 +67,27 @@ export class AuthService {
   logout(): Observable<void> {
     const promise = signOut(this.firebaseAuth);
     return from(promise);
+  }
+
+  changePassword(oldPassword: string, newPassword: string): Observable<void> {
+    const user = this.firebaseAuth.currentUser;
+    if (!user) {
+      return new Observable(observer => {
+        observer.error('User is not logged in.');
+        observer.complete();
+      });
+    }
+
+    const credential = EmailAuthProvider.credential(user.email as string, oldPassword);
+    return new Observable(observer => {
+      reauthenticateWithCredential(user, credential)
+        .then(() => {
+          observer.next();
+          return updatePassword(user, newPassword);
+        }).catch(error => {
+          observer.error('Authentication failed.');
+          observer.complete();
+        });
+    });
   }
 }
