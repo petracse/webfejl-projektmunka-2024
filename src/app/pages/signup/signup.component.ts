@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   styleUrl: './signup.component.scss'
 })
 export class SignupComponent implements OnInit {
-  signupForm: FormGroup = new FormGroup<any>({});
+  signupForm: FormGroup = new FormGroup({});
   signupErrorMessage: string | null = null;
   authService = inject(AuthService);
   router = inject(Router);

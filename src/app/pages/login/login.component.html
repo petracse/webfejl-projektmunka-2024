@@ -1,4 +1,4 @@
-<div class="main_component">
+<!--<div class="main_component">
   @if (loginErrorMessage) {
     <div>{{ loginErrorMessage }}</div>
   }
@@ -11,6 +11,32 @@
     </span>
   </form>
 </div>
+-->
+<mat-card>
+  <mat-card-header>Login</mat-card-header>
+  <mat-card-content>
+    @if (loginErrorMessage) {
+      <div>{{ loginErrorMessage }}</div>
+    }
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div>
+        <mat-label>Enter your email:</mat-label>
+        <input matInput placeholder="example@example.com" formControlName="email">
+        <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">Enter a valid email!</mat-error>
+      </div>
+      <div>
+        <mat-label>Enter your password:</mat-label>
+        <input matInput type="password" formControlName="password">
+        <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">Password is required (min 6 characters)!</mat-error>
+      </div>
+      <div>
+        <button mat-button color="primary" type="submit">Login</button>
+        <button mat-button color="secondary" routerLink="/signup">Signup</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
 
 
 
