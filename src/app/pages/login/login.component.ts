@@ -8,14 +8,14 @@ import {Router} from "@angular/router";
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent{
-  loginForm: FormGroup;
+export class LoginComponent implements OnInit{
+  loginForm: FormGroup = new FormGroup<any>({});
   loginErrorMessage: string | null = null;
   router = inject(Router);
   authService = inject(AuthService);
   formBuilder = inject(FormBuilder);
 
-  constructor() {
+  ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: [''],
       password: ['']
