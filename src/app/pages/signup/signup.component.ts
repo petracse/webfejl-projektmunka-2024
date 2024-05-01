@@ -13,8 +13,9 @@ export class SignupComponent {
   signupErrorMessage: string | null = null;
   authService = inject(AuthService);
   router = inject(Router);
+  formBuilder: FormBuilder = inject(FormBuilder);
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor() {
     this.signupForm = this.formBuilder.group({
       email: [''],
       username: [''],

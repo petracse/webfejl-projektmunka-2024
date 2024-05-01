@@ -10,7 +10,7 @@ export class MenuComponent {
   @Output() onCloseSidenav: EventEmitter<boolean> = new EventEmitter();
 
   authService: AuthService = inject(AuthService);
-  
+
   close() {
     this.onCloseSidenav.emit(true);
   }

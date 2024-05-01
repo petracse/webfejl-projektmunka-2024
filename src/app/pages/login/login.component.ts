@@ -13,16 +13,14 @@ export class LoginComponent{
   loginErrorMessage: string | null = null;
   router = inject(Router);
   authService = inject(AuthService);
+  formBuilder = inject(FormBuilder);
 
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor() {
     this.loginForm = this.formBuilder.group({
       email: [''],
       password: ['']
     });
   }
-
-
 
   onSubmit() {
     const rawForm = this.loginForm.getRawValue();
