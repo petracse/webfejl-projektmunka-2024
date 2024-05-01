@@ -13,5 +13,5 @@ export interface User {
   phoneNumber: string;
   registrationDate: Date;
   profilePictureUrl: string;
-  is_admin: boolean;
+  isAdmin: boolean;
 }

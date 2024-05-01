@@ -33,10 +33,10 @@ export class AppComponent implements OnInit{
               city: '',
               addressLine: ''
             },
-          phoneNumber: user.phoneNumber ?? '',
+          phoneNumber: '',
           registrationDate: new Date(),
           profilePictureUrl: '',
-          is_admin: false
+          isAdmin: false
         });
         localStorage.setItem('user', JSON.stringify(user));
       }
