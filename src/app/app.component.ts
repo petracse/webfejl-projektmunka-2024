@@ -16,7 +16,7 @@ export class AppComponent implements OnInit{
     sidenav.toggle();
 
   }
-
+/*
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       if (user) {
@@ -42,6 +42,17 @@ export class AppComponent implements OnInit{
       }
       else {
         this.authService.currentUserSig.set(null);
+        localStorage.setItem('user', JSON.stringify(null));
+      }
+    });
+  }
+ */
+  ngOnInit(): void {
+    this.authService.user$.subscribe(user => {
+      if (user) {
+        localStorage.setItem('user', JSON.stringify(user));
+      }
+      else {
         localStorage.setItem('user', JSON.stringify(null));
       }
     });

@@ -1,5 +1,5 @@
 <mat-nav-list>
-  @if (authService.currentUserSig() === null) {
+  @if (authService.firebaseAuth.currentUser === null) {
     <a mat-list-item routerLink="/login" (click)="close()"><mat-icon>login</mat-icon><span>Login</span></a>
     <a mat-list-item routerLink="/signup" (click)="close()"><mat-icon>app_registration</mat-icon><span>Signup</span></a>
   } @else {

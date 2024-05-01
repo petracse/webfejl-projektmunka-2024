@@ -15,6 +15,7 @@ import {User} from "../models/user.interface";
 })
 export class AuthService {
   firebaseAuth = inject(Auth)
+
   currentUserSig = signal<User | null | undefined>(undefined);
   user$ = user(this.firebaseAuth);
 
@@ -27,11 +28,11 @@ export class AuthService {
   }
 
   isUserLoggedIn(): boolean {
-    return !!this.currentUserSig();
+    return !!this.firebaseAuth.currentUser;
   }
 
-  getUsername(): string | undefined {
-    return this.currentUserSig()?.username;
+  getUsername(): string | null | undefined {
+    return this.firebaseAuth.currentUser?.displayName;
   }
 
   login(email: string, password: string): Observable<void> {
