@@ -9,8 +9,8 @@ import {AuthService} from "../services/auth.service";
 export class MenuComponent {
   @Output() onCloseSidenav: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(protected authService: AuthService) {}
-
+  authService: AuthService = inject(AuthService);
+  
   close() {
     this.onCloseSidenav.emit(true);
   }
