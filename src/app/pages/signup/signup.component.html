@@ -1,4 +1,4 @@
-<div class="main_component">
+<!--<div class="main_component">
   @if (signupErrorMessage) {
     <div>{{ signupErrorMessage }}</div>
   }
@@ -11,3 +11,42 @@
     </span>
   </form>
 </div>
+-->
+
+<!-- signup.component.html -->
+
+<mat-card>
+  <mat-card-header>Signup</mat-card-header>
+  <mat-card-content>
+    <div *ngIf="signupErrorMessage" class="error-message">{{ signupErrorMessage }}</div>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div>
+        <mat-label>Enter your email:</mat-label>
+        <input matInput placeholder="example@example.com" formControlName="email">
+        <mat-error *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">Enter a valid email!</mat-error>
+      </div>
+      <div>
+        <mat-label>Enter your username:</mat-label>
+        <input matInput placeholder="Your username" formControlName="username">
+        <mat-error *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched">Username is required!</mat-error>
+      </div>
+      <div>
+        <mat-label>Enter your password:</mat-label>
+        <input matInput type="password" formControlName="password">
+        <mat-error *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">Password is required (min 6 characters)!</mat-error>
+      </div>
+      <div>
+        <mat-label>Enter your password again:</mat-label>
+        <input matInput type="password" formControlName="passwordAgain">
+        <mat-error *ngIf="signupForm.get('passwordAgain')?.invalid && signupForm.get('passwordAgain')?.touched">
+          Passwords do not match!
+        </mat-error>
+      </div>
+      <div>
+        <button mat-button color="primary" type="submit">Signup</button>
+        <button mat-button color="secondary" routerLink="/login">Login</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+

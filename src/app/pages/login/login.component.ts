@@ -16,9 +16,6 @@ export class LoginComponent implements OnInit{
   formBuilder = inject(FormBuilder);
 
   ngOnInit() {
-    if (this.loginForm.invalid) {
-      return;
-    }
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.email]],
       password: ['',[Validators.required, Validators.minLength(6)]]
@@ -26,6 +23,9 @@ export class LoginComponent implements OnInit{
   }
 
   onSubmit() {
+    if (this.loginForm.invalid) {
+      return;
+    }
     const rawForm = this.loginForm.getRawValue();
     this.authService.login(rawForm.email,rawForm.password)
       .subscribe({
