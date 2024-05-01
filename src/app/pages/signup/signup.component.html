@@ -14,39 +14,39 @@
 -->
 
 <!-- signup.component.html -->
-
+<div class="main_component">
 <mat-card>
   <mat-card-header>Signup</mat-card-header>
   <mat-card-content>
     <div *ngIf="signupErrorMessage" class="error-message">{{ signupErrorMessage }}</div>
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-      <div>
+      <mat-form-field>
         <mat-label>Enter your email:</mat-label>
         <input matInput placeholder="example@example.com" formControlName="email">
         <mat-error *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">Enter a valid email!</mat-error>
-      </div>
-      <div>
+      </mat-form-field>
+      <mat-form-field>
         <mat-label>Enter your username:</mat-label>
         <input matInput placeholder="Your username" formControlName="username">
-        <mat-error *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched">Username is required!</mat-error>
-      </div>
-      <div>
+        <mat-error *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched">Required!</mat-error>
+      </mat-form-field>
+      <mat-form-field>
         <mat-label>Enter your password:</mat-label>
         <input matInput type="password" formControlName="password">
-        <mat-error *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">Password is required (min 6 characters)!</mat-error>
-      </div>
-      <div>
+        <mat-error *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">Required (min 6 characters)!</mat-error>
+      </mat-form-field>
+      <mat-form-field>
         <mat-label>Enter your password again:</mat-label>
         <input matInput type="password" formControlName="passwordAgain">
         <mat-error *ngIf="signupForm.get('passwordAgain')?.invalid && signupForm.get('passwordAgain')?.touched">
           Passwords do not match!
         </mat-error>
-      </div>
+      </mat-form-field>
       <div>
-        <button mat-button color="primary" type="submit">Signup</button>
-        <button mat-button color="secondary" routerLink="/login">Login</button>
+        <button mat-raised-button color="primary" type="submit">Signup</button>
       </div>
     </form>
   </mat-card-content>
 </mat-card>
+</div>
 

@@ -12,6 +12,7 @@
   </form>
 </div>
 -->
+<div class="main_component">
 <mat-card>
   <mat-card-header>Login</mat-card-header>
   <mat-card-content>
@@ -19,24 +20,24 @@
       <div>{{ loginErrorMessage }}</div>
     }
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <div>
+      <mat-form-field>
         <mat-label>Enter your email:</mat-label>
         <input matInput placeholder="example@example.com" formControlName="email">
         <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">Enter a valid email!</mat-error>
-      </div>
-      <div>
+      </mat-form-field>
+      <mat-form-field>
         <mat-label>Enter your password:</mat-label>
         <input matInput type="password" formControlName="password">
-        <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">Password is required (min 6 characters)!</mat-error>
-      </div>
+        <mat-error *ngIf="loginForm.get('password')?.touched">Password is required (min 6 characters)!</mat-error>
+      </mat-form-field>
       <div>
-        <button mat-button color="primary" type="submit">Login</button>
-        <button mat-button color="secondary" routerLink="/signup">Signup</button>
+        <button mat-raised-button color="primary" type="submit">Login</button>
+        <button mat-raised-button color="secondary" routerLink="/signup">Signup</button>
       </div>
     </form>
   </mat-card-content>
 </mat-card>
-
+</div>
 
 
 

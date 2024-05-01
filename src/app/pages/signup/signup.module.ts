@@ -6,7 +6,7 @@ import { SignupComponent } from './signup.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatButton} from "@angular/material/button";
 import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
-import {MatError, MatLabel} from "@angular/material/form-field";
+import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 
 
@@ -14,17 +14,18 @@ import {MatInput} from "@angular/material/input";
   declarations: [
     SignupComponent
   ],
-    imports: [
-        CommonModule,
-        SignupRoutingModule,
-        ReactiveFormsModule,
-        MatButton,
-        MatCard,
-        MatCardContent,
-        MatCardHeader,
-        MatError,
-        MatInput,
-        MatLabel
-    ]
+  imports: [
+    CommonModule,
+    SignupRoutingModule,
+    ReactiveFormsModule,
+    MatButton,
+    MatCard,
+    MatCardContent,
+    MatCardHeader,
+    MatError,
+    MatInput,
+    MatLabel,
+    MatFormField
+  ]
 })
 export class SignupModule { }
