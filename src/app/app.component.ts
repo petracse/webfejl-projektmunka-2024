@@ -1,6 +1,7 @@
 import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import {MatSidenav} from "@angular/material/sidenav";
 import {AuthService} from "./shared/services/auth.service";
+import {user} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-root',
@@ -20,11 +21,26 @@ export class AppComponent implements OnInit{
     this.authService.user$.subscribe(user => {
       if (user) {
         this.authService.currentUserSig.set({
-          email: user.email!,
-          username: user.displayName!
+          email: user.email ?? '',
+          username: user.displayName ?? '',
+          name: {
+            firstname: '',
+            lastname: ''
+          },
+          address:
+            {
+              postalCode: '',
+              city: '',
+              addressLine: ''
+            },
+          phoneNumber: user.phoneNumber ?? '',
+          registrationDate: new Date(),
+          profilePictureUrl: '',
+          is_admin: false
         });
         localStorage.setItem('user', JSON.stringify(user));
-      } else {
+      }
+      else {
         this.authService.currentUserSig.set(null);
         localStorage.setItem('user', JSON.stringify(null));
       }
