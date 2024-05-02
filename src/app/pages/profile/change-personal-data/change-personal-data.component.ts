@@ -19,7 +19,7 @@ export class ChangePersonalDataComponent implements OnInit{
     this.personalDataForm = this.formBuilder.group({
       email: [this.authService.firebaseAuth.currentUser!.email, [Validators.required, Validators.email]],
       username: [this.authService.firebaseAuth.currentUser!.displayName, [Validators.required]],
-      password: ['', Validators.required]
+      password: ['', [Validators.required]]
     });
   }
 

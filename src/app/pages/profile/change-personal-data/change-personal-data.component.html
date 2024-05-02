@@ -19,7 +19,7 @@
         <mat-form-field>
           <mat-label>Confirm with password</mat-label>
           <input matInput formControlName="password" type="password">
-
+          <mat-error *ngIf="personalDataForm.get('password')?.invalid && personalDataForm.get('password')?.touched">Required!</mat-error>
         </mat-form-field>
         <div *ngIf="personalDataErrorMessage" class="error-message">{{ personalDataErrorMessage }}</div>
         <button mat-raised-button color="primary" type="submit">Submit</button>

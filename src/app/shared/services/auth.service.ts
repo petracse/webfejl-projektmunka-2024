@@ -125,24 +125,31 @@ export class AuthService {
         observer.error('User is not logged in.');
         observer.complete();
       });
-    }
+    }/*
     if (this.isUsernameExists(newUsername)) {
       return new Observable(observer => {
-        observer.error('Username is taken.');
+        observer.error('Username is already taken.');
         observer.complete();
       });
-    }
+    }*/
 
     const credential = EmailAuthProvider.credential(user.email as string, password);
     return new Observable(observer => {
       reauthenticateWithCredential(user, credential)
-        .then(() => {
-          // Update email
-          return updateEmail(user, newEmail);
+        .then((response) => {
+          return updateEmail(response.user, newEmail).then(() => {
+            return this.firestore.collection('Users').doc(response.user.uid).update({
+              email: newEmail,
+            });
+
+          });
         })
         .then(() => {
-          // Update display name
-          return updateProfile(user, { displayName: newUsername });
+          return updateProfile(user, { displayName: newUsername }).then(() => {
+            return this.firestore.collection('Users').doc(user.uid).update({
+              username: newUsername,
+            });
+          });
         })
         .then(() => {
           observer.next();
