@@ -30,9 +30,9 @@
         <input matInput type="password" formControlName="password">
         <mat-error *ngIf="loginForm.get('password')?.touched">Password is required (min 6 characters)!</mat-error>
       </mat-form-field>
-      <div>
-        <button mat-raised-button color="primary" type="submit">Login</button>
-        <button mat-raised-button color="secondary" routerLink="/signup">Signup</button>
+      <div class="login_buttons">
+      <button mat-raised-button color="primary" type="submit">Login</button>
+      <button mat-raised-button color="secondary" routerLink="/signup">Signup</button>
       </div>
     </form>
   </mat-card-content>
