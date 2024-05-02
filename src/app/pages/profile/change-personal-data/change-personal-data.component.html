@@ -5,24 +5,23 @@
     <mat-card-header>Account data</mat-card-header>
     <mat-card-content>
 
-      <form class="password-form">
+      <form [formGroup]="personalDataForm" (ngSubmit)="onSubmit()"  class="personal-data-form">
+        <mat-form-field>
+          <mat-label>Change your username</mat-label>
+          <input matInput formControlName="username" type="text">
+
+        </mat-form-field>
         <mat-form-field>
           <mat-label>Change your email</mat-label>
           <input matInput formControlName="email" type="email">
-
+          <mat-error *ngIf="personalDataForm.get('email')?.invalid && personalDataForm.get('email')?.touched">Enter a valid email!</mat-error>
         </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Change your username</mat-label>
-          <input matInput type="text">
-
-        </mat-form-field>
-
         <mat-form-field>
           <mat-label>Confirm with password</mat-label>
-          <input matInput type="password">
+          <input matInput formControlName="password" type="password">
 
         </mat-form-field>
+        <div *ngIf="personalDataErrorMessage" class="error-message">{{ personalDataErrorMessage }}</div>
         <button mat-raised-button color="primary" type="submit">Submit</button>
 
 
