@@ -50,27 +50,19 @@ export class AuthService {
     return from(promise);
   }
 
-  getCurrentUserUsername(): Observable<string | null> {
-    return authState(this.firebaseAuth).pipe(
-      map(user => user ? user.displayName : null)
-    );
-  }
-
   isUsernameExists(username: string): Observable<boolean> {
-    return this.getCurrentUserUsername().pipe(
-      switchMap(currentUserUsername => {
-        if (currentUserUsername && currentUserUsername === username) {
-          return of(false); // Ha a bejelentkezett felhasználó neve megegyezik a paraméterrel
-        } else {
-          return this.firestore.collection('Users', ref=> ref.
-          where('username', '==', username))
-            .valueChanges()
-            .pipe(
-              map(users => users.length > 0)
-            );
-        }
-      })
-    );
+    return new Observable<boolean>(observer => {
+      const currentUser = this.firebaseAuth.currentUser;
+      if (currentUser && currentUser.displayName === username) {
+        observer.next(false);
+        observer.complete();
+      } else {
+        this.firestore.collection('Users', ref => ref.where('username', '==', username)).valueChanges().subscribe(users => {
+          observer.next(users.length > 0);
+          observer.complete();
+        });
+      }
+    });
   }
 
   isUserLoggedIn(): boolean {
@@ -125,46 +117,69 @@ export class AuthService {
         observer.error('User is not logged in.');
         observer.complete();
       });
-    }/*
-    if (this.isUsernameExists(newUsername)) {
-      return new Observable(observer => {
-        observer.error('Username is already taken.');
-        observer.complete();
-      });
-    }*/
+    }
 
-    const credential = EmailAuthProvider.credential(user.email as string, password);
     return new Observable(observer => {
-      reauthenticateWithCredential(user, credential)
-        .then((response) => {
-          return updateEmail(response.user, newEmail).then(() => {
-            return this.firestore.collection('Users').doc(response.user.uid).update({
-              email: newEmail,
-            });
-
-          });
-        })
-        .then(() => {
-          return updateProfile(user, { displayName: newUsername }).then(() => {
-            return this.firestore.collection('Users').doc(user.uid).update({
-              username: newUsername,
-            });
-          });
-        })
-        .then(() => {
-          observer.next();
+      this.isUsernameExists(newUsername).subscribe(usernameExists => {
+        if (usernameExists) {
+          observer.error('Username is already taken.');
           observer.complete();
-        })
-        .catch(error => {
-          if (error.code === 'auth/invalid-credential') {
-            observer.error('Incorrect password.');
-          } else if (error.code === 'auth/email-already-exists') {
-            observer.error('Email is already in use.');
-          } else {
-            observer.error('Unknown error: ' + error.message);
-          }
-          observer.complete();
-        });
+        } else {
+          const credential = EmailAuthProvider.credential(user.email as string, password);
+          reauthenticateWithCredential(user, credential).then((response) => {
+            if (newEmail !== user.email) {
+              updateEmail(response.user, newEmail).then(() => {
+                this.firestore.collection('Users').doc(response.user.uid).update({
+                  email: newEmail,
+                }).then(() => {
+                  updateProfile(user, { displayName: newUsername }).then(() => {
+                    this.firestore.collection('Users').doc(user.uid).update({
+                      username: newUsername,
+                    }).then(() => {
+                      observer.next();
+                      observer.complete();
+                    });
+                  });
+                });
+              }).catch(error => {
+                if (error.code === 'auth/email-already-in-use') {
+                  observer.error('Email is already in use.');
+                } else if (error.code === 'auth/wrong-password') {
+                  observer.error('Incorrect password.');
+                } else {
+                  observer.error('Unknown error: ' + error.message);
+                }
+                observer.complete();
+              });
+            } else {
+              updateProfile(user, { displayName: newUsername }).then(() => {
+                this.firestore.collection('Users').doc(user.uid).update({
+                  username: newUsername,
+                }).then(() => {
+                  observer.next();
+                  observer.complete();
+                });
+              }).catch(error => {
+                if (error.code === 'auth/wrong-password') {
+                  observer.error('Incorrect password.');
+                } else {
+                  observer.error('Unknown error: ' + error.message);
+                }
+                observer.complete();
+              });
+            }
+          }).catch(error => {
+            if (error.code === 'auth/invalid-credential') {
+              observer.error('Incorrect password.');
+            } else if (error.code === 'auth/wrong-password') {
+              observer.error('Incorrect password.');
+            } else {
+              observer.error('Unknown error: ' + error.message);
+            }
+            observer.complete();
+          });
+        }
+      });
     });
   }
 }
