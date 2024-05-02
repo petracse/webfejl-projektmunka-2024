@@ -6,9 +6,9 @@ import {
   signOut, updatePassword,
   updateProfile,
   EmailAuthProvider,
-  user, reauthenticateWithCredential, updateEmail
+  user, reauthenticateWithCredential, updateEmail, authState
 } from "@angular/fire/auth";
-import {from, Observable, throwError} from "rxjs";
+import {from, map, Observable, of, switchMap, throwError} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Injectable({
@@ -48,6 +48,29 @@ export class AuthService {
     });
 
     return from(promise);
+  }
+
+  getCurrentUserUsername(): Observable<string | null> {
+    return authState(this.firebaseAuth).pipe(
+      map(user => user ? user.displayName : null)
+    );
+  }
+
+  isUsernameExists(username: string): Observable<boolean> {
+    return this.getCurrentUserUsername().pipe(
+      switchMap(currentUserUsername => {
+        if (currentUserUsername && currentUserUsername === username) {
+          return of(false); // Ha a bejelentkezett felhasználó neve megegyezik a paraméterrel
+        } else {
+          return this.firestore.collection('Users', ref=> ref.
+          where('username', '==', username))
+            .valueChanges()
+            .pipe(
+              map(users => users.length > 0)
+            );
+        }
+      })
+    );
   }
 
   isUserLoggedIn(): boolean {
@@ -103,6 +126,12 @@ export class AuthService {
         observer.complete();
       });
     }
+    if (this.isUsernameExists(newUsername)) {
+      return new Observable(observer => {
+        observer.error('Username is taken.');
+        observer.complete();
+      });
+    }
 
     const credential = EmailAuthProvider.credential(user.email as string, password);
     return new Observable(observer => {
@@ -120,13 +149,10 @@ export class AuthService {
           observer.complete();
         })
         .catch(error => {
-          // Handle errors from updateEmail or updateProfile
           if (error.code === 'auth/invalid-credential') {
             observer.error('Incorrect password.');
           } else if (error.code === 'auth/email-already-exists') {
             observer.error('Email is already in use.');
-          } else if (error.code === 'auth/username-already-in-use') {
-            observer.error('Username is already in use.');
           } else {
             observer.error('Unknown error: ' + error.message);
           }
