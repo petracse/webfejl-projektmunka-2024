@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, DoCheck, inject, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../shared/services/auth.service";
 import {Router} from "@angular/router";
@@ -8,19 +8,25 @@ import {Router} from "@angular/router";
   templateUrl: './change-personal-data.component.html',
   styleUrl: './change-personal-data.component.scss'
 })
-export class ChangePersonalDataComponent implements OnInit{
+export class ChangePersonalDataComponent implements OnInit {
   personalDataForm: FormGroup = new FormGroup({});
   personalDataErrorMessage: string | null = null;
   authService = inject(AuthService);
   router = inject(Router);
   formBuilder: FormBuilder = inject(FormBuilder);
+  currentUser: any;
 
-  ngOnInit() {
+  initializeForm() {
     this.personalDataForm = this.formBuilder.group({
-      email: [this.authService.firebaseAuth.currentUser!.email, [Validators.required, Validators.email]],
-      username: [this.authService.firebaseAuth.currentUser!.displayName, [Validators.required]],
+      email: [this.currentUser.email || '', [Validators.required, Validators.email]],
+      username: [this.currentUser.displayName || '', [Validators.required]],
       password: ['', [Validators.required]]
     });
+  }
+
+  ngOnInit() {
+    this.currentUser = JSON.parse(localStorage.getItem('user') as string);
+    this.initializeForm();
   }
 
   onSubmit() {
@@ -33,6 +39,9 @@ export class ChangePersonalDataComponent implements OnInit{
       next: () => {
         this.personalDataForm.reset();
         this.personalDataErrorMessage = "Account information change was successful!";
+        this.authService.user$.subscribe(user => {
+          localStorage.setItem('user', JSON.stringify(user));
+        });
         this.router.navigateByUrl("/profile");
       },
       error: (err) => {
@@ -40,4 +49,5 @@ export class ChangePersonalDataComponent implements OnInit{
       }
     });
   }
+
 }
