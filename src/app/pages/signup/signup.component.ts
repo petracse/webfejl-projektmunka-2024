@@ -43,7 +43,7 @@ export class SignupComponent implements OnInit {
         this.router.navigateByUrl("/")
       },
       error: (err) => {
-        this.signupErrorMessage = err.code;
+        this.signupErrorMessage = err.message;
       }
     });
   }

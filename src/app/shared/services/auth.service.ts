@@ -8,7 +8,7 @@ import {
   EmailAuthProvider,
   user, reauthenticateWithCredential, updateEmail, authState
 } from "@angular/fire/auth";
-import {from, map, Observable, of, switchMap, throwError} from "rxjs";
+import {defer, from, map, Observable, of, switchMap, throwError} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Injectable({
@@ -22,33 +22,50 @@ export class AuthService {
   user$ = user(this.firebaseAuth);
 
   register(email: string, username: string, password: string): Observable<void> {
-    const promise = createUserWithEmailAndPassword(
-      this.firebaseAuth,
-      email,
-      password
-    ).then(response => {
-      return updateProfile(response.user, { displayName: username }).then(() => {
-        return this.firestore.collection('Users').doc(response.user.uid).set({
-          email: email,
-          username: username,
-          address: {
-            addressLine: '',
-            city: '',
-            postalCode: ''
-          },
-          isAdmin: false,
-          name: {
-            firstname: '',
-            lastname: ''
-          },
-          profilePictureUrl: '',
-          registrationDate: new Date()
-        });
+    return new Observable<void>(observer => {
+      this.isUsernameExists(username).subscribe(usernameExists => {
+        if (usernameExists) {
+          observer.error(new Error('Username is already taken.'));
+          observer.complete();
+
+        } else {
+          const promise = createUserWithEmailAndPassword(
+            this.firebaseAuth,
+            email,
+            password
+          ).then(response => {
+            return updateProfile(response.user, { displayName: username }).then(() => {
+              return this.firestore.collection('Users').doc(response.user.uid).set({
+                email: email,
+                username: username,
+                address: {
+                  addressLine: '',
+                  city: '',
+                  postalCode: ''
+                },
+                isAdmin: false,
+                name: {
+                  firstname: '',
+                  lastname: ''
+                },
+                profilePictureUrl: '',
+                registrationDate: new Date()
+              });
+            });
+          });
+
+          promise.then(() => {
+            observer.next();
+            observer.complete();
+          }).catch(error => {
+            observer.error(error);
+            observer.complete();
+          });
+        }
       });
     });
-
-    return from(promise);
   }
+
 
   isUsernameExists(username: string): Observable<boolean> {
     return new Observable<boolean>(observer => {

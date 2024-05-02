@@ -18,7 +18,6 @@
 <mat-card>
   <mat-card-header>Signup</mat-card-header>
   <mat-card-content>
-    <div *ngIf="signupErrorMessage" class="error-message">{{ signupErrorMessage }}</div>
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
       <mat-form-field>
         <mat-label>Enter your email:</mat-label>
@@ -42,6 +41,7 @@
           Passwords do not match!
         </mat-error>
       </mat-form-field>
+      <div *ngIf="signupErrorMessage" class="error-message">{{ signupErrorMessage }}</div>
       <button mat-raised-button color="primary" type="submit">Signup</button>
     </form>
   </mat-card-content>
