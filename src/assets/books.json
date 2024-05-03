@@ -1,0 +1,812 @@
+[
+    {
+        "author": "Chinua Achebe",
+        "country": "Nigeria",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Things_Fall_Apart\n",
+        "pages": 209,
+        "title": "Things Fall Apart",
+        "year": 1958,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/6/65/ThingsFallApart.jpg"
+    },
+    {
+        "author": "Hans Christian Andersen",
+        "country": "Denmark",
+        "language": "Danish",
+        "link": "https://en.wikipedia.org/wiki/Fairy_Tales_Told_for_Children._First_Collection.\n",
+        "pages": 784,
+        "title": "Fairy tales",
+        "year": 1836,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Carl_Larsson_-_Little_Red_Riding_Hood_1881.jpg/320px-Carl_Larsson_-_Little_Red_Riding_Hood_1881.jpg"
+    },
+    {
+        "author": "Dante Alighieri",
+        "country": "Italy",
+        "language": "Italian",
+        "link": "https://en.wikipedia.org/wiki/Divine_Comedy\n",
+        "pages": 928,
+        "title": "The Divine Comedy",
+        "year": 1315,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Dante_Domenico_di_Michelino.jpg/320px-Dante_Domenico_di_Michelino.jpg"
+    },
+    {
+        "author": "Jane Austen",
+        "country": "United Kingdom",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Pride_and_Prejudice\n",
+        "pages": 226,
+        "title": "Pride and Prejudice",
+        "year": 1813,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/PrideAndPrejudiceTitlePage.jpg/320px-PrideAndPrejudiceTitlePage.jpg"
+    },
+    {
+        "author": "Honoré de Balzac",
+        "country": "France",
+        "language": "French",
+        "link": "https://en.wikipedia.org/wiki/Le_P%C3%A8re_Goriot\n",
+        "pages": 443,
+        "title": "Le Père Goriot",
+        "year": 1835,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Le_P%C3%A8re_Goriot%2C_1er_Volume%2C_1835.png/320px-Le_P%C3%A8re_Goriot%2C_1er_Volume%2C_1835.png"
+    },
+    {
+        "author": "Giovanni Boccaccio",
+        "country": "Italy",
+        "language": "Italian",
+        "link": "https://en.wikipedia.org/wiki/The_Decameron\n",
+        "pages": 1024,
+        "title": "The Decameron",
+        "year": 1351,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Boccaccio_-_Decameron%2C_MCCCCLXXXXII_ad_di_XX_de_giugno_-_3852856_Scan00015.tif/lossy-page1-320px-Boccaccio_-_Decameron%2C_MCCCCLXXXXII_ad_di_XX_de_giugno_-_3852856_Scan00015.tif.jpg"
+    },
+    {
+        "author": "Jorge Luis Borges",
+        "country": "Argentina",
+        "language": "Spanish",
+        "link": "https://en.wikipedia.org/wiki/Ficciones\n",
+        "pages": 224,
+        "title": "Ficciones",
+        "year": 1965,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/d/d6/Ficciones.jpg"
+    },
+    {
+        "author": "Emily Brontë",
+        "country": "United Kingdom",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Wuthering_Heights\n",
+        "pages": 342,
+        "title": "Wuthering Heights",
+        "year": 1847,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Houghton_Lowell_1238.5_%28A%29_-_Wuthering_Heights%2C_1847.jpg/320px-Houghton_Lowell_1238.5_%28A%29_-_Wuthering_Heights%2C_1847.jpg"
+    },
+    {
+        "author": "Paul Celan",
+        "country": "Romania, France",
+        "language": "German",
+        "link": "\n",
+        "pages": 320,
+        "title": "Poems",
+        "year": 1952,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Books_and_Scroll_Ornament_with_Open_Book.png/320px-Books_and_Scroll_Ornament_with_Open_Book.png"
+    },
+    {
+        "author": "Louis-Ferdinand Céline",
+        "country": "France",
+        "language": "French",
+        "link": "https://en.wikipedia.org/wiki/Journey_to_the_End_of_the_Night\n",
+        "pages": 505,
+        "title": "Journey to the End of the Night",
+        "year": 1932,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/f/ff/Journey_to_the_End_of_the_Night_cover.jpg"
+    },
+    {
+        "author": "Geoffrey Chaucer",
+        "country": "England",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/The_Canterbury_Tales\n",
+        "pages": 544,
+        "title": "The Canterbury Tales",
+        "year": 1450,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Canterbury_Tales.png/320px-Canterbury_Tales.png"
+    },
+    {
+        "author": "Joseph Conrad",
+        "country": "United Kingdom",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Nostromo\n",
+        "pages": 320,
+        "title": "Nostromo",
+        "year": 1904,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Nostromo1st.jpg/320px-Nostromo1st.jpg"
+    },
+    {
+        "author": "Charles Dickens",
+        "country": "United Kingdom",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Great_Expectations\n",
+        "pages": 194,
+        "title": "Great Expectations",
+        "year": 1861,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Greatexpectations_vol1.jpg/320px-Greatexpectations_vol1.jpg"
+    },
+    {
+        "author": "Denis Diderot",
+        "country": "France",
+        "language": "French",
+        "link": "https://en.wikipedia.org/wiki/Jacques_the_Fatalist\n",
+        "pages": 596,
+        "title": "Jacques the Fatalist",
+        "year": 1796,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/DiderotJacquesFatalist01.jpg/320px-DiderotJacquesFatalist01.jpg"
+    },
+    {
+        "author": "Alfred Döblin",
+        "country": "Germany",
+        "language": "German",
+        "link": "https://en.wikipedia.org/wiki/Berlin_Alexanderplatz\n",
+        "pages": 600,
+        "title": "Berlin Alexanderplatz",
+        "year": 1929,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/c/c6/Doeblin_berlin_alexanderplatz.jpg"
+    },
+    {
+        "author": "Fyodor Dostoevsky",
+        "country": "Russia",
+        "language": "Russian",
+        "link": "https://en.wikipedia.org/wiki/Crime_and_Punishment\n",
+        "pages": 551,
+        "title": "Crime and Punishment",
+        "year": 1866,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/4/4b/Crimeandpunishmentcover.png"
+    },
+    {
+        "author": "Fyodor Dostoevsky",
+        "country": "Russia",
+        "language": "Russian",
+        "link": "https://en.wikipedia.org/wiki/The_Idiot\n",
+        "pages": 656,
+        "title": "The Idiot",
+        "year": 1869,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Fyodor_Dostoyevsky_manuscript_and_drawing_06.jpg/320px-Fyodor_Dostoyevsky_manuscript_and_drawing_06.jpg"
+    },
+    {
+        "author": "Fyodor Dostoevsky",
+        "country": "Russia",
+        "language": "Russian",
+        "link": "https://en.wikipedia.org/wiki/The_Brothers_Karamazov\n",
+        "pages": 824,
+        "title": "The Brothers Karamazov",
+        "year": 1880,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Dostoevsky-Brothers_Karamazov.jpg/320px-Dostoevsky-Brothers_Karamazov.jpg"
+    },
+    {
+        "author": "George Eliot",
+        "country": "United Kingdom",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Middlemarch\n",
+        "pages": 800,
+        "title": "Middlemarch",
+        "year": 1871,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Middlemarch_1.jpg/320px-Middlemarch_1.jpg"
+    },
+    {
+        "author": "Ralph Ellison",
+        "country": "United States",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Invisible_Man\n",
+        "pages": 581,
+        "title": "Invisible Man",
+        "year": 1952,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Invisible_Man_%281952_1st_ed_jacket_cover%29.jpg/320px-Invisible_Man_%281952_1st_ed_jacket_cover%29.jpg"
+    },
+    {
+        "author": "Euripides",
+        "country": "Greece",
+        "language": "Greek",
+        "link": "https://en.wikipedia.org/wiki/Medea_(play)\n",
+        "pages": 104,
+        "title": "Medea",
+        "year": -431,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Medea%2C_con_los_hijos_muertos%2C_huye_de_Corinto_en_un_carro_tirado_por_dragones_%28Museo_del_Prado%29.jpg/320px-Medea%2C_con_los_hijos_muertos%2C_huye_de_Corinto_en_un_carro_tirado_por_dragones_%28Museo_del_Prado%29.jpg"
+    },
+    {
+        "author": "William Faulkner",
+        "country": "United States",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Absalom,_Absalom!\n",
+        "pages": 313,
+        "title": "Absalom, Absalom!",
+        "year": 1936,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Absalom%2C_Absalom%21_%281936_1st_ed_cover%29.jpg/320px-Absalom%2C_Absalom%21_%281936_1st_ed_cover%29.jpg"
+    },
+    {
+        "author": "William Faulkner",
+        "country": "United States",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/The_Sound_and_the_Fury\n",
+        "pages": 326,
+        "title": "The Sound and the Fury",
+        "year": 1929,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/The_Sound_and_the_Fury_%281929_1st_ed_dust_jacket%29.jpg/320px-The_Sound_and_the_Fury_%281929_1st_ed_dust_jacket%29.jpg"
+    },
+    {
+        "author": "Gustave Flaubert",
+        "country": "France",
+        "language": "French",
+        "link": "https://en.wikipedia.org/wiki/Madame_Bovary\n",
+        "pages": 528,
+        "title": "Madame Bovary",
+        "year": 1857,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Madame_Bovary_1857_%28hi-res%29.jpg/320px-Madame_Bovary_1857_%28hi-res%29.jpg"
+    },
+    {
+        "author": "Gustave Flaubert",
+        "country": "France",
+        "language": "French",
+        "link": "https://en.wikipedia.org/wiki/Sentimental_Education\n",
+        "pages": 606,
+        "title": "Sentimental Education",
+        "year": 1869,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Education_sentimentale_flaubert.jpg/320px-Education_sentimentale_flaubert.jpg"
+    },
+    {
+        "author": "Federico García Lorca",
+        "country": "Spain",
+        "language": "Spanish",
+        "link": "https://en.wikipedia.org/wiki/Gypsy_Ballads\n",
+        "pages": 218,
+        "title": "Gypsy Ballads",
+        "year": 1928,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Romancero_gitano.jpg"
+    },
+    {
+        "author": "Gabriel García Márquez",
+        "country": "Colombia",
+        "language": "Spanish",
+        "link": "https://en.wikipedia.org/wiki/One_Hundred_Years_of_Solitude\n",
+        "pages": 417,
+        "title": "One Hundred Years of Solitude",
+        "year": 1967,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/a/a0/Cien_a%C3%B1os_de_soledad_%28book_cover%2C_1967%29.jpg"
+    },
+    {
+        "author": "Gabriel García Márquez",
+        "country": "Colombia",
+        "language": "Spanish",
+        "link": "https://en.wikipedia.org/wiki/Love_in_the_Time_of_Cholera\n",
+        "pages": 368,
+        "title": "Love in the Time of Cholera",
+        "year": 1985,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/d/de/LoveInTheTimeOfCholera.jpg"
+    },
+    {
+        "author": "Johann Wolfgang von Goethe",
+        "country": "Saxe-Weimar",
+        "language": "German",
+        "link": "https://en.wikipedia.org/wiki/Goethe%27s_Faust\n",
+        "pages": 158,
+        "title": "Faust",
+        "year": 1832,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Jean_Paul_Laurens_-_Dr._Fausto.jpg/320px-Jean_Paul_Laurens_-_Dr._Fausto.jpg"
+    },
+    {
+        "author": "Nikolai Gogol",
+        "country": "Russia",
+        "language": "Russian",
+        "link": "https://en.wikipedia.org/wiki/Dead_Souls\n",
+        "pages": 432,
+        "title": "Dead Souls",
+        "year": 1842,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Dead_Souls_%28novel%29_Nikolai_Gogol_1842_title_page.jpg/320px-Dead_Souls_%28novel%29_Nikolai_Gogol_1842_title_page.jpg"
+    },
+    {
+        "author": "Günter Grass",
+        "country": "Germany",
+        "language": "German",
+        "link": "https://en.wikipedia.org/wiki/The_Tin_Drum\n",
+        "pages": 600,
+        "title": "The Tin Drum",
+        "year": 1959,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/d/d1/Die_Blechtrommel_earliest_edition_german.jpg"
+    },
+    {
+        "author": "João Guimarães Rosa",
+        "country": "Brazil",
+        "language": "Portuguese",
+        "link": "https://en.wikipedia.org/wiki/The_Devil_to_Pay_in_the_Backlands\n",
+        "pages": 494,
+        "title": "The Devil to Pay in the Backlands",
+        "year": 1956,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/0/0d/Grande_sertao.gif"
+    },
+    {
+        "author": "Knut Hamsun",
+        "country": "Norway",
+        "language": "Norwegian",
+        "link": "https://en.wikipedia.org/wiki/Hunger_(Hamsun_novel)\n",
+        "pages": 176,
+        "title": "Hunger",
+        "year": 1890,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Civil_Rights_March_on_Washington%2C_D.C._%28Dr._Martin_Luther_King%2C_Jr._and_Mathew_Ahmann_in_a_crowd.%29_-_NARA_-_542015_-_Restoration.jpg/320px-Civil_Rights_March_on_Washington%2C_D.C._%28Dr._Martin_Luther_King%2C_Jr._and_Mathew_Ahmann_in_a_crowd.%29_-_NARA_-_542015_-_Restoration.jpg"
+    },
+    {
+        "author": "Ernest Hemingway",
+        "country": "United States",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/The_Old_Man_and_the_Sea\n",
+        "pages": 128,
+        "title": "The Old Man and the Sea",
+        "year": 1952,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/7/73/Oldmansea.jpg"
+    },
+    {
+        "author": "Homer",
+        "country": "Greece",
+        "language": "Greek",
+        "link": "https://en.wikipedia.org/wiki/Iliad\n",
+        "pages": 608,
+        "title": "Iliad",
+        "year": -735,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Detail._Wooden_board_inscribed_in_ink_with_lines_468-473%2C_Book_I_of_Homer%27s_Iliad._Roman_Egypt._On_display_at_the_British_Museum.jpg/320px-Detail._Wooden_board_inscribed_in_ink_with_lines_468-473%2C_Book_I_of_Homer%27s_Iliad._Roman_Egypt._On_display_at_the_British_Museum.jpg"
+    },
+    {
+        "author": "Homer",
+        "country": "Greece",
+        "language": "Greek",
+        "link": "https://en.wikipedia.org/wiki/Odyssey\n",
+        "pages": 374,
+        "title": "Odyssey",
+        "year": -800,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Odyssey-crop.jpg/320px-Odyssey-crop.jpg"
+    },
+    {
+        "author": "Henrik Ibsen",
+        "country": "Norway",
+        "language": "Norwegian",
+        "link": "https://en.wikipedia.org/wiki/A_Doll%27s_House\n",
+        "pages": 68,
+        "title": "A Doll's House",
+        "year": 1879,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/A_Doll%27s_House.jpeg/320px-A_Doll%27s_House.jpeg"
+    },
+    {
+        "author": "Franz Kafka",
+        "country": "Czechoslovakia",
+        "language": "German",
+        "link": "https://en.wikipedia.org/wiki/The_Trial\n",
+        "pages": 160,
+        "title": "The Trial",
+        "year": 1925,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f9/TrialKafka.jpg"
+    },
+    {
+        "author": "Yasunari Kawabata",
+        "country": "Japan",
+        "language": "Japanese",
+        "link": "https://en.wikipedia.org/wiki/The_Sound_of_the_Mountain\n",
+        "pages": 288,
+        "title": "The Sound of the Mountain",
+        "year": 1954,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/5/5b/TheSoundOfTheMountain.jpg"
+    },
+    {
+        "author": "Nikos Kazantzakis",
+        "country": "Greece",
+        "language": "Greek",
+        "link": "https://en.wikipedia.org/wiki/Zorba_the_Greek\n",
+        "pages": 368,
+        "title": "Zorba the Greek",
+        "year": 1946,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/b/b4/Zorba_book.jpg"
+    },
+    {
+        "author": "D. H. Lawrence",
+        "country": "United Kingdom",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Sons_and_Lovers\n",
+        "pages": 432,
+        "title": "Sons and Lovers",
+        "year": 1913,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/9/92/Sonslovers.jpg"
+    },
+    {
+        "author": "Halldór Laxness",
+        "country": "Iceland",
+        "language": "Icelandic",
+        "link": "https://en.wikipedia.org/wiki/Independent_People\n",
+        "pages": 470,
+        "title": "Independent People",
+        "year": 1934,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/8/80/Independent_People.jpg"
+    },
+    {
+        "author": "Giacomo Leopardi",
+        "country": "Italy",
+        "language": "Italian",
+        "link": "\n",
+        "pages": 184,
+        "title": "Poems",
+        "year": 1818,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Books_and_Scroll_Ornament_with_Open_Book.png/320px-Books_and_Scroll_Ornament_with_Open_Book.png"
+    },
+    {
+        "author": "Doris Lessing",
+        "country": "United Kingdom",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/The_Golden_Notebook\n",
+        "pages": 688,
+        "title": "The Golden Notebook",
+        "year": 1962,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/7/71/The_Golden_Notebook.gif"
+    },
+    {
+        "author": "Astrid Lindgren",
+        "country": "Sweden",
+        "language": "Swedish",
+        "link": "https://en.wikipedia.org/wiki/Pippi_Longstocking\n",
+        "pages": 160,
+        "title": "Pippi Longstocking",
+        "year": 1945,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/7/78/L%C3%A5ngstrump_G%C3%A5r_Ombord.jpeg"
+    },
+    {
+        "author": "Naguib Mahfouz",
+        "country": "Egypt",
+        "language": "Arabic",
+        "link": "https://en.wikipedia.org/wiki/Children_of_Gebelawi\n",
+        "pages": 355,
+        "title": "Children of Gebelawi",
+        "year": 1959,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/a/a3/Children_of_Gebelawi.jpg"
+    },
+    {
+        "author": "Thomas Mann",
+        "country": "Germany",
+        "language": "German",
+        "link": "https://en.wikipedia.org/wiki/Buddenbrooks\n",
+        "pages": 736,
+        "title": "Buddenbrooks",
+        "year": 1901,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/1901_Thomas_Mann_Buddenbrooks.jpg/320px-1901_Thomas_Mann_Buddenbrooks.jpg"
+    },
+    {
+        "author": "Thomas Mann",
+        "country": "Germany",
+        "language": "German",
+        "link": "https://en.wikipedia.org/wiki/The_Magic_Mountain\n",
+        "pages": 720,
+        "title": "The Magic Mountain",
+        "year": 1924,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/1924_Der_Zauberberg_%283%29.jpg/320px-1924_Der_Zauberberg_%283%29.jpg"
+    },
+    {
+        "author": "Herman Melville",
+        "country": "United States",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Moby-Dick\n",
+        "pages": 378,
+        "title": "Moby Dick",
+        "year": 1851,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Moby-Dick_FE_title_page.jpg/320px-Moby-Dick_FE_title_page.jpg"
+    },
+    {
+        "author": "Michel de Montaigne",
+        "country": "France",
+        "language": "French",
+        "link": "https://en.wikipedia.org/wiki/Essays_(Montaigne)\n",
+        "pages": 404,
+        "title": "Essays",
+        "year": 1595,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Essais_Titelblatt_%281588%29.png/320px-Essais_Titelblatt_%281588%29.png"
+    },
+    {
+        "author": "Elsa Morante",
+        "country": "Italy",
+        "language": "Italian",
+        "link": "https://en.wikipedia.org/wiki/History_(novel)\n",
+        "pages": 600,
+        "title": "History",
+        "year": 1974,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Marble_bust_of_Herodotos_MET_DT11742_%28cropped%29.jpg/320px-Marble_bust_of_Herodotos_MET_DT11742_%28cropped%29.jpg"
+    },
+    {
+        "author": "Murasaki Shikibu",
+        "country": "Japan",
+        "language": "Japanese",
+        "link": "https://en.wikipedia.org/wiki/The_Tale_of_Genji\n",
+        "pages": 1360,
+        "title": "The Tale of Genji",
+        "year": 1006,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Genji_emaki_01003_002.jpg/320px-Genji_emaki_01003_002.jpg"
+    },
+    {
+        "author": "Robert Musil",
+        "country": "Austria",
+        "language": "German",
+        "link": "https://en.wikipedia.org/wiki/The_Man_Without_Qualities\n",
+        "pages": 365,
+        "title": "The Man Without Qualities",
+        "year": 1931,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Robert_Musil_-_Der_Mann_ohne_Eigenschaften%2C_1930.jpg/320px-Robert_Musil_-_Der_Mann_ohne_Eigenschaften%2C_1930.jpg"
+    },
+    {
+        "author": "Vladimir Nabokov",
+        "country": "Russia/United States",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Lolita\n",
+        "pages": 317,
+        "title": "Lolita",
+        "year": 1955,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Lolita_1955.JPG/320px-Lolita_1955.JPG"
+    },
+    {
+        "author": "George Orwell",
+        "country": "United Kingdom",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Nineteen_Eighty-Four\n",
+        "pages": 272,
+        "title": "Nineteen Eighty-Four",
+        "year": 1949,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/5/51/1984_first_edition_cover.jpg"
+    },
+    {
+        "author": "Ovid",
+        "country": "Roman Empire",
+        "language": "Classical Latin",
+        "link": "https://en.wikipedia.org/wiki/Metamorphoses\n",
+        "pages": 576,
+        "title": "Metamorphoses",
+        "year": 100,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Ovidius_Naso_-_Metamorphoses%2C_del_MCCCCLXXXXVII_Adi_X_del_mese_di_aprile_-_1583162_Carta_a1r.jpeg/320px-Ovidius_Naso_-_Metamorphoses%2C_del_MCCCCLXXXXVII_Adi_X_del_mese_di_aprile_-_1583162_Carta_a1r.jpeg"
+    },
+    {
+        "author": "Fernando Pessoa",
+        "country": "Portugal",
+        "language": "Portuguese",
+        "link": "https://en.wikipedia.org/wiki/The_Book_of_Disquiet\n",
+        "pages": 272,
+        "title": "The Book of Disquiet",
+        "year": 1928,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/LdoD_1ed.jpg/320px-LdoD_1ed.jpg"
+    },
+    {
+        "author": "Marcel Proust",
+        "country": "France",
+        "language": "French",
+        "link": "https://en.wikipedia.org/wiki/In_Search_of_Lost_Time\n",
+        "pages": 2408,
+        "title": "In Search of Lost Time",
+        "year": 1920,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/MS_A_la_recherche_du_temps_perdu.jpg/320px-MS_A_la_recherche_du_temps_perdu.jpg"
+    },
+    {
+        "author": "François Rabelais",
+        "country": "France",
+        "language": "French",
+        "link": "https://en.wikipedia.org/wiki/Gargantua_and_Pantagruel\n",
+        "pages": 623,
+        "title": "Gargantua and Pantagruel",
+        "year": 1533,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Page11-682px-Rabelais_-_Pantagruel%2C_ca_1530.jpg/320px-Page11-682px-Rabelais_-_Pantagruel%2C_ca_1530.jpg"
+    },
+    {
+        "author": "Juan Rulfo",
+        "country": "Mexico",
+        "language": "Spanish",
+        "link": "https://en.wikipedia.org/wiki/Pedro_P%C3%A1ramo\n",
+        "pages": 124,
+        "title": "Pedro Páramo",
+        "year": 1955,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/b/bb/Pedro_P%C3%A1ramo_front_cover_art.jpg"
+    },
+    {
+        "author": "Salman Rushdie",
+        "country": "United Kingdom, India",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Midnight%27s_Children\n",
+        "pages": 536,
+        "title": "Midnight's Children",
+        "year": 1981,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/9/9d/MidnightsChildren.jpg"
+    },
+    {
+        "author": "Tayeb Salih",
+        "country": "Sudan",
+        "language": "Arabic",
+        "link": "https://en.wikipedia.org/wiki/Season_of_Migration_to_the_North\n",
+        "pages": 139,
+        "title": "Season of Migration to the North",
+        "year": 1966,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/a/a3/Season_of_migration_to_the_north.jpg"
+    },
+    {
+        "author": "José Saramago",
+        "country": "Portugal",
+        "language": "Portuguese",
+        "link": "https://en.wikipedia.org/wiki/Blindness_(novel)\n",
+        "pages": 352,
+        "title": "Blindness",
+        "year": 1995,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Snellen_chart.svg/320px-Snellen_chart.svg.png"
+    },
+    {
+        "author": "William Shakespeare",
+        "country": "England",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Hamlet\n",
+        "pages": 432,
+        "title": "Hamlet",
+        "year": 1603,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Edwin_Booth_Hamlet_1870.jpg/320px-Edwin_Booth_Hamlet_1870.jpg"
+    },
+    {
+        "author": "William Shakespeare",
+        "country": "England",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/King_Lear\n",
+        "pages": 384,
+        "title": "King Lear",
+        "year": 1608,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/King_Lear_by_George_Frederick_Bensell.jpg/320px-King_Lear_by_George_Frederick_Bensell.jpg"
+    },
+    {
+        "author": "William Shakespeare",
+        "country": "England",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Othello\n",
+        "pages": 314,
+        "title": "Othello",
+        "year": 1609,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Othello_and_Desdemona_in_Venice_by_Th%C3%A9odore_Chass%C3%A9riau.jpg/320px-Othello_and_Desdemona_in_Venice_by_Th%C3%A9odore_Chass%C3%A9riau.jpg"
+    },
+    {
+        "author": "Sophocles",
+        "country": "Greece",
+        "language": "Greek",
+        "link": "https://en.wikipedia.org/wiki/Oedipus_the_King\n",
+        "pages": 88,
+        "title": "Oedipus the King",
+        "year": -430,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Oedipus.jpg/320px-Oedipus.jpg"
+    },
+    {
+        "author": "Stendhal",
+        "country": "France",
+        "language": "French",
+        "link": "https://en.wikipedia.org/wiki/The_Red_and_the_Black\n",
+        "pages": 576,
+        "title": "The Red and the Black",
+        "year": 1830,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/StendhalRedandBlack04.jpg/320px-StendhalRedandBlack04.jpg"
+    },
+    {
+        "author": "Italo Svevo",
+        "country": "Italy",
+        "language": "Italian",
+        "link": "https://en.wikipedia.org/wiki/Zeno%27s_Conscience\n",
+        "pages": 412,
+        "title": "Confessions of Zeno",
+        "year": 1923,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Svevo_-_La_coscienza_di_Zeno%2C_Milano_1930_%28cover%29.jpg/320px-Svevo_-_La_coscienza_di_Zeno%2C_Milano_1930_%28cover%29.jpg"
+    },
+    {
+        "author": "Jonathan Swift",
+        "country": "Ireland",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Gulliver%27s_Travels\n",
+        "pages": 178,
+        "title": "Gulliver's Travels",
+        "year": 1726,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Gullivers_travels.jpg/320px-Gullivers_travels.jpg"
+    },
+    {
+        "author": "Leo Tolstoy",
+        "country": "Russia",
+        "language": "Russian",
+        "link": "https://en.wikipedia.org/wiki/War_and_Peace\n",
+        "pages": 1296,
+        "title": "War and Peace",
+        "year": 1867,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Tolstoy_-_War_and_Peace_-_first_edition%2C_1869.jpg/320px-Tolstoy_-_War_and_Peace_-_first_edition%2C_1869.jpg"
+    },
+    {
+        "author": "Leo Tolstoy",
+        "country": "Russia",
+        "language": "Russian",
+        "link": "https://en.wikipedia.org/wiki/Anna_Karenina\n",
+        "pages": 864,
+        "title": "Anna Karenina",
+        "year": 1877,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/AnnaKareninaTitle.jpg/320px-AnnaKareninaTitle.jpg"
+    },
+    {
+        "author": "Leo Tolstoy",
+        "country": "Russia",
+        "language": "Russian",
+        "link": "https://en.wikipedia.org/wiki/The_Death_of_Ivan_Ilyich\n",
+        "pages": 92,
+        "title": "The Death of Ivan Ilyich",
+        "year": 1886,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/The_Death_of_Ivan_Ilyich.jpg/320px-The_Death_of_Ivan_Ilyich.jpg"
+    },
+    {
+        "author": "Mark Twain",
+        "country": "United States",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Adventures_of_Huckleberry_Finn\n",
+        "pages": 224,
+        "title": "The Adventures of Huckleberry Finn",
+        "year": 1884,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Huckleberry_Finn_book.JPG/320px-Huckleberry_Finn_book.JPG"
+    },
+    {
+        "author": "Valmiki",
+        "country": "India",
+        "language": "Sanskrit",
+        "link": "https://en.wikipedia.org/wiki/Ramayana\n",
+        "pages": 152,
+        "title": "Ramayana",
+        "year": -450,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/R%C4%81ma_slays_R%C4%81va%E1%B9%87a.png/320px-R%C4%81ma_slays_R%C4%81va%E1%B9%87a.png"
+    },
+    {
+        "author": "Virgil",
+        "country": "Roman Empire",
+        "language": "Classical Latin",
+        "link": "https://en.wikipedia.org/wiki/Aeneid\n",
+        "pages": 442,
+        "title": "The Aeneid",
+        "year": -23,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Aeneas%27_Flight_from_Troy_by_Federico_Barocci.jpg/320px-Aeneas%27_Flight_from_Troy_by_Federico_Barocci.jpg"
+    },
+    {
+        "author": "Vyasa",
+        "country": "India",
+        "language": "Sanskrit",
+        "link": "https://en.wikipedia.org/wiki/Mahabharata\n",
+        "pages": 276,
+        "title": "Mahabharata",
+        "year": -700,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Kurukshetra.jpg/320px-Kurukshetra.jpg"
+    },
+    {
+        "author": "Walt Whitman",
+        "country": "United States",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Leaves_of_Grass\n",
+        "pages": 152,
+        "title": "Leaves of Grass",
+        "year": 1855,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Walt_Whitman%2C_steel_engraving%2C_July_1854.jpg/320px-Walt_Whitman%2C_steel_engraving%2C_July_1854.jpg"
+    },
+    {
+        "author": "Virginia Woolf",
+        "country": "United Kingdom",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/Mrs_Dalloway\n",
+        "pages": 216,
+        "title": "Mrs Dalloway",
+        "year": 1925,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/6/67/Mrs._Dalloway_cover.jpg/320px-Mrs._Dalloway_cover.jpg"
+    },
+    {
+        "author": "Virginia Woolf",
+        "country": "United Kingdom",
+        "language": "English",
+        "link": "https://en.wikipedia.org/wiki/To_the_Lighthouse\n",
+        "pages": 209,
+        "title": "To the Lighthouse",
+        "year": 1927,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/8/8c/ToTheLighthouse.jpg/320px-ToTheLighthouse.jpg"
+    },
+    {
+        "author": "Marguerite Yourcenar",
+        "country": "France/Belgium",
+        "language": "French",
+        "link": "https://en.wikipedia.org/wiki/Memoirs_of_Hadrian\n",
+        "pages": 408,
+        "title": "Memoirs of Hadrian",
+        "year": 1951,
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Yourcenar_Hadrian_1stEdition_Plon_1951.jpg/320px-Yourcenar_Hadrian_1stEdition_Plon_1951.jpg"
+    }
+]
