@@ -10,13 +10,15 @@ import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
 import { ChangePersonalDataComponent } from './change-personal-data/change-personal-data.component';
+import { ChangeContactInfoComponent } from './change-contact-info/change-contact-info.component';
 
 
 @NgModule({
   declarations: [
     ProfileComponent,
     ChangePasswordComponent,
-    ChangePersonalDataComponent
+    ChangePersonalDataComponent,
+    ChangeContactInfoComponent
   ],
   imports: [
     CommonModule,

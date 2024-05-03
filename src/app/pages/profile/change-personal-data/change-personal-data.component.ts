@@ -37,7 +37,6 @@ export class ChangePersonalDataComponent implements OnInit {
     this.authService.changePersonalData(rawForm.password, rawForm.username, rawForm.email).
     subscribe({
       next: () => {
-        this.personalDataForm.reset();
         this.personalDataErrorMessage = "Account information change was successful!";
         this.authService.user$.subscribe(user => {
           localStorage.setItem('user', JSON.stringify(user));

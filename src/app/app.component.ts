@@ -1,7 +1,6 @@
-import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {MatSidenav} from "@angular/material/sidenav";
 import {AuthService} from "./shared/services/auth.service";
-import {user} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-root',

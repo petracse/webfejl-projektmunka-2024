@@ -8,7 +8,7 @@ import {
   EmailAuthProvider,
   user, reauthenticateWithCredential, updateEmail, authState
 } from "@angular/fire/auth";
-import {defer, from, map, Observable, of, switchMap, throwError} from "rxjs";
+import {from, Observable} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Injectable({
