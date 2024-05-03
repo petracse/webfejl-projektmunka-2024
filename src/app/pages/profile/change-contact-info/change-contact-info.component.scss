@@ -26,4 +26,10 @@ button {
   margin-bottom: 10px;
 }
 
+@media (max-width: 480px) {
+  mat-card {
+    width: 90vw;
+  }
+
+}
 

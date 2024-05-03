@@ -17,13 +17,17 @@
           @if (authService.firebaseAuth.currentUser === null) {
             <li><a routerLink="/login">Login</a></li>
             <li><a routerLink="/signup">Signup</a></li>
+            <li><a routerLink="/contact">Contact</a></li>
           }
           @else {
-            <li><a routerLink="/login" (click)="logout()">Logout</a></li>
+            <li><a routerLink="/">Main</a></li>
             <li><a routerLink="/profile">Profile</a></li>
+            <li><a routerLink="/contact">Contact</a></li>
+
+            <li><a routerLink="/login" (click)="logout()">Logout</a></li>
           }
 
-          <li><a routerLink="/contact">Contact</a></li>
+
         </ul>
       </div>
 

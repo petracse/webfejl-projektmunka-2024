@@ -17,3 +17,10 @@ form {
   width: 60%;
   display: inline-grid;
 }
+
+@media (max-width: 480px) {
+  mat-card {
+    width: 90vw;
+  }
+
+}

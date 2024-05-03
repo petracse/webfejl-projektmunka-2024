@@ -2,11 +2,15 @@
   @if (authService.firebaseAuth.currentUser === null) {
     <a mat-list-item routerLink="/login" (click)="close()"><mat-icon>login</mat-icon><span>Login</span></a>
     <a mat-list-item routerLink="/signup" (click)="close()"><mat-icon>app_registration</mat-icon><span>Signup</span></a>
+    <a mat-list-item routerLink="/" (click)="close()"><mat-icon>grid_view</mat-icon><span>Main</span></a>
+    <a mat-list-item routerLink="/contact" (click)="close()"><mat-icon>info</mat-icon><span>Contact</span></a>
   } @else {
-    <a mat-list-item routerLink="/login" (click)="logout();close()"><mat-icon>logout</mat-icon><span>Logout</span></a>
+    <a mat-list-item routerLink="/" (click)="close()"><mat-icon>grid_view</mat-icon><span>Main</span></a>
     <a mat-list-item routerLink="/profile" (click)="close()"><mat-icon>profile</mat-icon><span>Profile</span></a>
+    <a mat-list-item routerLink="/contact" (click)="close()"><mat-icon>info</mat-icon><span>Contact</span></a>
+    <a mat-list-item routerLink="/login" (click)="logout();close()"><mat-icon>logout</mat-icon><span>Logout</span></a>
+
   }
 
-  <a mat-list-item routerLink="/" (click)="close()"><mat-icon>grid_view</mat-icon><span>Main</span></a>
-  <a mat-list-item routerLink="/contact" (click)="close()"><mat-icon>info</mat-icon><span>Contact</span></a>
+
 </mat-nav-list>

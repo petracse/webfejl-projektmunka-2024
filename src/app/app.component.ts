@@ -15,37 +15,7 @@ export class AppComponent implements OnInit{
     sidenav.toggle();
 
   }
-/*
-  ngOnInit(): void {
-    this.authService.user$.subscribe(user => {
-      if (user) {
-        this.authService.currentUserSig.set({
-          email: user.email ?? '',
-          username: user.displayName ?? '',
-          name: {
-            firstname: '',
-            lastname: ''
-          },
-          address:
-            {
-              postalCode: '',
-              city: '',
-              addressLine: ''
-            },
-          phoneNumber: '',
-          registrationDate: new Date(),
-          profilePictureUrl: '',
-          isAdmin: false
-        });
-        localStorage.setItem('user', JSON.stringify(user));
-      }
-      else {
-        this.authService.currentUserSig.set(null);
-        localStorage.setItem('user', JSON.stringify(null));
-      }
-    });
-  }
- */
+
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       if (user) {

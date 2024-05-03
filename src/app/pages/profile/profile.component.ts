@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class ProfileComponent {
   page: String = "change-contact-info";
+  setPage(pageName: string) {
+    this.page = pageName;
+  }
 }

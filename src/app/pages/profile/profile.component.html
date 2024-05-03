@@ -1,4 +1,24 @@
 
+<div id="button-container" class="horizontal-navbar">
+  <button mat-raised-button color="secondary" (click)="setPage('change-contact-info')" [disabled]="page === 'change-contact-info'" class="custom-button">Contact Info</button>
+  <button mat-raised-button color="secondary" (click)="setPage('change-personal-data')" [disabled]="page === 'change-personal-data'" class="custom-button">Account Data</button>
+  <button mat-raised-button color="secondary" (click)="setPage('change-password')" [disabled]="page === 'change-password'" class="custom-button">Password</button>
+  <button mat-raised-button color="warn" (click)="setPage('delete-my-profile')" [disabled]="page === 'delete-my-profile'" class="custom-button">Delete Profile</button>
+</div>
+
+
+
+<div class="wrapper">
+  <div id="vertical-navbar" class="vertical-navbar">
+    <button (click)="setPage('change-contact-info')" [disabled]="page === 'change-contact-info'">Contact Info</button>
+    <button (click)="setPage('change-personal-data')" [disabled]="page === 'change-personal-data'">Account Data</button>
+    <button (click)="setPage('change-password')" [disabled]="page === 'change-password'">Change Password</button>
+    <button (click)="setPage('delete-my-profile')" [disabled]="page === 'delete-my-profile'">Delete Profile</button>
+
+  </div>
+<div class="main-content">
+<app-change-contact-info *ngIf="page === 'change-contact-info'"></app-change-contact-info>
 <app-change-password *ngIf="page === 'change-password'"></app-change-password>
 <app-change-personal-data *ngIf="page === 'change-personal-data'"></app-change-personal-data>
-<app-change-contact-info *ngIf="page === 'change-contact-info'"></app-change-contact-info>
+</div>
+</div>
