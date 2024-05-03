@@ -90,12 +90,6 @@ export class AuthService {
     return this.firebaseAuth.currentUser?.displayName;
   }
 
-  login(email: string, password: string): Observable<void> {
-    const promise = signInWithEmailAndPassword(this.firebaseAuth, email, password).then(() => { });
-    return from(promise);
-  }
-
-
   logout(): Observable<void> {
     const promise = signOut(this.firebaseAuth);
     return from(promise);
@@ -144,19 +138,30 @@ export class AuthService {
         } else {
           const credential = EmailAuthProvider.credential(user.email as string, password);
           reauthenticateWithCredential(user, credential).then((response) => {
-            if (newEmail !== user.email) {
+          if (newEmail !== user.email && newUsername !== user.displayName) {
               updateEmail(response.user, newEmail).then(() => {
-                this.firestore.collection('Users').doc(response.user.uid).update({
-                  email: newEmail,
-                }).then(() => {
-                  updateProfile(user, { displayName: newUsername }).then(() => {
-                    this.firestore.collection('Users').doc(user.uid).update({
-                      username: newUsername,
-                    }).then(() => {
-                      observer.next();
-                      observer.complete();
-                    });
+                updateProfile(user, { displayName: newUsername }).then(() => {
+                  this.firestore.collection('Users').doc(response.user.uid).update({
+                    email: newEmail,
+                    username: newUsername
+                  }).then(() => {
+                    observer.next();
+                    observer.complete();
+                  }).catch(error => {
+                    if (error.code === 'auth/wrong-password') {
+                      observer.error('Incorrect password.');
+                    } else {
+                      observer.error('Unknown error: ' + error.message);
+                    }
+                    observer.complete();
                   });
+                }).catch(error => {
+                  if (error.code === 'auth/wrong-password') {
+                    observer.error('Incorrect password.');
+                  } else {
+                    observer.error('Unknown error: ' + error.message);
+                  }
+                  observer.complete();
                 });
               }).catch(error => {
                 if (error.code === 'auth/email-already-in-use') {
@@ -168,7 +173,26 @@ export class AuthService {
                 }
                 observer.complete();
               });
-            } else {
+            }
+            else if (newEmail !== user.email && newUsername === user.displayName) {
+              updateEmail(response.user, newEmail).then(() => {
+                this.firestore.collection('Users').doc(response.user.uid).update({
+                  email: newEmail,
+                }).then(() => {
+                  observer.next();
+                  observer.complete();});
+              }).catch(error => {
+                if (error.code === 'auth/email-already-in-use') {
+                  observer.error('Email is already in use.');
+                } else if (error.code === 'auth/wrong-password') {
+                  observer.error('Incorrect password.');
+                } else {
+                  observer.error('Unknown error: ' + error.message);
+                }
+                observer.complete();
+              });
+            }
+            else {
               updateProfile(user, { displayName: newUsername }).then(() => {
                 this.firestore.collection('Users').doc(user.uid).update({
                   username: newUsername,
@@ -194,6 +218,35 @@ export class AuthService {
               observer.error('Unknown error: ' + error.message);
             }
             observer.complete();
+          });
+        }
+      });
+    });
+  }
+
+  loginWithEmail(email: string, password: string): Observable<void> {
+    const promise = signInWithEmailAndPassword(this.firebaseAuth, email, password).then(() => { });
+    return from(promise);
+  }
+
+  loginWithUsername(username: string, password: string): Observable<void> {
+    return new Observable<void>((observer) => {
+      this.firestore.collection('Users', ref => ref.where('username', '==', username)).valueChanges().subscribe(users => {
+        if (users.length === 0) {
+          observer.error(new Error('Invalid username'));
+          observer.complete();
+        } else {
+          const user = users[0] as { email: string };
+          const email = user.email;
+          this.loginWithEmail(email, password).subscribe({
+            next: () => {
+              observer.next();
+              observer.complete();
+            },
+            error: (err) => {
+              observer.error(err);
+              observer.complete();
+            }
           });
         }
       });

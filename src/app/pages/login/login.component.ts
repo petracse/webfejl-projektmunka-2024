@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit{
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.email]],
-      password: ['']
+      usernameOrEmail: ['',[Validators.required]],
+      password: ['',[Validators.required]]
     });
   }
 
@@ -27,16 +27,39 @@ export class LoginComponent implements OnInit{
       return;
     }
     const rawForm = this.loginForm.getRawValue();
-    this.authService.login(rawForm.email,rawForm.password)
-      .subscribe({
-        next: (succ) => {
-            this.router.navigateByUrl("/")
+    const usernameOrEmail = rawForm.usernameOrEmail.trim(); // Eltávolítjuk a felesleges whitespace karaktereket
+
+    // Ellenőrizzük, hogy az input email formátumú-e
+    if (this.isValidEmail(usernameOrEmail)) {
+      console.log("email")
+      this.authService.loginWithEmail(usernameOrEmail, rawForm.password)
+        .subscribe({
+          next: (succ) => {
+            this.router.navigateByUrl("/");
           },
-        error: (err) => {
-          this.loginErrorMessage = err.code;
-        }
-        }
-      )
+          error: (err) => {
+            this.loginErrorMessage = err.code;
+          }
+        });
+    } else {
+      console.log("username")
+      this.authService.loginWithUsername(usernameOrEmail, rawForm.password)
+        .subscribe({
+          next: (succ) => {
+            this.router.navigateByUrl("/");
+          },
+          error: (err) => {
+            this.loginErrorMessage = err.code;
+          }
+        });
+    }
   }
+
+  isValidEmail(email: string): boolean {
+    // Egyszerű regex ellenőrzés email formátumra
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
 
 }
