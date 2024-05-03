@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  page: String = "change-personal-data";
+  page: String = "change-contact-info";
 }

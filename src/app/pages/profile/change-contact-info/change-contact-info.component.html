@@ -1,40 +1,39 @@
 <div class="change_contact">
-
   <mat-card>
     <mat-card-header>Change your order info</mat-card-header>
     <mat-card-content>
-
       <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
-        <mat-form-field>
-          <mat-label>Firstname:</mat-label>
-          <input matInput formControlName="firstname" type="text">
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Lastname:</mat-label>
-          <input matInput formControlName="lastname" type="text">
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Postal code:</mat-label>
-          <input matInput formControlName="postalCode" type="text">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>City:</mat-label>
-          <input matInput formControlName="city" type="text">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Address line:</mat-label>
-          <input matInput formControlName="addressLine" type="text">
-        </mat-form-field>
+        <div formGroupName="nameGroup">
+          <mat-form-field>
+            <mat-label>Firstname:</mat-label>
+            <input matInput formControlName="firstname" type="text">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Lastname:</mat-label>
+            <input matInput formControlName="lastname" type="text">
+          </mat-form-field>
+        </div>
+        <div formGroupName="addressGroup">
+          <mat-form-field>
+            <mat-label>Postal code:</mat-label>
+            <input matInput formControlName="postalCode" type="text">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>City:</mat-label>
+            <input matInput formControlName="city" type="text">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Address line:</mat-label>
+            <input matInput formControlName="addressLine" type="text">
+          </mat-form-field>
+        </div>
         <mat-form-field>
           <mat-label>Phone number:</mat-label>
           <input matInput formControlName="phoneNumber" type="text">
         </mat-form-field>
-
         <button mat-raised-button color="primary" type="submit">Change Contact</button>
-
       </form>
     </mat-card-content>
   </mat-card>
 </div>
+

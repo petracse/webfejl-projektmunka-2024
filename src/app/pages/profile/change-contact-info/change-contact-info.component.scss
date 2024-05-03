@@ -16,4 +16,10 @@ mat-card {
 form {
   width: 60%;
   display: inline-grid;
+
+  mat-form-field {
+    width: 100%;
+  }
 }
+
+
