@@ -38,17 +38,7 @@ export class AuthService {
               return this.firestore.collection('Users').doc(response.user.uid).set({
                 email: email,
                 username: username,
-                address: {
-                  addressLine: '',
-                  city: '',
-                  postalCode: ''
-                },
                 isAdmin: false,
-                name: {
-                  firstname: '',
-                  lastname: ''
-                },
-                profilePictureUrl: '',
                 registrationDate: new Date()
               });
             });
@@ -126,6 +116,13 @@ export class AuthService {
     if (!user) {
       return new Observable(observer => {
         observer.error('User is not logged in.');
+        observer.complete();
+      });
+    }
+
+    if (newUsername === user.displayName && newEmail === user.email) {
+      return new Observable(observer => {
+        observer.error('New username and email are the same as the current ones.');
         observer.complete();
       });
     }
