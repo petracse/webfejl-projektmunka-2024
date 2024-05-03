@@ -8,7 +8,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
-import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
+import {MatCard, MatCardActions, MatCardContent, MatCardHeader} from "@angular/material/card";
 import { ChangePersonalDataComponent } from './change-personal-data/change-personal-data.component';
 import { ChangeContactInfoComponent } from './change-contact-info/change-contact-info.component';
 
@@ -31,7 +31,8 @@ import { ChangeContactInfoComponent } from './change-contact-info/change-contact
     MatLabel,
     MatCard,
     MatCardContent,
-    MatCardHeader
+    MatCardHeader,
+    MatCardActions
   ]
 })
 export class ProfileModule { }

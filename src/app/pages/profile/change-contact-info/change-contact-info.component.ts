@@ -1,6 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-change-contact-info',
@@ -10,8 +11,10 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 export class ChangeContactInfoComponent implements OnInit{
   formBuilder: FormBuilder = inject(FormBuilder);
   contactForm: FormGroup = new FormGroup({});
-
+  currentUser: any;
+  dialog: MatDialog = inject(MatDialog);
   firestore: AngularFirestore = inject(AngularFirestore);
+
   onSubmit() {
 
   }
@@ -55,7 +58,7 @@ export class ChangeContactInfoComponent implements OnInit{
           control.clearValidators();
         }
         control.updateValueAndValidity({ onlySelf: true });
-        
+
       }
     });
 
@@ -63,10 +66,10 @@ export class ChangeContactInfoComponent implements OnInit{
   }
 
   ngOnInit() {
-    const currentUser = JSON.parse(localStorage.getItem('user') as string);
+    this.currentUser = JSON.parse(localStorage.getItem('user') as string);
     this.initializeForm();
-    console.log(currentUser.uid);
-    this.firestore.collection('Users').doc(currentUser.uid).get().subscribe((doc) => {
+    console.log(this.currentUser.uid);
+    this.firestore.collection('Users').doc(this.currentUser.uid).get().subscribe((doc) => {
       if (doc.exists) {
         const userData: any = doc.data();
         const nameGroup = this.contactForm.get('nameGroup');
@@ -93,4 +96,16 @@ export class ChangeContactInfoComponent implements OnInit{
   }
 
 
+  deleteContactData() {/*
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '300px',
+      data: 'Are you sure you want to delete the contact data?'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Itt hívd meg a törlési műveletet
+      }
+    });*/
+  }
 }
