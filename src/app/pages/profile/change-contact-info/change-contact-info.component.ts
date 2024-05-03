@@ -1,7 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {MatDialog} from "@angular/material/dialog";
+import {ConfirmationDialogComponent} from "../../../shared/confirmation-dialog/confirmation-dialog.component";
+import {AuthService} from "../../../shared/services/auth.service";
 
 @Component({
   selector: 'app-change-contact-info',
@@ -12,12 +13,39 @@ export class ChangeContactInfoComponent implements OnInit{
   formBuilder: FormBuilder = inject(FormBuilder);
   contactForm: FormGroup = new FormGroup({});
   currentUser: any;
+  authService: AuthService = inject(AuthService);
   dialog: MatDialog = inject(MatDialog);
-  firestore: AngularFirestore = inject(AngularFirestore);
+  deletionInProgress: boolean = false;
+
 
   onSubmit() {
+    if (this.contactForm.valid) {
+      const formData = this.contactForm.getRawValue();
+      const userData = {
+        name: {
+          firstname: formData.nameGroup.firstname,
+          lastname: formData.nameGroup.lastname
+        },
+        address: {
+          postalCode: formData.addressGroup.postalCode,
+          city: formData.addressGroup.city,
+          addressLine: formData.addressGroup.addressLine
+        },
+        phoneNumber: formData.phoneNumber
+      };
 
+      this.authService.changeContactInfo(userData)
+        .then(() => {
+          console.log('Contact information successfully updated!');
+        })
+        .catch((error) => {
+          console.error('Error updating contact information: ', error);
+        });
+    } else {
+      console.error('Form is invalid. Cannot submit.');
+    }
   }
+
 
   initializeForm() {
     this.contactForm = this.formBuilder.group({
@@ -67,11 +95,11 @@ export class ChangeContactInfoComponent implements OnInit{
 
   ngOnInit() {
     this.currentUser = JSON.parse(localStorage.getItem('user') as string);
-    this.initializeForm();
     console.log(this.currentUser.uid);
-    this.firestore.collection('Users').doc(this.currentUser.uid).get().subscribe((doc) => {
-      if (doc.exists) {
-        const userData: any = doc.data();
+    this.initializeForm();
+    this.authService.getContactInfo(this.currentUser.uid as string).subscribe({
+      next: (userDataSnapshot: any) => {
+        const userData = userDataSnapshot.data();
         const nameGroup = this.contactForm.get('nameGroup');
         const addressGroup = this.contactForm.get('addressGroup');
 
@@ -89,23 +117,51 @@ export class ChangeContactInfoComponent implements OnInit{
         this.contactForm.patchValue({
           phoneNumber: userData?.phoneNumber || '',
         });
-      } else {
-        console.log('Nincs ilyen dokumentum.');
+      },
+      error: (error: any) => {
+        console.error('Error fetching contact information: ', error);
       }
     });
   }
 
-
-  deleteContactData() {/*
+  delete() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '300px',
       data: 'Are you sure you want to delete the contact data?'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // Itt hívd meg a törlési műveletet
+    const subs= dialogRef.afterClosed().subscribe({
+      next: (result: boolean) => {
+        if (result) {
+          this.authService.getContactInfo(this.currentUser.uid).subscribe({
+            next: (userData) => {
+              if (userData) {
+                //console.log(userData);
+                this.authService.deleteContactInfo(userData).subscribe({
+                  next: () => {
+                    this.contactForm.reset();
+                    console.log('Contact data deleted successfully.');
+                    // Egyéb teendők, pl. frissítés vagy visszajelzés a felhasználónak
+                  },
+                  error: (error) => {
+                    console.error('Error deleting contact data:', error);
+                  }
+                });
+              } else {
+                console.error('User data not found');
+              }
+            },
+            error: (error) => {
+              // Hibakezelés
+              console.error('Error getting contact data:', error);
+            }
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Confirmation dialog error:', error);
       }
-    });*/
+    });
   }
+
 }

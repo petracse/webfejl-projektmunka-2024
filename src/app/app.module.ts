@@ -12,16 +12,19 @@ import { MenuComponent } from './shared/menu/menu.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatIconButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {environment} from "../environments/environment";
 import {AngularFireModule} from "@angular/fire/compat";
+import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
+import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent
+    MenuComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     MatSidenavModule,
@@ -36,7 +39,12 @@ import {AngularFireModule} from "@angular/fire/compat";
     MatIconButton,
     MatIcon,
     MatNavList,
-    MatListItem
+    MatListItem,
+    MatDialogClose,
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatButton
   ],
   providers: [
     provideAnimationsAsync()

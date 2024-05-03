@@ -6,10 +6,10 @@ import {
   signOut, updatePassword,
   updateProfile,
   EmailAuthProvider,
-  user, reauthenticateWithCredential, updateEmail, authState
+  user, reauthenticateWithCredential, updateEmail
 } from "@angular/fire/auth";
-import {from, Observable} from "rxjs";
-import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {from, map, Observable} from "rxjs";
+import {AngularFirestore, DocumentSnapshot, DocumentSnapshotExists} from "@angular/fire/compat/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,7 @@ export class AuthService {
 
   //currentUserSig = signal<User | null | undefined>(undefined);
   user$ = user(this.firebaseAuth);
+
 
   register(email: string, username: string, password: string): Observable<void> {
     return new Observable<void>(observer => {
@@ -110,6 +111,31 @@ export class AuthService {
         });
     });
   }
+
+  deleteContactInfo(userDataSnapshot: any): Observable<void> {
+    const currentUserUid = this.firebaseAuth.currentUser?.uid;
+    const userData = userDataSnapshot.data();
+    console.log(userDataSnapshot.data().username);
+    if (currentUserUid) {
+      return from(
+        this.firestore.collection('Users').doc(currentUserUid).set({
+          isAdmin: userData.isAdmin,
+          username: userData.username,
+          email: userData.email,
+          registrationDate: userData.registrationDate
+        })
+      );
+    } else {
+      return new Observable<void>(observer => {
+        observer.error('User not authenticated');
+      });
+    }
+  }
+
+  getContactInfo(uid: string): Observable<any> {
+    return this.firestore.collection('Users').doc(uid).get();
+  }
+
 
   changePersonalData(password: string, newUsername: string, newEmail: string): Observable<void> {
     const user = this.firebaseAuth.currentUser;
@@ -248,5 +274,11 @@ export class AuthService {
         }
       });
     });
+  }
+
+  changeContactInfo(userData: any): Promise<void> {
+    const userId = this.firebaseAuth.currentUser?.uid;
+    const userDoc = this.firestore.collection('Users').doc(userId);
+    return userDoc.update(userData);
   }
 }

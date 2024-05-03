@@ -32,11 +32,10 @@
           <input matInput formControlName="phoneNumber" type="text">
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit">Change Contact</button>
+        <button mat-button color="warn" (click)="delete()">Delete Contact Data</button>
       </form>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button color="warn" (click)="deleteContactData()">Delete Contact Data</button>
-    </mat-card-actions>
+
   </mat-card>
 </div>
 
