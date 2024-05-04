@@ -11,18 +11,18 @@ import {AuthService} from "./shared/services/auth.service";
 export class AppComponent implements OnInit{
   authService = inject(AuthService);
   title = 'web-dev-fw-project';
-  
+
   onToggleSidenav(sidenav: MatSidenav) {
     sidenav.toggle();
 
   }
 
   ngOnInit(): void {
-    /* // csak akkor kell, ha újra importáljuk
-    import('../assets/books.json').then((booksData: any) => {
+     // csak akkor kell, ha újra importáljuk
+    /*import('../assets/updated_books.json').then((booksData: any) => {
       this.firestoreService.uploadBooks(booksData.default);
-    });
-    */
+    });*/
+
 
     this.authService.user$.subscribe(user => {
       if (user) {
