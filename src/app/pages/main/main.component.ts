@@ -1,6 +1,7 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostListener, inject, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "../../shared/services/auth.service";
 import {Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-main',
@@ -16,6 +17,11 @@ export class MainComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadBooks(this.currentPage);
+    this.calculateColumns();
+  }
+
+  @HostListener('window:resize', ['$event']) onResize(event: Event) {
+    this.calculateColumns(); // Ablak méretváltozásakor újra számoljuk az oszlopok számát
   }
 
   updateUrl() {
@@ -51,4 +57,23 @@ export class MainComponent implements OnInit{
       //this.updateUrl();
     }
   }
+
+  calculateColumns(): void {
+    const screenWidth = window.innerWidth;
+    const itemWidth = 200; // Ez a <app-list-item> fix szélessége
+    let maxColumns = Math.floor(screenWidth / itemWidth);
+    while (20 % maxColumns !== 0) {
+      maxColumns--;
+    }
+    //maxColumns = Math.min(maxColumns,5);
+    //maxColumns--;
+    document.documentElement.style.setProperty('--max-columns', maxColumns.toString());
+  }
+
+  getMaxColumns(): number {
+    const maxColumnsStr = getComputedStyle(document.documentElement).getPropertyValue('--max-columns');
+    const maxColumns = parseInt(maxColumnsStr.trim(), 10);
+    return isNaN(maxColumns) ? 4 : maxColumns;
+  }
+
 }

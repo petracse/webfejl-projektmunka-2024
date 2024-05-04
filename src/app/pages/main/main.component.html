@@ -1,10 +1,14 @@
 <h1 *ngIf="authService.isUserLoggedIn()">Welcome {{authService.getUsername()}}!</h1>
 
-<div *ngIf="books && books.length > 0">
-  <div *ngFor="let book of books">
+<mat-grid-list [cols]="getMaxColumns()" rowHeight="330px">
+  <mat-grid-tile *ngFor="let book of books">
     <app-list-item [book]="book"></app-list-item>
-  </div>
-</div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+
+
+
 
 <div *ngIf="totalPages > 1">
   <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>

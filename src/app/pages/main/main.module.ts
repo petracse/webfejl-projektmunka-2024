@@ -15,6 +15,7 @@ import {
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatTooltip} from "@angular/material/tooltip";
+import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 
 
 @NgModule({
@@ -35,7 +36,9 @@ import {MatTooltip} from "@angular/material/tooltip";
     MatCardTitle,
     MatIcon,
     MatIconButton,
-    MatTooltip
+    MatTooltip,
+    MatGridTile,
+    MatGridList
   ]
 })
 export class MainModule { }

@@ -1,29 +1,68 @@
 img {
-  width: 100px;
-  height: 150px;
+  width: 90px;
+  height: 135px;
   object-fit: cover;
   object-position: center bottom;
 }
 mat-card {
-  width: 200px; /* Kártya szélessége */
+  width: 180px; /* Kártya szélessége */
   height: 300px; /* Kártya magassága */
   display: flex; /* Flexbox elrendezés */
-  justify-content: center; /* Tartalom középre igazítása */
-  align-items: center; /* Tartalom középre igazítása */
+  //justify-content: center; /* Tartalom középre igazítása */
+  //align-items: center; /* Tartalom középre igazítása */
 }
 
+
 mat-card-header {
+  padding-top: 10px;
   text-align: center; /* Cím és alcím középre igazítása */
 }
 mat-card-title {
   font-size: medium;
+  line-height: 1.2;
+}
+
+mat-card-subtitle {
+  margin: 10px;
+  line-height: 1;
 }
 mat-card-content {
   text-align: center; /* Szöveg középre igazítása */
 }
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-cover-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 10px; /* Állítsd be az igényeid szerinti távolságot */
+}
+
+.book-cover {
+  max-width: 100%; /* A kép mérete ne legyen nagyobb a tartalomnál */
+}
+
 
 mat-card-image {
   width: 100%; /* Kép teljes szélességű legyen a kártyán belül */
   height: auto; /* Automatikus magasság */
   object-fit: cover; /* Képarány megtartása, és a kép kitöltése */
 }
+
+mat-card-actions {
+  position: absolute;
+  bottom: -5px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+mat-card-actions button {
+  margin: 0 5px; /* Adjunk kis térközt a gombok között */
+}
+

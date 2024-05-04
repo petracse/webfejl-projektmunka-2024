@@ -1,0 +1,8 @@
+$tileWidth: 180px; // Ez a <app-list-item> fix szélessége
+
+mat-grid-list {
+  display: grid;
+  grid-template-columns: repeat(var(--max-columns, 4), $tileWidth);
+
+}
+
