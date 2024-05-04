@@ -1,8 +1,15 @@
 <h1 *ngIf="authService.isUserLoggedIn()">Welcome {{authService.getUsername()}}!</h1>
-<p>main works!</p>
+
 <div *ngIf="books && books.length > 0">
   <div *ngFor="let book of books">
     <app-list-item [book]="book"></app-list-item>
   </div>
 </div>
+
+<div *ngIf="totalPages > 1">
+  <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+  <span>{{currentPage}} / {{totalPages}}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+</div>
+
 

@@ -20,11 +20,4 @@ export class FirestoreService {
     });
   }
 
-  loadBooks(): void {
-    this.firestore.collection('Books').valueChanges().subscribe(books => {
-      this.books = books;
-    });
-  }
-
-
 }

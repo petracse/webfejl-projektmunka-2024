@@ -9,7 +9,12 @@ import {
   user, reauthenticateWithCredential, updateEmail
 } from "@angular/fire/auth";
 import {from, map, Observable} from "rxjs";
-import {AngularFirestore, DocumentSnapshot, DocumentSnapshotExists} from "@angular/fire/compat/firestore";
+import {
+  AngularFirestore,
+  DocumentChangeAction,
+  DocumentSnapshot,
+  DocumentSnapshotExists
+} from "@angular/fire/compat/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +25,6 @@ export class AuthService {
 
   //currentUserSig = signal<User | null | undefined>(undefined);
   user$ = user(this.firebaseAuth);
-
-  loadBooks(): Observable<any[]> {
-    return this.firestore.collection('Books').valueChanges();
-  }
-
 
   register(email: string, username: string, password: string): Observable<void> {
     return new Observable<void>(observer => {
@@ -284,5 +284,40 @@ export class AuthService {
     const userId = this.firebaseAuth.currentUser?.uid;
     const userDoc = this.firestore.collection('Users').doc(userId);
     return userDoc.update(userData);
+  }
+
+  getBooks(page: number): Observable<any> {
+    const pageSize = 20; // Az oldalankénti elemek száma
+    const startAt = (page) * pageSize + 1;
+
+    return new Observable((observer) => {
+      this.getNthBookTitle(startAt).subscribe((startTitle: string) => {
+        console.log(startTitle)
+        this.firestore.collection('Books', ref =>
+          ref.orderBy('title').limit(pageSize).startAt(startTitle)
+        ).valueChanges().subscribe((books: any[]) => {
+          this.firestore.collection('Books').get().subscribe((querySnapshot) => {
+            const totalBooks = querySnapshot.size;
+            const totalPages = Math.ceil(totalBooks / pageSize);
+            observer.next({ books, totalPages });
+            observer.complete();
+          });
+        });
+      });
+    });
+  }
+  getNthBookTitle(n: number): Observable<string> {
+    return this.firestore.collection('Books', ref => ref.orderBy('title'))
+      .snapshotChanges().pipe(
+      map((actions: DocumentChangeAction<any>[]) => {
+        const nthDoc = actions[n - 1];
+        if (nthDoc) {
+          const data = nthDoc.payload.doc.data();
+          return data.title;
+        } else {
+          throw new Error('Document not found at index ' + n);
+        }
+      })
+    );
   }
 }
