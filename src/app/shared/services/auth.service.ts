@@ -286,15 +286,15 @@ export class AuthService {
     return userDoc.update(userData);
   }
 
-  getBooks(page: number): Observable<any> {
-    const pageSize = 20; // Az oldalankénti elemek száma
+  getBooks(page: number, orderBy: string = 'title', sortOrder: 'asc' | 'desc' = 'asc'): Observable<any> {
+    const pageSize = 20;
     const startAt = (page) * pageSize + 1;
 
     return new Observable((observer) => {
-      this.getNthBookTitle(startAt).subscribe((startTitle: string) => {
+      this.getNthBookTitle(startAt, orderBy, sortOrder).subscribe((startTitle: string) => {
         console.log(startTitle)
         this.firestore.collection('Books', ref =>
-          ref.orderBy('title').limit(pageSize).startAt(startTitle)
+          ref.orderBy(orderBy, sortOrder).limit(pageSize).startAt(startTitle)
         ).valueChanges().subscribe((books: any[]) => {
           this.firestore.collection('Books').get().subscribe((querySnapshot) => {
             const totalBooks = querySnapshot.size;
@@ -306,14 +306,19 @@ export class AuthService {
       });
     });
   }
-  getNthBookTitle(n: number): Observable<string> {
-    return this.firestore.collection('Books', ref => ref.orderBy('title'))
+  getNthBookTitle(n: number, orderBy: string = 'title', sortOrder: 'asc' | 'desc' = 'asc'): Observable<string> {
+    return this.firestore.collection('Books', ref => ref.orderBy(orderBy, sortOrder))
       .snapshotChanges().pipe(
       map((actions: DocumentChangeAction<any>[]) => {
         const nthDoc = actions[n - 1];
         if (nthDoc) {
           const data = nthDoc.payload.doc.data();
-          return data.title;
+          const orderedField = data[orderBy];
+          if (orderedField !== undefined) {
+            return orderedField;
+          } else {
+            throw new Error(`Specified orderBy field '${orderBy}' not found in document`);
+          }
         } else {
           throw new Error('Document not found at index ' + n);
         }

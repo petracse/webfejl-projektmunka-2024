@@ -1,10 +1,29 @@
-.list-item {
-  display: flex;
-  align-items: center;
+img {
+  width: 100px;
+  height: 150px;
+  object-fit: cover;
+  object-position: center bottom;
+}
+mat-card {
+  width: 200px; /* Kártya szélessége */
+  height: 300px; /* Kártya magassága */
+  display: flex; /* Flexbox elrendezés */
+  justify-content: center; /* Tartalom középre igazítása */
+  align-items: center; /* Tartalom középre igazítása */
 }
 
-.list-item img {
-  width: 100px;
-  height: auto;
-  margin-right: 20px;
+mat-card-header {
+  text-align: center; /* Cím és alcím középre igazítása */
+}
+mat-card-title {
+  font-size: medium;
+}
+mat-card-content {
+  text-align: center; /* Szöveg középre igazítása */
+}
+
+mat-card-image {
+  width: 100%; /* Kép teljes szélességű legyen a kártyán belül */
+  height: auto; /* Automatikus magasság */
+  object-fit: cover; /* Képarány megtartása, és a kép kitöltése */
 }

@@ -1,10 +1,20 @@
-<div class="list-item">
+<mat-card class="book-card">
+  <mat-card-header>
+    <mat-card-title>{{ book.title }}</mat-card-title>
+    <mat-card-subtitle>Author: {{ book.author }}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [src]="book.cover_url" alt="Book Cover">
+  <mat-card-actions>
+    <button mat-icon-button (click)="addToCart()" matTooltip="Add to Cart">
+      <mat-icon>add_shopping_cart</mat-icon>
+    </button>
+    <button mat-icon-button (click)="addToFavourite()" matTooltip="Favourite">
+      <mat-icon>favorite</mat-icon>
+    </button>
+  </mat-card-actions>
 
-  <div class="details">
-    <h2>{{ book.title }}</h2>
-    <p>Author: {{ book.author }}</p>
-    <button (click)="addToCart()">Add to Cart</button>
-  </div>
-</div>
+
+</mat-card>
+
 
 

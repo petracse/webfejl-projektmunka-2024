@@ -10,4 +10,8 @@ export class ListItemComponent {
   addToCart() {
 
   }
+
+  addToFavourite() {
+
+  }
 }
