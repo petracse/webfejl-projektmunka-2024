@@ -5,6 +5,7 @@ import { AngularFirestore} from "@angular/fire/compat/firestore";
   providedIn: 'root'
 })
 export class FirestoreService {
+  books: any[];
 
   constructor(private firestore: AngularFirestore) { }
   uploadBooks(books: any[]): void {
@@ -18,4 +19,12 @@ export class FirestoreService {
         });
     });
   }
+
+  loadBooks(): void {
+    this.firestore.collection('Books').valueChanges().subscribe(books => {
+      this.books = books;
+    });
+  }
+
+
 }

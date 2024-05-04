@@ -1,2 +1,7 @@
 <h1 *ngIf="authService.isUserLoggedIn()">Welcome {{authService.getUsername()}}!</h1>
 <p>main works!</p>
+<div *ngIf="books && books.length > 0">
+  <h2>Author of the first book:</h2>
+  <p>{{ books[0].author }}</p>
+</div>
+

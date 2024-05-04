@@ -21,6 +21,10 @@ export class AuthService {
   //currentUserSig = signal<User | null | undefined>(undefined);
   user$ = user(this.firebaseAuth);
 
+  loadBooks(): Observable<any[]> {
+    return this.firestore.collection('Books').valueChanges();
+  }
+
 
   register(email: string, username: string, password: string): Observable<void> {
     return new Observable<void>(observer => {
