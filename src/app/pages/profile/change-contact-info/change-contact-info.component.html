@@ -1,41 +1,59 @@
 <div class="change_contact">
   <mat-card>
-    <mat-card-header>Change your order info</mat-card-header>
     <mat-card-content>
       <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
-        <div formGroupName="nameGroup">
+        <div class="fullname" formGroupName="nameGroup">
+          <h1>Your name</h1>
           <mat-form-field>
             <mat-label>Firstname:</mat-label>
             <input matInput formControlName="firstname" type="text">
+            <mat-error *ngIf="contactForm.get('nameGroup.firstname')?.invalid && contactForm.get('nameGroup.firstname')?.touched">
+              Firstname is required
+            </mat-error>
           </mat-form-field>
           <mat-form-field>
             <mat-label>Lastname:</mat-label>
             <input matInput formControlName="lastname" type="text">
+            <mat-error *ngIf="contactForm.get('nameGroup.lastname')?.invalid && contactForm.get('nameGroup.lastname')?.touched">
+              Lastname is required
+            </mat-error>
           </mat-form-field>
         </div>
         <div formGroupName="addressGroup">
+          <h1>Your address</h1>
           <mat-form-field>
             <mat-label>Postal code:</mat-label>
             <input matInput formControlName="postalCode" type="text">
+            <mat-error *ngIf="contactForm.get('addressGroup.postalCode')?.invalid && contactForm.get('addressGroup.postalCode')?.touched">
+              Postal code is required
+            </mat-error>
           </mat-form-field>
           <mat-form-field>
             <mat-label>City:</mat-label>
             <input matInput formControlName="city" type="text">
+            <mat-error *ngIf="contactForm.get('addressGroup.city')?.invalid && contactForm.get('addressGroup.city')?.touched">
+              City is required
+            </mat-error>
           </mat-form-field>
           <mat-form-field>
             <mat-label>Address line:</mat-label>
             <input matInput formControlName="addressLine" type="text">
+            <mat-error *ngIf="contactForm.get('addressGroup.addressLine')?.invalid && contactForm.get('addressGroup.addressLine')?.touched">
+              Address line is required
+            </mat-error>
           </mat-form-field>
         </div>
         <mat-form-field>
           <mat-label>Phone number:</mat-label>
           <input matInput formControlName="phoneNumber" type="text">
+          <mat-error *ngIf="contactForm.get('phoneNumber')?.invalid && contactForm.get('phoneNumber')?.touched">
+            Bad format!
+          </mat-error>
         </mat-form-field>
+        <div *ngIf="contactErrorMessage" class="error-message">{{ contactErrorMessage }}</div>
         <button mat-raised-button color="primary" type="submit">Change Contact</button>
         <button mat-button color="warn" (click)="delete()">Delete Contact Data</button>
       </form>
     </mat-card-content>
-
   </mat-card>
 </div>
-

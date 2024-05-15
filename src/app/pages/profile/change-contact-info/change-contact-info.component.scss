@@ -14,12 +14,11 @@ mat-card {
 }
 
 form {
-  width: 60%;
-  display: inline-grid;
-
+  display: inline-block;
   mat-form-field {
-    width: 100%;
+    width: 80%;
   }
+
 }
 
 button {
@@ -32,4 +31,5 @@ button {
   }
 
 }
+
 

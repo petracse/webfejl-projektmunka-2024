@@ -280,10 +280,20 @@ export class AuthService {
     });
   }
 
-  changeContactInfo(userData: any): Promise<void> {
+  changeContactInfo(userData: any): Observable<void> {
     const userId = this.firebaseAuth.currentUser?.uid;
     const userDoc = this.firestore.collection('Users').doc(userId);
-    return userDoc.update(userData);
+
+    return new Observable<void>((observer) => {
+      userDoc.update(userData)
+        .then(() => {
+          observer.next();
+          observer.complete(); // Művelet befejezése
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
   }
 
   getBooks(page: number, orderBy: string = 'title', sortOrder: 'asc' | 'desc' = 'asc'): Observable<any> {

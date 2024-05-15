@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmationDialogComponent} from "../../../shared/confirmation-dialog/confirmation-dialog.component";
 import {AuthService} from "../../../shared/services/auth.service";
@@ -17,6 +17,7 @@ export class ChangeContactInfoComponent implements OnInit{
   dialog: MatDialog = inject(MatDialog);
   deletionInProgress: boolean = false;
 
+  contactErrorMessage: string | null = null;
 
   onSubmit() {
     if (this.contactForm.valid) {
@@ -35,19 +36,31 @@ export class ChangeContactInfoComponent implements OnInit{
       };
 
       this.authService.changeContactInfo(userData)
-        .then(() => {
-          console.log('Contact information successfully updated!');
-        })
-        .catch((error) => {
-          console.error('Error updating contact information: ', error);
+        .subscribe({
+          next: () => {
+            this.contactErrorMessage = 'Contact details updated!';
+          },
+          error: (error) => {
+            this.contactErrorMessage = `Error updating contact information: ${error.message}`;
+            console.error('Error updating contact information: ', error);
+          }
         });
     } else {
       console.error('Form is invalid. Cannot submit.');
     }
   }
 
-
   initializeForm() {
+    const phoneNumberValidator = (control: AbstractControl): { [key: string]: any } | null => {
+      const phoneNumberRegex = /^(\+(?:[0-9] ?){6,14}[0-9]|06(?: ?[0-9]){8,12})$/;
+
+      if (control.value && !phoneNumberRegex.test(control.value)) {
+        return { 'invalidPhoneNumber': true };
+      }
+
+      return null;
+    };
+
     this.contactForm = this.formBuilder.group({
       nameGroup: this.formBuilder.group({
         firstname: [''],
@@ -62,7 +75,7 @@ export class ChangeContactInfoComponent implements OnInit{
       }, {
         validators: this.groupValidator
       }),
-      phoneNumber: [''],
+      phoneNumber: ['', [phoneNumberValidator]]
     });
   }
 
