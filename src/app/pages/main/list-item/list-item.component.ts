@@ -6,6 +6,7 @@ import {Component, Input} from '@angular/core';
   styleUrl: './list-item.component.scss'
 })
 export class ListItemComponent {
+  maxTitleLength: number = 33
   @Input() book: any;
   addToCart() {
 

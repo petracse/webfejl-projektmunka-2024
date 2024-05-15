@@ -1,13 +1,14 @@
 <mat-card class="book-card">
+  <div class="book-cover-container">
+    <img class="book-cover" mat-card-image [src]="book.cover_url" matTooltip="{{ book.title }}" matTooltipPosition="after" alt="Book Cover">
+  </div>
   <div class="header-container">
   <mat-card-header>
-    <mat-card-title>{{ book.title }}</mat-card-title>
-    <mat-card-subtitle>Author: {{ book.author }}</mat-card-subtitle>
+    <mat-card-title matTooltip="{{ book.title }}" matTooltipPosition="after">{{ (book.title.length>maxTitleLength)? (book.title | slice:0:maxTitleLength)+'...':(book.title) }}</mat-card-title>
+    <mat-card-subtitle>Author: {{ (book.author.length>maxTitleLength)? (book.author | slice:0:maxTitleLength)+'...':(book.author) }}</mat-card-subtitle>
   </mat-card-header>
   </div>
-  <div class="book-cover-container">
-  <img class="book-cover" mat-card-image [src]="book.cover_url" alt="Book Cover">
-  </div>
+
   <mat-card-actions>
     <button mat-icon-button (click)="addToCart()" matTooltip="Add to Cart">
       <mat-icon>add_shopping_cart</mat-icon>
@@ -16,7 +17,6 @@
       <mat-icon>favorite</mat-icon>
     </button>
   </mat-card-actions>
-
 
 </mat-card>
 
