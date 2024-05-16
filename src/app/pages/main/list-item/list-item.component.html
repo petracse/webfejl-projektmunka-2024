@@ -8,7 +8,6 @@
     <mat-card-subtitle>Author: {{ (book.author.length>maxTitleLength)? (book.author | slice:0:maxTitleLength)+'...':(book.author) }}</mat-card-subtitle>
   </mat-card-header>
   </div>
-
   <mat-card-actions>
     <button mat-icon-button (click)="addToCart()" matTooltip="Add to Cart">
       <mat-icon>add_shopping_cart</mat-icon>

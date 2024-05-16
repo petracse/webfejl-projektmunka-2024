@@ -19,4 +19,8 @@ export class MenuComponent {
     this.authService.logout();
 
   }
+
+  showCartContent() {
+
+  }
 }

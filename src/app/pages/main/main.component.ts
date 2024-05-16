@@ -21,7 +21,7 @@ export class MainComponent implements OnInit{
   }
 
   @HostListener('window:resize', ['$event']) onResize(event: Event) {
-    this.calculateColumns(); // Ablak méretváltozásakor újra számoljuk az oszlopok számát
+    this.calculateColumns();
   }
 
   updateUrl() {

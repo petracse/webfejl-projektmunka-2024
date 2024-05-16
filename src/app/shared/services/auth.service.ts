@@ -61,6 +61,9 @@ export class AuthService {
     });
   }
 
+  getBookById(bookId: string): Observable<any> {
+    return this.firestore.collection('Books').doc(bookId).valueChanges();
+  }
 
   isUsernameExists(username: string): Observable<boolean> {
     return new Observable<boolean>(observer => {
@@ -302,10 +305,20 @@ export class AuthService {
 
     return new Observable((observer) => {
       this.getNthBookTitle(startAt, orderBy, sortOrder).subscribe((startTitle: string) => {
-        console.log(startTitle)
         this.firestore.collection('Books', ref =>
           ref.orderBy(orderBy, sortOrder).limit(pageSize).startAt(startTitle)
-        ).valueChanges().subscribe((books: any[]) => {
+        ).snapshotChanges().subscribe((booksSnapshot) => {
+          const books = booksSnapshot.map((bookSnapshot) => {
+            const id = bookSnapshot.payload.doc.id;
+            const data = bookSnapshot.payload.doc.data();
+
+            if (typeof data === 'object' && data !== null) {
+              return { id, ...data };
+            } else {
+              return { id };
+            }
+          });
+
           this.firestore.collection('Books').get().subscribe((querySnapshot) => {
             const totalBooks = querySnapshot.size;
             const totalPages = Math.ceil(totalBooks / pageSize);
@@ -316,6 +329,7 @@ export class AuthService {
       });
     });
   }
+
   getNthBookTitle(n: number, orderBy: string = 'title', sortOrder: 'asc' | 'desc' = 'asc'): Observable<string> {
     return this.firestore.collection('Books', ref => ref.orderBy(orderBy, sortOrder))
       .snapshotChanges().pipe(

@@ -1,6 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {MatSidenav} from "@angular/material/sidenav";
 import {AuthService} from "./shared/services/auth.service";
+import {MatDialog} from "@angular/material/dialog";
+import {ShoppingCartDialogComponent} from "./shared/shopping-cart-dialog/shopping-cart-dialog.component";
 
 
 @Component({
@@ -11,11 +13,14 @@ import {AuthService} from "./shared/services/auth.service";
 export class AppComponent implements OnInit{
   authService = inject(AuthService);
   title = 'web-dev-fw-project';
+  dialog: MatDialog = inject(MatDialog);
 
   onToggleSidenav(sidenav: MatSidenav) {
     sidenav.toggle();
 
   }
+
+
 
   ngOnInit(): void {
      // csak akkor kell, ha újra importáljuk
@@ -45,4 +50,11 @@ export class AppComponent implements OnInit{
     this.authService.logout();
 
   }
+
+  showCartContent() {
+    const dialogRef = this.dialog.open(ShoppingCartDialogComponent, {
+      width: '500px'
+    });
+  }
+
 }

@@ -19,12 +19,14 @@ import {environment} from "../environments/environment";
 import {AngularFireModule} from "@angular/fire/compat";
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
+import { ShoppingCartDialogComponent } from './shared/shopping-cart-dialog/shopping-cart-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    ShoppingCartDialogComponent
   ],
   imports: [
     MatSidenavModule,

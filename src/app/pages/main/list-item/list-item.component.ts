@@ -9,8 +9,15 @@ export class ListItemComponent {
   maxTitleLength: number = 33
   @Input() book: any;
   addToCart() {
-
+    let clickCount = localStorage.getItem(`clickCount_${this.book.id}`);
+    if (clickCount && parseInt(clickCount) > 0) {
+      clickCount = String(parseInt(clickCount) + 1);
+    } else {
+      clickCount = '1';
+    }
+    localStorage.setItem(`clickCount_${this.book.id}`, clickCount);
   }
+
 
   addToFavourite() {
 

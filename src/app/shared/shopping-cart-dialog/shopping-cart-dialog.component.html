@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Kosár tartalma</h2>
+<div mat-dialog-content>
+  <div *ngFor="let book of shoppingCartBooks">
+    <p>{{ book.title }} - Click Count: {{ book.clickCount }}</p>
+    <button mat-icon-button (click)="increaseCount(book.id)">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-icon-button (click)="decreaseCount(book.id)">
+      <mat-icon>remove</mat-icon>
+    </button>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Close</button>
+</div>
