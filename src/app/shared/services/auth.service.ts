@@ -309,14 +309,21 @@ export class AuthService {
     });
   }
 
-  getBooks(page: number, orderBy: string = 'title', sortOrder: 'asc' | 'desc' = 'asc'): Observable<any> {
+  getBooks(page: number, orderBy: string = 'title', sortOrder: 'asc' | 'desc' = 'asc', searchFilter: string | null = null): Observable<any> {
     const pageSize = 20;
     const startAt = (page) * pageSize + 1;
 
     return new Observable((observer) => {
-      this.getNthBookTitle(startAt, orderBy, sortOrder).subscribe((startTitle: string) => {
-        this.firestore.collection('Books', ref =>
-          ref.orderBy(orderBy, sortOrder).limit(pageSize).startAt(startTitle)
+      this.getNthBookTitle(startAt, orderBy, sortOrder, searchFilter).subscribe((startTitle: string) => {
+        this.firestore.collection('Books', ref => {
+          if (searchFilter) {
+            let refTitle = ref.orderBy(orderBy, sortOrder).where('title', '==', searchFilter).limit(pageSize).startAt(startTitle)
+            let refAuthor = ref.orderBy(orderBy, sortOrder).where('author', '==', searchFilter).limit(pageSize).startAt(startTitle)
+            return refTitle
+          }
+          return ref.orderBy(orderBy, sortOrder).limit(pageSize).startAt(startTitle)
+        }
+
         ).snapshotChanges().subscribe((booksSnapshot) => {
           const books = booksSnapshot.map((bookSnapshot) => {
             const id = bookSnapshot.payload.doc.id;
@@ -342,7 +349,15 @@ export class AuthService {
 
   getNthBookTitle(n: number, orderBy: string = 'title', sortOrder: 'asc' | 'desc' = 'asc', searchFilter: string | null = null): Observable<string> {
     return new Observable<string>(observer => {
-      const subscription = this.firestore.collection('Books', ref => ref.orderBy(orderBy, sortOrder)).snapshotChanges().subscribe({
+      const subscription = this.firestore.collection('Books', ref => {
+        if (searchFilter) {
+          let refTitle = ref.orderBy(orderBy, sortOrder).where('title', '==', searchFilter)
+          let refAuthor = ref.orderBy(orderBy, sortOrder).where('author', '==', searchFilter)
+          return refTitle
+        }
+        return ref.orderBy(orderBy, sortOrder)
+      })
+        .snapshotChanges().subscribe({
         next: (actions: DocumentChangeAction<any>[]) => {
           const nthDoc = actions[n - 1];
           if (nthDoc) {
