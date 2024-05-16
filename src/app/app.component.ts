@@ -28,7 +28,6 @@ export class AppComponent implements OnInit{
       this.firestoreService.uploadBooks(booksData.default);
     });*/
 
-
     this.authService.user$.subscribe(user => {
       if (user) {
         localStorage.setItem('user', JSON.stringify(user));
@@ -37,6 +36,7 @@ export class AppComponent implements OnInit{
         localStorage.setItem('user', JSON.stringify(null));
       }
     });
+
   }
 
   onClose($event: any, sidenav: MatSidenav) {
@@ -56,5 +56,6 @@ export class AppComponent implements OnInit{
       width: '500px'
     });
   }
+
 
 }

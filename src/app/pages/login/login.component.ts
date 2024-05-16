@@ -29,9 +29,7 @@ export class LoginComponent implements OnInit{
     const rawForm = this.loginForm.getRawValue();
     const usernameOrEmail = rawForm.usernameOrEmail.trim(); // Eltávolítjuk a felesleges whitespace karaktereket
 
-    // Ellenőrizzük, hogy az input email formátumú-e
     if (this.isValidEmail(usernameOrEmail)) {
-      console.log("email")
       this.authService.loginWithEmail(usernameOrEmail, rawForm.password)
         .subscribe({
           next: (succ) => {
@@ -42,7 +40,6 @@ export class LoginComponent implements OnInit{
           }
         });
     } else {
-      console.log("username")
       this.authService.loginWithUsername(usernameOrEmail, rawForm.password)
         .subscribe({
           next: (succ) => {
@@ -56,7 +53,6 @@ export class LoginComponent implements OnInit{
   }
 
   isValidEmail(email: string): boolean {
-    // Egyszerű regex ellenőrzés email formátumra
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }

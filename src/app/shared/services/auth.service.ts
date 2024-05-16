@@ -8,12 +8,10 @@ import {
   EmailAuthProvider,
   user, reauthenticateWithCredential, updateEmail
 } from "@angular/fire/auth";
-import {from, map, Observable} from "rxjs";
+import {from, map, Observable, Subject} from "rxjs";
 import {
   AngularFirestore,
   DocumentChangeAction,
-  DocumentSnapshot,
-  DocumentSnapshotExists
 } from "@angular/fire/compat/firestore";
 
 @Injectable({
@@ -22,6 +20,7 @@ import {
 export class AuthService {
   firebaseAuth:Auth = inject(Auth);
   firestore: AngularFirestore = inject(AngularFirestore);
+  clickCountChange = new Subject<string | void>();
 
   //currentUserSig = signal<User | null | undefined>(undefined);
   user$ = user(this.firebaseAuth);
@@ -78,6 +77,15 @@ export class AuthService {
         });
       }
     });
+  }
+
+  updateClickCount(bookId: string, clickCount: number) {
+    if (clickCount === 0) {
+      localStorage.removeItem(`clickCount_${bookId}`);
+      this.clickCountChange.next(bookId);
+    } else {
+      localStorage.setItem(`clickCount_${bookId}`, clickCount.toString());
+    }
   }
 
   isUserLoggedIn(): boolean {

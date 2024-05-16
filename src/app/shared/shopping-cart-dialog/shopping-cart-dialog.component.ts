@@ -1,20 +1,26 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import {AuthService} from "../services/auth.service";
-import * as console from "node:console";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-shopping-cart-dialog',
   templateUrl: './shopping-cart-dialog.component.html',
   styleUrl: './shopping-cart-dialog.component.scss'
 })
-export class ShoppingCartDialogComponent implements OnInit {
+export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
+  unsubscribe$ = new Subject<void>();
   shoppingCartBooks: any[] = [];
   dialogRef = inject(MatDialogRef<ShoppingCartDialogComponent>)
   authService = inject(AuthService)
 
   ngOnInit(): void {
     this.loadShoppingCartBooks();
+    this.authService.clickCountChange.pipe(
+      takeUntil(this.unsubscribe$)
+    ).subscribe(() => {
+      this.loadShoppingCartBooks();
+    });
   }
 
   loadShoppingCartBooks() {
@@ -22,32 +28,35 @@ export class ShoppingCartDialogComponent implements OnInit {
       const key = localStorage.key(i);
       if (key && key.startsWith('clickCount_')) {
         const bookId = key.replace('clickCount_', '');
-        this.authService.getBookById(bookId).subscribe((book) => {
-          const clickCount = this.getClickCount(bookId);
+
+        const clickCount = this.getClickCount(bookId);
+        if (clickCount <= 0) {
+          localStorage.removeItem(`clickCount_${bookId}`);
+
           const index = this.shoppingCartBooks.findIndex(item => item.id === bookId);
           if (index !== -1) {
-            if (clickCount < 1) {
-              this.shoppingCartBooks.splice(index, 1)
-              localStorage.removeItem(`clickCount_${bookId}`);
-            } else {
-              this.shoppingCartBooks[index].clickCount = clickCount;
-            }
-
-          } else {
-            this.shoppingCartBooks.push({ id: bookId, title: book.title, clickCount: clickCount });
+            this.shoppingCartBooks.splice(index, 1);
           }
-        });
+        } else {
+          this.authService.getBookById(bookId).subscribe((book) => {
+            const index = this.shoppingCartBooks.findIndex(item => item.id === bookId);
+            if (index !== -1) {
+              this.shoppingCartBooks[index].clickCount = clickCount;
+            } else {
+              this.shoppingCartBooks.push({ id: bookId, title: book.title, clickCount: clickCount });
+            }
+          });
+        }
       }
     }
   }
-
 
 
   increaseCount(bookId: string) {
     const index = this.shoppingCartBooks.findIndex(book => book.id === bookId);
     if (index !== -1) {
       this.shoppingCartBooks[index].clickCount++;
-      this.updateClickCount(bookId, this.shoppingCartBooks[index].clickCount);
+      this.authService.updateClickCount(bookId, this.shoppingCartBooks[index].clickCount); // Frissítjük a clickCount-ot
     }
   }
 
@@ -55,12 +64,8 @@ export class ShoppingCartDialogComponent implements OnInit {
     const index = this.shoppingCartBooks.findIndex(book => book.id === bookId);
     if (index !== -1 && this.shoppingCartBooks[index].clickCount > 0) {
       this.shoppingCartBooks[index].clickCount--;
-      this.updateClickCount(bookId, this.shoppingCartBooks[index].clickCount);
+      this.authService.updateClickCount(bookId, this.shoppingCartBooks[index].clickCount); // Frissítjük a clickCount-ot
     }
-  }
-
-  updateClickCount(bookId: string, clickCount: number) {
-    localStorage.setItem(`clickCount_${bookId}`, clickCount.toString());
   }
 
   getClickCount(bookId: string): number {
@@ -70,6 +75,11 @@ export class ShoppingCartDialogComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }
