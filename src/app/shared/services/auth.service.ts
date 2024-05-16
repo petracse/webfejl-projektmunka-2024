@@ -299,7 +299,7 @@ export class AuthService {
       userDoc.update(userData)
         .then(() => {
           observer.next();
-          observer.complete(); // Művelet befejezése
+          observer.complete();
         })
         .catch((error) => {
           observer.error(error);

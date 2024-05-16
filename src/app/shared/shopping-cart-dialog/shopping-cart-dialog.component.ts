@@ -1,7 +1,7 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import {AuthService} from "../services/auth.service";
-import {Subject, takeUntil} from "rxjs";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-shopping-cart-dialog',
@@ -9,18 +9,19 @@ import {Subject, takeUntil} from "rxjs";
   styleUrl: './shopping-cart-dialog.component.scss'
 })
 export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
-  unsubscribe$ = new Subject<void>();
+
   shoppingCartBooks: any[] = [];
   dialogRef = inject(MatDialogRef<ShoppingCartDialogComponent>)
   authService = inject(AuthService)
+  subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
     this.loadShoppingCartBooks();
-    this.authService.clickCountChange.pipe(
-      takeUntil(this.unsubscribe$)
-    ).subscribe(() => {
-      this.loadShoppingCartBooks();
-    });
+    this.subscription.add(
+      this.authService.clickCountChange.subscribe(() => {
+        this.loadShoppingCartBooks();
+      })
+    );
   }
 
   loadShoppingCartBooks() {
@@ -78,8 +79,7 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
+    this.subscription.unsubscribe()
   }
 
 }

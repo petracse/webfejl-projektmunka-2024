@@ -18,6 +18,7 @@ export class ChangeContactInfoComponent implements OnInit{
   deletionInProgress: boolean = false;
 
   contactErrorMessage: string | null = null;
+  deleteDialogOpen: boolean = false;
 
   onSubmit() {
     if (this.contactForm.valid) {
@@ -38,7 +39,11 @@ export class ChangeContactInfoComponent implements OnInit{
       this.authService.changeContactInfo(userData)
         .subscribe({
           next: () => {
-            this.contactErrorMessage = 'Contact details updated!';
+            if (!this.deleteDialogOpen) {
+              this.contactErrorMessage = 'Contact details updated!';
+            } else {
+              this.contactErrorMessage = '';
+            }
           },
           error: (error) => {
             this.contactErrorMessage = `Error updating contact information: ${error.message}`;
@@ -108,7 +113,6 @@ export class ChangeContactInfoComponent implements OnInit{
 
   ngOnInit() {
     this.currentUser = JSON.parse(localStorage.getItem('user') as string);
-    console.log(this.currentUser.uid);
     this.initializeForm();
     this.authService.getContactInfo(this.currentUser.uid as string).subscribe({
       next: (userDataSnapshot: any) => {
@@ -138,23 +142,27 @@ export class ChangeContactInfoComponent implements OnInit{
   }
 
   delete() {
+    this.deleteDialogOpen = true;
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '300px',
-      data: 'Are you sure you want to delete the contact data?'
+      data: {
+        question: 'Are you sure you want to delete the contact data?'
+      }
     });
 
     const subs= dialogRef.afterClosed().subscribe({
       next: (result: boolean) => {
+        this.deleteDialogOpen = false;
+
         if (result) {
           this.authService.getContactInfo(this.currentUser.uid).subscribe({
             next: (userData) => {
               if (userData) {
-                //console.log(userData);
+
                 this.authService.deleteContactInfo(userData).subscribe({
                   next: () => {
                     this.contactForm.reset();
                     console.log('Contact data deleted successfully.');
-                    // Egyéb teendők, pl. frissítés vagy visszajelzés a felhasználónak
                   },
                   error: (error) => {
                     console.error('Error deleting contact data:', error);
@@ -176,5 +184,7 @@ export class ChangeContactInfoComponent implements OnInit{
       }
     });
   }
+
+
 
 }
