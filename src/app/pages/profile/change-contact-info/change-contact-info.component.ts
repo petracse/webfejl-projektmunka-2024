@@ -173,7 +173,6 @@ export class ChangeContactInfoComponent implements OnInit{
               }
             },
             error: (error) => {
-              // Hibakezelés
               console.error('Error getting contact data:', error);
             }
           });

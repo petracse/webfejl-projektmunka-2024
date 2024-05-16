@@ -10,9 +10,11 @@ import {
 } from "@angular/fire/auth";
 import {from, map, Observable, Subject} from "rxjs";
 import {
-  AngularFirestore,
+  AngularFirestore, AngularFirestoreCollection,
   DocumentChangeAction,
 } from "@angular/fire/compat/firestore";
+import {QueryFn} from "@angular/fire/compat/database";
+import {DatabaseQuery} from "@angular/fire/compat/database/interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -338,23 +340,40 @@ export class AuthService {
     });
   }
 
-  getNthBookTitle(n: number, orderBy: string = 'title', sortOrder: 'asc' | 'desc' = 'asc'): Observable<string> {
-    return this.firestore.collection('Books', ref => ref.orderBy(orderBy, sortOrder))
-      .snapshotChanges().pipe(
-      map((actions: DocumentChangeAction<any>[]) => {
-        const nthDoc = actions[n - 1];
-        if (nthDoc) {
-          const data = nthDoc.payload.doc.data();
-          const orderedField = data[orderBy];
-          if (orderedField !== undefined) {
-            return orderedField;
+  getNthBookTitle(n: number, orderBy: string = 'title', sortOrder: 'asc' | 'desc' = 'asc', searchFilter: string | null = null): Observable<string> {
+    return new Observable<string>(observer => {
+      const subscription = this.firestore.collection('Books', ref => ref.orderBy(orderBy, sortOrder)).snapshotChanges().subscribe({
+        next: (actions: DocumentChangeAction<any>[]) => {
+          const nthDoc = actions[n - 1];
+          if (nthDoc) {
+            const data = nthDoc.payload.doc.data();
+            const orderedField = data[orderBy];
+            if (orderedField !== undefined) {
+              observer.next(orderedField);
+            } else {
+              observer.error(new Error(`Specified orderBy field '${orderBy}' not found in document`));
+            }
           } else {
-            throw new Error(`Specified orderBy field '${orderBy}' not found in document`);
+            observer.error(new Error('Document not found at index ' + n));
           }
-        } else {
-          throw new Error('Document not found at index ' + n);
+        },
+        error: error => {
+          observer.error(error);
+        },
+        complete: () => {
+          observer.complete();
         }
-      })
-    );
+      });
+
+      // Clean up subscription when Observable is unsubscribed
+      return {
+        unsubscribe() {
+          subscription.unsubscribe();
+        }
+      };
+    });
   }
+
+
+
 }
