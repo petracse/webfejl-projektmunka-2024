@@ -311,84 +311,98 @@ export class AuthService {
 
   getBooks(page: number, orderBy: string = 'title', sortOrder: 'asc' | 'desc' = 'asc', searchFilter: string | null = null): Observable<any> {
     const pageSize = 20;
-    const startAt = (page) * pageSize + 1;
+    const startAt = page * pageSize;
 
     return new Observable((observer) => {
-      this.getNthBookTitle(startAt, orderBy, sortOrder, searchFilter).subscribe((startTitle: string) => {
-        this.firestore.collection('Books', ref => {
-          if (searchFilter) {
-            let refTitle = ref.orderBy(orderBy, sortOrder).where('title', '==', searchFilter).limit(pageSize).startAt(startTitle)
-            let refAuthor = ref.orderBy(orderBy, sortOrder).where('author', '==', searchFilter).limit(pageSize).startAt(startTitle)
-            return refTitle
-          }
-          return ref.orderBy(orderBy, sortOrder).limit(pageSize).startAt(startTitle)
+      let query = this.firestore.collection('Books', ref => {
+        let queryRef = ref.orderBy(orderBy, sortOrder);
+
+        if (searchFilter) {
+          queryRef = queryRef.where('title', '==', searchFilter);
         }
 
-        ).snapshotChanges().subscribe((booksSnapshot) => {
-          const books = booksSnapshot.map((bookSnapshot) => {
-            const id = bookSnapshot.payload.doc.id;
-            const data = bookSnapshot.payload.doc.data();
+        return queryRef;
+      });
 
-            if (typeof data === 'object' && data !== null) {
-              return { id, ...data };
-            } else {
-              return { id };
+      query.get().subscribe(snapshot => {
+        const totalBooks = snapshot.size;
+        const totalPages = Math.ceil(totalBooks / pageSize);
+
+        if (totalBooks === 0 || startAt >= totalBooks) {
+          observer.next({ books: [], totalPages });
+          observer.complete();
+          return;
+        }
+
+        if (startAt > 0) {
+          query = this.firestore.collection('Books', ref => {
+            let queryRef = ref.orderBy(orderBy, sortOrder);
+
+            if (searchFilter) {
+              queryRef = queryRef.where('title', '==', searchFilter);
             }
+
+            return queryRef.limit(startAt);
           });
 
-          this.firestore.collection('Books').get().subscribe((querySnapshot) => {
-            const totalBooks = querySnapshot.size;
-            const totalPages = Math.ceil(totalBooks / pageSize);
+          query.get().subscribe(startSnapshot => {
+            const startAtDoc = startSnapshot.docs[startSnapshot.docs.length - 1];
+
+            this.firestore.collection('Books', ref => {
+              let queryRef = ref.orderBy(orderBy, sortOrder).limit(pageSize);
+
+              if (searchFilter) {
+                queryRef = queryRef.where('title', '==', searchFilter);
+              }
+
+              if (startAtDoc) {
+                queryRef = queryRef.startAfter(startAtDoc);
+              }
+
+              return queryRef;
+            }).snapshotChanges().subscribe(booksSnapshot => {
+              const books = booksSnapshot.map(bookSnapshot => {
+                const id = bookSnapshot.payload.doc.id;
+                const data = bookSnapshot.payload.doc.data();
+
+                if (typeof data === 'object' && data !== null) {
+                  return { id, ...data };
+                } else {
+                  return { id };
+                }
+              });
+
+              observer.next({ books, totalPages });
+              observer.complete();
+            });
+          });
+        } else {
+          this.firestore.collection('Books', ref => {
+            let queryRef = ref.orderBy(orderBy, sortOrder).limit(pageSize);
+
+            if (searchFilter) {
+              queryRef = queryRef.where('title', '==', searchFilter);
+            }
+
+            return queryRef;
+          }).snapshotChanges().subscribe(booksSnapshot => {
+            const books = booksSnapshot.map(bookSnapshot => {
+              const id = bookSnapshot.payload.doc.id;
+              const data = bookSnapshot.payload.doc.data();
+
+              if (typeof data === 'object' && data !== null) {
+                return { id, ...data };
+              } else {
+                return { id };
+              }
+            });
+
             observer.next({ books, totalPages });
             observer.complete();
           });
-        });
+        }
       });
     });
   }
-
-  getNthBookTitle(n: number, orderBy: string = 'title', sortOrder: 'asc' | 'desc' = 'asc', searchFilter: string | null = null): Observable<string> {
-    return new Observable<string>(observer => {
-      const subscription = this.firestore.collection('Books', ref => {
-        if (searchFilter) {
-          let refTitle = ref.orderBy(orderBy, sortOrder).where('title', '==', searchFilter)
-          let refAuthor = ref.orderBy(orderBy, sortOrder).where('author', '==', searchFilter)
-          return refTitle
-        }
-        return ref.orderBy(orderBy, sortOrder)
-      })
-        .snapshotChanges().subscribe({
-        next: (actions: DocumentChangeAction<any>[]) => {
-          const nthDoc = actions[n - 1];
-          if (nthDoc) {
-            const data = nthDoc.payload.doc.data();
-            const orderedField = data[orderBy];
-            if (orderedField !== undefined) {
-              observer.next(orderedField);
-            } else {
-              observer.error(new Error(`Specified orderBy field '${orderBy}' not found in document`));
-            }
-          } else {
-            observer.error(new Error('Document not found at index ' + n));
-          }
-        },
-        error: error => {
-          observer.error(error);
-        },
-        complete: () => {
-          observer.complete();
-        }
-      });
-
-      // Clean up subscription when Observable is unsubscribed
-      return {
-        unsubscribe() {
-          subscription.unsubscribe();
-        }
-      };
-    });
-  }
-
-
-
+  
 }
