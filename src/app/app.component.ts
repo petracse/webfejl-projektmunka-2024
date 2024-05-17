@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy{
     });*/
 
 
-    //this.authService.ensureLowerCaseFieldsInBooksCollection().subscribe(() => {});
+    this.authService.ensureLowerCaseFieldsInBooksCollection().subscribe(() => {});
     this.subscription = this.authService.clickCountChange.subscribe((bookId: string | void) => {
       if (bookId) {
         this.handleBookClickCountZero();
