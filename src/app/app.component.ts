@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, OnDestroy{
       this.firestoreService.uploadBooks(booksData.default);
     });*/
 
-    
+
     //this.authService.ensureLowerCaseFieldsInBooksCollection().subscribe(() => {});
     this.subscription = this.authService.clickCountChange.subscribe((bookId: string | void) => {
       if (bookId) {

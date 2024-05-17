@@ -339,13 +339,14 @@ export class AuthService {
   ): Observable<any> {
     const pageSize = 20;
     const startAt = page * pageSize;
-
+    const orderByLowercase = orderBy + "Lowercase"
+    const searchFilterLowercase = searchFilter?.toLowerCase()
     return new Observable((observer) => {
       let query = this.firestore.collection('Books', (ref) => {
-        let queryRef = ref.orderBy(orderBy, sortOrder);
+        let queryRef = ref.orderBy(orderByLowercase, sortOrder);
 
-        if (searchFilter) {
-          queryRef = queryRef.where(orderBy, '>=', searchFilter).where(orderBy, '<=', searchFilter + '\uf8ff');
+        if (searchFilterLowercase) {
+          queryRef = queryRef.where(orderByLowercase, '>=', searchFilterLowercase).where(orderByLowercase, '<=', searchFilterLowercase + '\uf8ff');
         }
 
         return queryRef;
@@ -363,10 +364,10 @@ export class AuthService {
 
         if (startAt > 0) {
           query = this.firestore.collection('Books', (ref) => {
-            let queryRef = ref.orderBy(orderBy, sortOrder);
+            let queryRef = ref.orderBy(orderByLowercase, sortOrder);
 
-            if (searchFilter) {
-              queryRef = queryRef.where(orderBy, '>=', searchFilter).where(orderBy, '<=', searchFilter + '\uf8ff');
+            if (searchFilterLowercase) {
+              queryRef = queryRef.where(orderByLowercase, '>=', searchFilterLowercase).where(orderByLowercase, '<=', searchFilterLowercase + '\uf8ff');
             }
 
             return queryRef.limit(startAt);
@@ -376,10 +377,10 @@ export class AuthService {
             const startAtDoc = startSnapshot.docs[startSnapshot.docs.length - 1];
 
             this.firestore.collection('Books', (ref) => {
-              let queryRef = ref.orderBy(orderBy, sortOrder).limit(pageSize);
+              let queryRef = ref.orderBy(orderByLowercase, sortOrder).limit(pageSize);
 
-              if (searchFilter) {
-                queryRef = queryRef.where(orderBy, '>=', searchFilter).where(orderBy, '<=', searchFilter + '\uf8ff');
+              if (searchFilterLowercase) {
+                queryRef = queryRef.where(orderByLowercase, '>=', searchFilterLowercase).where(orderByLowercase, '<=', searchFilterLowercase + '\uf8ff');
               }
 
               if (startAtDoc) {
@@ -408,10 +409,10 @@ export class AuthService {
         } else {
           this.firestore
             .collection('Books', (ref) => {
-              let queryRef = ref.orderBy(orderBy, sortOrder).limit(pageSize);
+              let queryRef = ref.orderBy(orderByLowercase, sortOrder).limit(pageSize);
 
-              if (searchFilter) {
-                queryRef = queryRef.where(orderBy, '>=', searchFilter).where(orderBy, '<=', searchFilter + '\uf8ff');
+              if (searchFilterLowercase) {
+                queryRef = queryRef.where(orderByLowercase, '>=', searchFilterLowercase).where(orderByLowercase, '<=', searchFilterLowercase + '\uf8ff');
               }
 
               return queryRef;
