@@ -309,22 +309,27 @@ export class AuthService {
     });
   }
 
-  getBooks(page: number, orderBy: string = 'title', sortOrder: 'asc' | 'desc' = 'asc', searchFilter: string | null = null): Observable<any> {
+  getBooks(
+    page: number,
+    orderBy: string = 'title',
+    sortOrder: 'asc' | 'desc' = 'asc',
+    searchFilter: string | null = "Od"
+  ): Observable<any> {
     const pageSize = 20;
     const startAt = page * pageSize;
 
     return new Observable((observer) => {
-      let query = this.firestore.collection('Books', ref => {
+      let query = this.firestore.collection('Books', (ref) => {
         let queryRef = ref.orderBy(orderBy, sortOrder);
 
         if (searchFilter) {
-          queryRef = queryRef.where('title', '==', searchFilter);
+          queryRef = queryRef.where(orderBy, '>=', searchFilter).where(orderBy, '<=', searchFilter + '\uf8ff');
         }
 
         return queryRef;
       });
 
-      query.get().subscribe(snapshot => {
+      query.get().subscribe((snapshot) => {
         const totalBooks = snapshot.size;
         const totalPages = Math.ceil(totalBooks / pageSize);
 
@@ -335,24 +340,24 @@ export class AuthService {
         }
 
         if (startAt > 0) {
-          query = this.firestore.collection('Books', ref => {
+          query = this.firestore.collection('Books', (ref) => {
             let queryRef = ref.orderBy(orderBy, sortOrder);
 
             if (searchFilter) {
-              queryRef = queryRef.where('title', '==', searchFilter);
+              queryRef = queryRef.where(orderBy, '>=', searchFilter).where(orderBy, '<=', searchFilter + '\uf8ff');
             }
 
             return queryRef.limit(startAt);
           });
 
-          query.get().subscribe(startSnapshot => {
+          query.get().subscribe((startSnapshot) => {
             const startAtDoc = startSnapshot.docs[startSnapshot.docs.length - 1];
 
-            this.firestore.collection('Books', ref => {
+            this.firestore.collection('Books', (ref) => {
               let queryRef = ref.orderBy(orderBy, sortOrder).limit(pageSize);
 
               if (searchFilter) {
-                queryRef = queryRef.where('title', '==', searchFilter);
+                queryRef = queryRef.where(orderBy, '>=', searchFilter).where(orderBy, '<=', searchFilter + '\uf8ff');
               }
 
               if (startAtDoc) {
@@ -360,8 +365,38 @@ export class AuthService {
               }
 
               return queryRef;
-            }).snapshotChanges().subscribe(booksSnapshot => {
-              const books = booksSnapshot.map(bookSnapshot => {
+            })
+              .snapshotChanges()
+              .subscribe((booksSnapshot) => {
+                const books = booksSnapshot.map((bookSnapshot) => {
+                  const id = bookSnapshot.payload.doc.id;
+                  const data = bookSnapshot.payload.doc.data();
+
+                  if (typeof data === 'object' && data !== null) {
+                    return { id, ...data };
+                  } else {
+                    return { id };
+                  }
+                });
+
+                observer.next({ books, totalPages });
+                observer.complete();
+              });
+          });
+        } else {
+          this.firestore
+            .collection('Books', (ref) => {
+              let queryRef = ref.orderBy(orderBy, sortOrder).limit(pageSize);
+
+              if (searchFilter) {
+                queryRef = queryRef.where(orderBy, '>=', searchFilter).where(orderBy, '<=', searchFilter + '\uf8ff');
+              }
+
+              return queryRef;
+            })
+            .snapshotChanges()
+            .subscribe((booksSnapshot) => {
+              const books = booksSnapshot.map((bookSnapshot) => {
                 const id = bookSnapshot.payload.doc.id;
                 const data = bookSnapshot.payload.doc.data();
 
@@ -375,34 +410,9 @@ export class AuthService {
               observer.next({ books, totalPages });
               observer.complete();
             });
-          });
-        } else {
-          this.firestore.collection('Books', ref => {
-            let queryRef = ref.orderBy(orderBy, sortOrder).limit(pageSize);
-
-            if (searchFilter) {
-              queryRef = queryRef.where('title', '==', searchFilter);
-            }
-
-            return queryRef;
-          }).snapshotChanges().subscribe(booksSnapshot => {
-            const books = booksSnapshot.map(bookSnapshot => {
-              const id = bookSnapshot.payload.doc.id;
-              const data = bookSnapshot.payload.doc.data();
-
-              if (typeof data === 'object' && data !== null) {
-                return { id, ...data };
-              } else {
-                return { id };
-              }
-            });
-
-            observer.next({ books, totalPages });
-            observer.complete();
-          });
         }
       });
     });
   }
-  
+
 }
