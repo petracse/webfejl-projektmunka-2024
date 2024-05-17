@@ -8,13 +8,11 @@ import {
   EmailAuthProvider,
   user, reauthenticateWithCredential, updateEmail
 } from "@angular/fire/auth";
-import {from, map, Observable, Subject} from "rxjs";
+import {forkJoin, from, ignoreElements, map, Observable, Subject, switchMap} from "rxjs";
 import {
-  AngularFirestore, AngularFirestoreCollection,
-  DocumentChangeAction,
+  AngularFirestore
 } from "@angular/fire/compat/firestore";
-import {QueryFn} from "@angular/fire/compat/database";
-import {DatabaseQuery} from "@angular/fire/compat/database/interfaces";
+
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +24,30 @@ export class AuthService {
 
   //currentUserSig = signal<User | null | undefined>(undefined);
   user$ = user(this.firebaseAuth);
+
+  ensureLowerCaseFieldsInBooksCollection(): Observable<void> {
+    return this.firestore.collection('Books').get().pipe(
+      switchMap(snapshot => {
+        const tasks: Observable<void>[] = [];
+        snapshot.docs.forEach(doc => {
+          const data = doc.data() as { [key: string]: any };
+          if (!data['authorLowercase'] || !data['titleLowercase']) {
+            const task = this.updateLowerCaseFieldsInBook(doc.id, data['author'], data['title']);
+            tasks.push(task);
+          }
+        });
+        return forkJoin(tasks).pipe(ignoreElements());
+      })
+    );
+  }
+
+  private updateLowerCaseFieldsInBook(docId: string, author: any, title: any): Observable<void> {
+    const authorLowercase = author.toLowerCase();
+    const titleLowercase = title.toLowerCase();
+    return from(this.firestore.collection('Books').doc(docId).update({ 'authorLowercase': authorLowercase, 'titleLowercase': titleLowercase }));
+  }
+
+
 
   register(email: string, username: string, password: string): Observable<void> {
     return new Observable<void>(observer => {
@@ -313,7 +335,7 @@ export class AuthService {
     page: number,
     orderBy: string = 'title',
     sortOrder: 'asc' | 'desc' = 'asc',
-    searchFilter: string | null = "Od"
+    searchFilter: string | null = null
   ): Observable<any> {
     const pageSize = 20;
     const startAt = page * pageSize;

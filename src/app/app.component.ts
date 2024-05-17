@@ -31,6 +31,9 @@ export class AppComponent implements OnInit, OnDestroy{
     /*import('../assets/updated_books.json').then((booksData: any) => {
       this.firestoreService.uploadBooks(booksData.default);
     });*/
+
+    
+    //this.authService.ensureLowerCaseFieldsInBooksCollection().subscribe(() => {});
     this.subscription = this.authService.clickCountChange.subscribe((bookId: string | void) => {
       if (bookId) {
         this.handleBookClickCountZero();
