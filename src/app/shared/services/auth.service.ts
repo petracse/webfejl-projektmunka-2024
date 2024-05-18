@@ -47,6 +47,25 @@ export class AuthService {
     return from(this.firestore.collection('Books').doc(docId).update({ 'authorLowercase': authorLowercase, 'titleLowercase': titleLowercase }));
   }
 
+  isFavorite(bookId: string): Observable<boolean> {
+    return this.firestore.collection('Favorites').doc(bookId).get()
+      .pipe(
+        map(doc => doc.exists)
+      );
+  }
+
+  toggleFavourite(bookId: string): Observable<void> {
+    const favDocRef = this.firestore.collection('Favorites').doc(bookId);
+    return favDocRef.get().pipe(
+      switchMap(doc => {
+        if (doc.exists) {
+          return favDocRef.delete();
+        } else {
+          return favDocRef.set({});
+        }
+      })
+    );
+  }
 
 
   register(email: string, username: string, password: string): Observable<void> {
@@ -401,5 +420,5 @@ export class AuthService {
       });
     });
   }
-  
+
 }

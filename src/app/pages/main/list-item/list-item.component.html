@@ -12,8 +12,9 @@
     <button mat-icon-button (click)="addToCart()" matTooltip="Add to Cart">
       <mat-icon>add_shopping_cart</mat-icon>
     </button>
-    <button mat-icon-button (click)="addToFavourite()" matTooltip="Favourite">
-      <mat-icon>favorite</mat-icon>
+    <button mat-icon-button (click)="toggleFavourite()" matTooltip="Favourite">
+      <mat-icon *ngIf="isFavorite">favorite</mat-icon>
+      <mat-icon *ngIf="!isFavorite">favorite_border</mat-icon>
     </button>
   </mat-card-actions>
 

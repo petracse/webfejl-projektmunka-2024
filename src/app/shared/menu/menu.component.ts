@@ -1,15 +1,20 @@
-import {Component, EventEmitter, inject, Output} from '@angular/core';
+import {Component, EventEmitter, inject, OnDestroy, OnInit, Output} from '@angular/core';
 import {AuthService} from "../services/auth.service";
+import {ShoppingCartDialogComponent} from "../shopping-cart-dialog/shopping-cart-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit, OnDestroy{
   @Output() onCloseSidenav: EventEmitter<boolean> = new EventEmitter();
-
+  subscription!: Subscription;
   authService: AuthService = inject(AuthService);
+  dialog: MatDialog = inject(MatDialog);
+  cartDialogRef: any;
 
   close() {
     this.onCloseSidenav.emit(true);
@@ -21,6 +26,27 @@ export class MenuComponent {
   }
 
   showCartContent() {
+    if (this.cartDialogRef) {
+      this.cartDialogRef.close();
+    }
+    this.cartDialogRef = this.dialog.open(ShoppingCartDialogComponent, {
+      width: '100%'
+    });
+  }
 
+  ngOnInit(): void {
+    this.subscription = this.authService.clickCountChange.subscribe((bookId: string | void) => {
+      if (bookId) {
+        this.handleBookClickCountZero();
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  handleBookClickCountZero(): void {
+    this.showCartContent();
   }
 }

@@ -14,7 +14,7 @@
       <div class="main-title"><a routerLink="/">My App</a></div>
       <div class="desktop-navbar">
         <ul class="navigation-items">
-          <li><a (click)="showCartContent()">Your Cart <mat-icon>shopping_cart</mat-icon></a></li>
+          <li><a routerLink="" (click)="showCartContent()">Your Cart <mat-icon>shopping_cart</mat-icon></a></li>
           @if (authService.firebaseAuth.currentUser === null) {
             <li><a routerLink="/login">Login</a></li>
             <li><a routerLink="/signup">Signup</a></li>
