@@ -24,14 +24,14 @@ export class ListItemComponent implements OnInit{
 
 
   toggleFavourite() {
-    this.authService.toggleFavourite(this.book.id).subscribe(() => {
+    this.authService.toggleFavorite(this.book.id, this.authService.firebaseAuth.currentUser!.uid).subscribe(() => {
       this.isFavorite = !this.isFavorite;
     });
 
   }
 
   checkIfFavorite() {
-    this.authService.isFavorite(this.book.id).subscribe(isFav => {
+    this.authService.isFavorite(this.book.id, this.authService.firebaseAuth.currentUser!.uid).subscribe(isFav => {
       this.isFavorite = isFav;
     });
   }

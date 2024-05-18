@@ -8,7 +8,7 @@ import {
   EmailAuthProvider,
   user, reauthenticateWithCredential, updateEmail
 } from "@angular/fire/auth";
-import {forkJoin, from, ignoreElements, map, Observable, Subject, switchMap} from "rxjs";
+import {forkJoin, from, ignoreElements, map, Observable, of, Subject, switchMap} from "rxjs";
 import {
   AngularFirestore
 } from "@angular/fire/compat/firestore";
@@ -47,22 +47,37 @@ export class AuthService {
     return from(this.firestore.collection('Books').doc(docId).update({ 'authorLowercase': authorLowercase, 'titleLowercase': titleLowercase }));
   }
 
-  isFavorite(bookId: string): Observable<boolean> {
-    return this.firestore.collection('Favorites').doc(bookId).get()
+  isFavorite(bookId: string, userId: string | null): Observable<boolean> {
+    if (userId === null) {
+      return of(false);
+    }
+    return this.firestore.collection('Favorites', ref =>
+      ref.where('bookId', '==', bookId).where('userId', '==', userId))
+      .get()
       .pipe(
-        map(doc => doc.exists)
+        map(snapshot => !snapshot.empty)
       );
   }
 
-  toggleFavourite(bookId: string): Observable<void> {
-    const favDocRef = this.firestore.collection('Favorites').doc(bookId);
-    return favDocRef.get().pipe(
-      switchMap(doc => {
-        if (doc.exists) {
-          return favDocRef.delete();
+  toggleFavorite(bookId: string, userId: string | null): Observable<void> {
+    const favCollectionRef = this.firestore.collection('Favorites');
+    if (userId === null) {
+      return of();
+    }
+
+    const query = favCollectionRef.ref.where('bookId', '==', bookId).where('userId', '==', userId);
+
+    return from(query.get()).pipe(
+      switchMap(snapshot => {
+        if (!snapshot.empty) {
+          const doc = snapshot.docs[0]; // We know there's only one document
+          return from(doc.ref.delete());
         } else {
-          return favDocRef.set({});
+          return from(favCollectionRef.add({ bookId, userId }));
         }
+      }),
+      map(() => {
+        return undefined;
       })
     );
   }
