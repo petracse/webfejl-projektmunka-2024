@@ -16,13 +16,23 @@ export class MainComponent implements OnInit{
   totalPages: number = 1;
   searchQuery: {
     searchFilter: string;
-    sortCriteria: 'asc' | 'desc';
-    sortOrder: string
+    sortOrder: 'asc' | 'desc';
+    sortCriteria: 'title' | 'author'
   } = {
     searchFilter: '',
-    sortCriteria: 'asc',
-    sortOrder: 'title'
+    sortOrder: 'asc',
+    sortCriteria: 'title'
   };
+
+  sortBy(criteria: 'title' | 'author') {
+    this.searchQuery.sortCriteria = criteria;
+    this.search();
+  }
+
+  toggleSortOrder() {
+    this.searchQuery.sortOrder = this.searchQuery.sortOrder === 'asc' ? 'desc' : 'asc';
+    this.search(); // Assuming search() method is responsible for fetching and updating the book list
+  }
 
 
   ngOnInit(): void {
@@ -44,7 +54,7 @@ export class MainComponent implements OnInit{
   loadBooks(page: number) {
     const startAt = (page - 1);
 
-    this.authService.getBooks(startAt, this.searchQuery.searchFilter, this.searchQuery.sortOrder, this.searchQuery.sortCriteria).subscribe((data: any) => {
+    this.authService.getBooks(startAt, this.searchQuery.searchFilter, this.searchQuery.sortCriteria, this.searchQuery.sortOrder).subscribe((data: any) => {
       this.books = data.books;
       this.currentPage = page;
       this.totalPages = data.totalPages;

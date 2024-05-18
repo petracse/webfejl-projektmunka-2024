@@ -332,7 +332,7 @@ export class AuthService {
   }
 
   fetchBooks(
-    orderBy: string,
+    orderBy: 'title' | 'author',
     sortOrder: 'asc' | 'desc',
     searchFilter: string | null
   ): Observable<any[]> {
@@ -380,7 +380,7 @@ export class AuthService {
   getBooks(
     page: number,
     searchFilter: string | null = "",
-    orderBy: string = 'title',
+    orderBy: 'title' | 'author' = 'title',
     sortOrder: 'asc' | 'desc' = 'asc'
   ): Observable<any> {
     const pageSize = 20;
@@ -401,8 +401,5 @@ export class AuthService {
       });
     });
   }
-
-
-
-
+  
 }

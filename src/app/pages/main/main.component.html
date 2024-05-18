@@ -5,6 +5,7 @@
     <input matInput placeholder="Search" [(ngModel)]="searchQuery.searchFilter">
   </mat-form-field>
   <button mat-raised-button color="primary" (click)="search()">Search</button>
+  <button mat-raised-button color="primary" (click)="toggleSortOrder()">Toggle Sort Order</button>
 </div>
 
 <mat-grid-list [cols]="getMaxColumns()" rowHeight="330px">
