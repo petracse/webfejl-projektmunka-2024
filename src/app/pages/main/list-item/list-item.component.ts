@@ -24,8 +24,10 @@ export class ListItemComponent implements OnInit{
 
 
   toggleFavourite() {
-    this.authService.toggleFavourite(this.book.id);
-    this.isFavorite = !this.isFavorite;
+    this.authService.toggleFavourite(this.book.id).subscribe(() => {
+      this.isFavorite = !this.isFavorite;
+    });
+
   }
 
   checkIfFavorite() {
