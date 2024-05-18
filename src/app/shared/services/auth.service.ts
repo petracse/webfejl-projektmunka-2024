@@ -335,15 +335,18 @@ export class AuthService {
     page: number,
     orderBy: string = 'title',
     sortOrder: 'asc' | 'desc' = 'asc',
-    searchFilter: string | null = null
+    searchFilter: string | null = ""
   ): Observable<any> {
     const pageSize = 20;
     const startAt = page * pageSize;
     const orderByLowercase = orderBy + "Lowercase"
-    const searchFilterLowercase = searchFilter?.toLowerCase()
+    console.log(orderByLowercase)
+    const searchFilterLowercase = searchFilter === "" ? null : searchFilter?.toLowerCase();
+
+    console.log(searchFilterLowercase)
     return new Observable((observer) => {
       let query = this.firestore.collection('Books', (ref) => {
-        let queryRef = ref.orderBy(orderBy, sortOrder);
+        let queryRef = ref.orderBy(orderByLowercase, sortOrder);
 
         if (searchFilterLowercase) {
           queryRef = queryRef.where(orderByLowercase, '>=', searchFilterLowercase).where(orderByLowercase, '<=', searchFilterLowercase + '\uf8ff');
@@ -364,7 +367,7 @@ export class AuthService {
 
         if (startAt > 0) {
           query = this.firestore.collection('Books', (ref) => {
-            let queryRef = ref.orderBy(orderBy, sortOrder);
+            let queryRef = ref.orderBy(orderByLowercase, sortOrder);
 
             if (searchFilterLowercase) {
               queryRef = queryRef.where(orderByLowercase, '>=', searchFilterLowercase).where(orderByLowercase, '<=', searchFilterLowercase + '\uf8ff');
@@ -377,7 +380,7 @@ export class AuthService {
             const startAtDoc = startSnapshot.docs[startSnapshot.docs.length - 1];
 
             this.firestore.collection('Books', (ref) => {
-              let queryRef = ref.orderBy(orderBy, sortOrder).limit(pageSize);
+              let queryRef = ref.orderBy(orderByLowercase, sortOrder).limit(pageSize);
 
               if (searchFilterLowercase) {
                 queryRef = queryRef.where(orderByLowercase, '>=', searchFilterLowercase).where(orderByLowercase, '<=', searchFilterLowercase + '\uf8ff');
@@ -409,7 +412,7 @@ export class AuthService {
         } else {
           this.firestore
             .collection('Books', (ref) => {
-              let queryRef = ref.orderBy(orderBy, sortOrder).limit(pageSize);
+              let queryRef = ref.orderBy(orderByLowercase, sortOrder).limit(pageSize);
 
               if (searchFilterLowercase) {
                 queryRef = queryRef.where(orderByLowercase, '>=', searchFilterLowercase).where(orderByLowercase, '<=', searchFilterLowercase + '\uf8ff');
