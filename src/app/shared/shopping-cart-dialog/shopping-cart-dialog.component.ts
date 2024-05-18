@@ -14,12 +14,16 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
   dialogRef = inject(MatDialogRef<ShoppingCartDialogComponent>)
   authService = inject(AuthService)
   subscription: Subscription = new Subscription();
+  totalPrice: number = 0;
+
 
   ngOnInit(): void {
     this.loadShoppingCartBooks();
+
     this.subscription.add(
       this.authService.clickCountChange.subscribe(() => {
         this.loadShoppingCartBooks();
+
       })
     );
   }
@@ -52,6 +56,14 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
     }
   }
 
+  calculateTotalPrice() {
+    let totalPrice = 0;
+    for (let book of this.shoppingCartBooks) {
+      totalPrice += book.clickCount * 10;
+      console.log(totalPrice)
+    }
+    this.totalPrice = totalPrice;
+  }
 
   increaseCount(bookId: string) {
     const index = this.shoppingCartBooks.findIndex(book => book.id === bookId);
