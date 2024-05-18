@@ -37,7 +37,7 @@ export class MainComponent implements OnInit{
     this.authService.getBooks(startAt).subscribe((data: any) => {
       this.books = data.books;
       this.currentPage = page;
-      this.totalPages = data.totalPages; // Set totalPages here
+      this.totalPages = data.totalPages;
     });
   }
 

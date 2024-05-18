@@ -381,7 +381,7 @@ export class AuthService {
     page: number,
     orderBy: string = 'title',
     sortOrder: 'asc' | 'desc' = 'asc',
-    searchFilter: string | null = "g"
+    searchFilter: string | null = ""
   ): Observable<any> {
     const pageSize = 20;
     const searchFilterLowercase = searchFilter === "" ? null : searchFilter?.toLowerCase();

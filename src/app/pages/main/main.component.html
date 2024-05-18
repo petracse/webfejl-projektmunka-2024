@@ -6,14 +6,10 @@
   </mat-grid-tile>
 </mat-grid-list>
 
-
-
-
-
-<div *ngIf="totalPages > 1">
-  <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
-  <span>{{currentPage}} / {{totalPages}}</span>
-  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+<div class="button-container" *ngIf="totalPages > 1">
+  <button mat-raised-button color="primary" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+  <span class="page-counter">{{currentPage}} / {{totalPages}}</span>
+  <button mat-raised-button color="primary" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
 </div>
 
 
