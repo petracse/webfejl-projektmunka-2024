@@ -1,1 +1,25 @@
+.book-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.book-item p {
+  flex: 1;
+  margin: 0;
+}
+
+.count-container {
+  display: flex;
+  align-items: center;
+}
+
+.count {
+  margin: 0 10px;
+  font-size: 18px;
+}
+
+.mat-icon {
+  font-size: 24px;
+}
 

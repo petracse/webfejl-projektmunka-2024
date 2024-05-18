@@ -16,6 +16,8 @@ export class MenuComponent implements OnInit, OnDestroy{
   dialog: MatDialog = inject(MatDialog);
   cartDialogRef: any;
 
+  static isCartDialogBlocked: boolean = true;
+
   close() {
     this.onCloseSidenav.emit(true);
   }
@@ -26,6 +28,7 @@ export class MenuComponent implements OnInit, OnDestroy{
   }
 
   showCartContent() {
+    MenuComponent.isCartDialogBlocked = false;
     if (this.cartDialogRef) {
       this.cartDialogRef.close();
     }
@@ -36,7 +39,7 @@ export class MenuComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.subscription = this.authService.clickCountChange.subscribe((bookId: string | void) => {
-      if (bookId) {
+      if (bookId && !MenuComponent.isCartDialogBlocked) {
         this.handleBookClickCountZero();
       }
     });

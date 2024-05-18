@@ -4,6 +4,7 @@ import {AuthService} from "./shared/services/auth.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ShoppingCartDialogComponent} from "./shared/shopping-cart-dialog/shopping-cart-dialog.component";
 import {Subscription} from "rxjs";
+import {MenuComponent} from "./shared/menu/menu.component";
 
 
 @Component({
@@ -17,7 +18,6 @@ export class AppComponent implements OnInit, OnDestroy{
   dialog: MatDialog = inject(MatDialog);
   subscription!: Subscription;
   cartDialogRef: any;
-
 
   onToggleSidenav(sidenav: MatSidenav) {
     sidenav.toggle();
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy{
 
     this.authService.ensureLowerCaseFieldsInBooksCollection().subscribe(() => {});
     this.subscription = this.authService.clickCountChange.subscribe((bookId: string | void) => {
-      if (bookId) {
+      if (bookId && MenuComponent.isCartDialogBlocked) {
         this.handleBookClickCountZero();
       }
     });
@@ -68,6 +68,7 @@ export class AppComponent implements OnInit, OnDestroy{
   }
 
   showCartContent() {
+    MenuComponent.isCartDialogBlocked = true;
     if (this.cartDialogRef) {
       this.cartDialogRef.close();
     }
@@ -77,7 +78,13 @@ export class AppComponent implements OnInit, OnDestroy{
   }
 
   handleBookClickCountZero(): void {
-    this.showCartContent();
+    if (MenuComponent.isCartDialogBlocked) {
+      this.cartDialogRef.close();
+      this.cartDialogRef = this.dialog.open(ShoppingCartDialogComponent, {
+        width: '500px'
+      });
+    }
+
   }
 
 

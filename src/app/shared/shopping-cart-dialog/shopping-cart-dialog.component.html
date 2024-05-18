@@ -1,18 +1,21 @@
 <h2 mat-dialog-title>Your cart</h2>
 <div mat-dialog-content>
   <div *ngFor="let book of shoppingCartBooks">
-    <p>{{ book.title }}</p>
-    <button mat-icon-button (click)="increaseCount(book.id)">
-      <mat-icon>add</mat-icon>
-    </button>
-    <div>{{ book.clickCount }}</div>
-    <button mat-icon-button (click)="decreaseCount(book.id)">
-      <mat-icon>remove</mat-icon>
-    </button>
+    <div class="book-item">
+      <p>{{ book.title }}</p>
+      <div class="count-container">
+        <button mat-icon-button (click)="decreaseCount(book.id)">
+          <mat-icon>remove</mat-icon>
+        </button>
+        <div class="count">{{ book.clickCount }}</div>
+        <button mat-icon-button (click)="increaseCount(book.id)">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
   </div>
   <div *ngIf="shoppingCartBooks.length == 0">
     <p>Cart is empty.</p>
-
   </div>
 </div>
 <div mat-dialog-actions>
