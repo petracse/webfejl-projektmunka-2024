@@ -331,114 +331,78 @@ export class AuthService {
     });
   }
 
-  getBooks(
-    page: number,
-    orderBy: string = 'title',
-    sortOrder: 'asc' | 'desc' = 'asc',
-    searchFilter: string | null = ""
-  ): Observable<any> {
-    const pageSize = 20;
-    const startAt = page * pageSize;
-    const orderByLowercase = orderBy + "Lowercase"
-    console.log(orderByLowercase)
-    const searchFilterLowercase = searchFilter === "" ? null : searchFilter?.toLowerCase();
+  fetchBooks(
+    orderBy: string,
+    sortOrder: 'asc' | 'desc',
+    searchFilter: string | null
+  ): Observable<any[]> {
+    const orderByLowercase = orderBy + "Lowercase";
 
-    console.log(searchFilterLowercase)
     return new Observable((observer) => {
       let query = this.firestore.collection('Books', (ref) => {
         let queryRef = ref.orderBy(orderByLowercase, sortOrder);
 
-        if (searchFilterLowercase) {
-          queryRef = queryRef.where(orderByLowercase, '>=', searchFilterLowercase).where(orderByLowercase, '<=', searchFilterLowercase + '\uf8ff');
+        if (searchFilter) {
+          queryRef = queryRef.where(orderByLowercase, '>=', searchFilter)
+            .where(orderByLowercase, '<=', searchFilter + '\uf8ff');
         }
 
         return queryRef;
       });
 
-      query.get().subscribe((snapshot) => {
-        const totalBooks = snapshot.size;
-        const totalPages = Math.ceil(totalBooks / pageSize);
+      query.snapshotChanges().subscribe((booksSnapshot) => {
+        const books = booksSnapshot.map((bookSnapshot) => {
+          const id = bookSnapshot.payload.doc.id;
+          const data = bookSnapshot.payload.doc.data() as { [key: string]: any }; // Ensure data is typed as an object
+          return { id, ...data };
+        });
 
-        if (totalBooks === 0 || startAt >= totalBooks) {
-          observer.next({ books: [], totalPages });
-          observer.complete();
-          return;
-        }
-
-        if (startAt > 0) {
-          query = this.firestore.collection('Books', (ref) => {
-            let queryRef = ref.orderBy(orderByLowercase, sortOrder);
-
-            if (searchFilterLowercase) {
-              queryRef = queryRef.where(orderByLowercase, '>=', searchFilterLowercase).where(orderByLowercase, '<=', searchFilterLowercase + '\uf8ff');
-            }
-
-            return queryRef.limit(startAt);
-          });
-
-          query.get().subscribe((startSnapshot) => {
-            const startAtDoc = startSnapshot.docs[startSnapshot.docs.length - 1];
-
-            this.firestore.collection('Books', (ref) => {
-              let queryRef = ref.orderBy(orderByLowercase, sortOrder).limit(pageSize);
-
-              if (searchFilterLowercase) {
-                queryRef = queryRef.where(orderByLowercase, '>=', searchFilterLowercase).where(orderByLowercase, '<=', searchFilterLowercase + '\uf8ff');
-              }
-
-              if (startAtDoc) {
-                queryRef = queryRef.startAfter(startAtDoc);
-              }
-
-              return queryRef;
-            })
-              .snapshotChanges()
-              .subscribe((booksSnapshot) => {
-                const books = booksSnapshot.map((bookSnapshot) => {
-                  const id = bookSnapshot.payload.doc.id;
-                  const data = bookSnapshot.payload.doc.data();
-
-                  if (typeof data === 'object' && data !== null) {
-                    return { id, ...data };
-                  } else {
-                    return { id };
-                  }
-                });
-
-                observer.next({ books, totalPages });
-                observer.complete();
-              });
-          });
-        } else {
-          this.firestore
-            .collection('Books', (ref) => {
-              let queryRef = ref.orderBy(orderByLowercase, sortOrder).limit(pageSize);
-
-              if (searchFilterLowercase) {
-                queryRef = queryRef.where(orderByLowercase, '>=', searchFilterLowercase).where(orderByLowercase, '<=', searchFilterLowercase + '\uf8ff');
-              }
-
-              return queryRef;
-            })
-            .snapshotChanges()
-            .subscribe((booksSnapshot) => {
-              const books = booksSnapshot.map((bookSnapshot) => {
-                const id = bookSnapshot.payload.doc.id;
-                const data = bookSnapshot.payload.doc.data();
-
-                if (typeof data === 'object' && data !== null) {
-                  return { id, ...data };
-                } else {
-                  return { id };
-                }
-              });
-
-              observer.next({ books, totalPages });
-              observer.complete();
-            });
-        }
+        observer.next(books);
+        observer.complete();
       });
     });
   }
+
+
+  paginateBooks(
+    books: any[],
+    page: number,
+    pageSize: number = 20
+  ): { books: any[], totalPages: number } {
+    const totalBooks = books.length;
+    const totalPages = Math.ceil(totalBooks / pageSize);
+    const startAt = page * pageSize;
+    const paginatedBooks = books.slice(startAt, startAt + pageSize);
+
+    return { books: paginatedBooks, totalPages };
+  }
+
+  getBooks(
+    page: number,
+    orderBy: string = 'title',
+    sortOrder: 'asc' | 'desc' = 'asc',
+    searchFilter: string | null = "g"
+  ): Observable<any> {
+    const pageSize = 20;
+    const searchFilterLowercase = searchFilter === "" ? null : searchFilter?.toLowerCase();
+
+
+    return new Observable((observer) => {
+      forkJoin([
+        this.fetchBooks('title', sortOrder, searchFilterLowercase!),
+        this.fetchBooks('author', sortOrder, searchFilterLowercase!)
+      ]).subscribe(([titleBooks, authorBooks]) => {
+        const combinedBooks = [...new Map([...titleBooks, ...authorBooks].map(book => [book.id, book])).values()];
+
+        const paginatedResults = this.paginateBooks(combinedBooks, page, pageSize);
+
+        observer.next(paginatedResults);
+        observer.complete();
+      });
+    });
+  }
+
+
+
 
 }
