@@ -16,6 +16,9 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatTooltip} from "@angular/material/tooltip";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
+import {FormsModule} from "@angular/forms";
+import {MatFormField} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
 
 
 @NgModule({
@@ -38,7 +41,10 @@ import {MatGridList, MatGridTile} from "@angular/material/grid-list";
     MatIconButton,
     MatTooltip,
     MatGridTile,
-    MatGridList
+    MatGridList,
+    FormsModule,
+    MatFormField,
+    MatInput
   ]
 })
 export class MainModule { }

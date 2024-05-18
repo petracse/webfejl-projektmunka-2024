@@ -14,6 +14,16 @@ export class MainComponent implements OnInit{
   books: any[] = [];
   currentPage: number = 1;
   totalPages: number = 1;
+  searchQuery: {
+    searchFilter: string;
+    sortCriteria: 'asc' | 'desc';
+    sortOrder: string
+  } = {
+    searchFilter: '',
+    sortCriteria: 'asc',
+    sortOrder: 'title'
+  };
+
 
   ngOnInit(): void {
     this.loadBooks(this.currentPage);
@@ -34,7 +44,7 @@ export class MainComponent implements OnInit{
   loadBooks(page: number) {
     const startAt = (page - 1);
 
-    this.authService.getBooks(startAt).subscribe((data: any) => {
+    this.authService.getBooks(startAt, this.searchQuery.searchFilter, this.searchQuery.sortOrder, this.searchQuery.sortCriteria).subscribe((data: any) => {
       this.books = data.books;
       this.currentPage = page;
       this.totalPages = data.totalPages;
@@ -76,4 +86,8 @@ export class MainComponent implements OnInit{
     return isNaN(maxColumns) ? 4 : maxColumns;
   }
 
+  search() {
+    this.currentPage = 1;
+    this.loadBooks(this.currentPage)
+  }
 }
