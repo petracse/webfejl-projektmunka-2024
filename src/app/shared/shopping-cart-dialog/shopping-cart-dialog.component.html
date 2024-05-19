@@ -21,5 +21,6 @@
 <div mat-dialog-actions>
   <button mat-button (click)="close()">Continue Shopping</button>
   <div class="total-price">Total Price: {{ formatTotalPrice(totalPrice) }}</div>
+  <button mat-button color="primary" *ngIf="totalPrice > 0" (click)="close(); redirectToCheckout()">Proceed to Checkout</button>
 </div>
 

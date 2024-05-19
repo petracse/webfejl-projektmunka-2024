@@ -3,6 +3,7 @@ import {MatDialogRef} from "@angular/material/dialog";
 import {Subscription} from "rxjs";
 import {BookService} from "../services/book.service";
 import {CustomCurrencyPipe} from "../pipes/custom-currency.pipe";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-shopping-cart-dialog',
@@ -19,7 +20,7 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
   bookPrice: number = 10;
   currencyPipe = inject(CustomCurrencyPipe)
   currentCurrency: string | null = null;
-  isCartEmpy: boolean = true;
+  router = inject(Router);
 
   getCurrency(): string | null {
     return localStorage.getItem('selectedCurrency');
@@ -105,4 +106,7 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
     return this.currencyPipe.transform(this.currentCurrency as string, totalPrice, 'EUR');
   }
 
+  redirectToCheckout() {
+    this.router.navigateByUrl('/checkout');
+  }
 }
