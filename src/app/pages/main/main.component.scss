@@ -1,3 +1,18 @@
+.example-container {
+  height: 100%;
+  width: 100%;
+}
+
+mat-toolbar {
+  background: #3f51b5;
+  color: white;
+}
+
+mat-sidenav {
+  width: 250px;
+}
+
+
 $tileWidth: 180px;
 
 mat-grid-list {

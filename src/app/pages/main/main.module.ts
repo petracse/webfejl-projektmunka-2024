@@ -17,8 +17,11 @@ import {MatIcon} from "@angular/material/icon";
 import {MatTooltip} from "@angular/material/tooltip";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {FormsModule} from "@angular/forms";
-import {MatFormField} from "@angular/material/form-field";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
+import {MatToolbar} from "@angular/material/toolbar";
+import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
+import {MatOption, MatSelect} from "@angular/material/select";
 
 
 @NgModule({
@@ -44,7 +47,14 @@ import {MatInput} from "@angular/material/input";
     MatGridList,
     FormsModule,
     MatFormField,
-    MatInput
+    MatInput,
+    MatToolbar,
+    MatSidenavContainer,
+    MatSelect,
+    MatOption,
+    MatSidenav,
+    MatLabel,
+    MatSidenavContent
   ]
 })
 export class MainModule { }

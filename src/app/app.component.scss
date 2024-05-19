@@ -66,8 +66,20 @@
 
 @media (min-width: 201px) {
   .main-title {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Ha azt szeretnéd, hogy a két elem között tér legyen */
   }
+
+  .main-title a {
+    margin-right: auto; /* Ez opcionális, hogy az 'a' elem jobb oldalra kerüljön */
+  }
+
+  mat-toolbar {
+    display: flex;
+    align-items: center;
+  }
+
 }
 
 

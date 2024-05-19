@@ -57,15 +57,6 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
     }
   }
 
-  calculateTotalPrice() {
-    let totalPrice = 0;
-    for (let book of this.shoppingCartBooks) {
-      totalPrice += book.clickCount * 10;
-      console.log(totalPrice)
-    }
-    this.totalPrice = totalPrice;
-  }
-
   increaseCount(bookId: string) {
     const index = this.shoppingCartBooks.findIndex(book => book.id === bookId);
     if (index !== -1) {

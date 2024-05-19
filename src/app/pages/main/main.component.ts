@@ -1,8 +1,10 @@
-import {Component, HostListener, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, HostListener, inject, Input, OnInit, Output, ViewChild} from '@angular/core';
 
 import {Router} from "@angular/router";
 import {BookService} from "../../shared/services/book.service";
 import {AuthService} from "../../shared/services/auth.service";
+import {MatSidenav} from "@angular/material/sidenav";
+import {AppComponent} from "../../app.component";
 
 
 @Component({
@@ -11,6 +13,15 @@ import {AuthService} from "../../shared/services/auth.service";
   styleUrl: './main.component.scss'
 })
 export class MainComponent implements OnInit{
+  currencies: string[] = ['USD', 'EUR', 'HUF'];
+  selectedCurrency: string = this.currencies[0];
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+
+  onToggleCurrencySidenav() {
+    this.sidenav.toggle();
+  }
+
+
   bookService = inject(BookService);
   authService = inject(AuthService);
   router = inject(Router);

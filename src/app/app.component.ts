@@ -8,6 +8,7 @@ import {MenuComponent} from "./shared/menu/menu.component";
 import {BookService} from "./shared/services/book.service";
 
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -88,6 +89,5 @@ export class AppComponent implements OnInit, OnDestroy{
     }
 
   }
-
 
 }

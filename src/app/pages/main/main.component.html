@@ -1,26 +1,43 @@
-<h1 *ngIf="authService.isUserLoggedIn()">Welcome {{authService.getUsername()}}!</h1>
+<mat-toolbar>
+  <button mat-button (click)="onToggleCurrencySidenav()">Currency</button>
+</mat-toolbar>
 
-<div class="search-container">
-  <mat-form-field>
-    <input matInput placeholder="Search" [(ngModel)]="searchQuery.searchFilter">
-  </mat-form-field>
-  <button mat-raised-button color="primary" (click)="search()">Search</button>
-  <button mat-raised-button color="primary" (click)="toggleSortOrder()">Sort
-    <mat-icon *ngIf="searchQuery.sortOrder === 'asc'">arrow_upwards</mat-icon>
-    <mat-icon *ngIf="searchQuery.sortOrder === 'desc'">arrow_downwards</mat-icon>
-  </button>
-</div>
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="over" position="end">
+    <mat-toolbar>Válasszon valutát</mat-toolbar>
+    <mat-form-field appearance="fill">
+      <mat-label>Valuta</mat-label>
+      <mat-select [(ngModel)]="selectedCurrency">
+        <mat-option *ngFor="let currency of currencies" [value]="currency">
+          {{ currency }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <h1 *ngIf="authService.isUserLoggedIn()">Welcome {{authService.getUsername()}}!</h1>
 
-<mat-grid-list [cols]="getMaxColumns()" rowHeight="330px">
-  <mat-grid-tile *ngFor="let book of books">
-    <app-list-item [book]="book"></app-list-item>
-  </mat-grid-tile>
-</mat-grid-list>
+    <div class="search-container">
+      <mat-form-field>
+        <input matInput placeholder="Search" [(ngModel)]="searchQuery.searchFilter">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="search()">Search</button>
+      <button mat-raised-button color="primary" (click)="toggleSortOrder()">Sort
+        <mat-icon *ngIf="searchQuery.sortOrder === 'asc'">arrow_upward</mat-icon>
+        <mat-icon *ngIf="searchQuery.sortOrder === 'desc'">arrow_downward</mat-icon>
+      </button>
+    </div>
 
-<div class="button-container" *ngIf="totalPages > 1">
-  <button mat-raised-button color="primary" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
-  <span class="page-counter">{{currentPage}} / {{totalPages}}</span>
-  <button mat-raised-button color="primary" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
-</div>
+    <mat-grid-list [cols]="getMaxColumns()" rowHeight="330px">
+      <mat-grid-tile *ngFor="let book of books">
+        <app-list-item [book]="book"></app-list-item>
+      </mat-grid-tile>
+    </mat-grid-list>
 
-
+    <div class="button-container" *ngIf="totalPages > 1">
+      <button mat-raised-button color="primary" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+      <span class="page-counter">{{currentPage}} / {{totalPages}}</span>
+      <button mat-raised-button color="primary" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
