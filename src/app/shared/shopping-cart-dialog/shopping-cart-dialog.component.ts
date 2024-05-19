@@ -54,7 +54,7 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
               this.shoppingCartBooks[index].clickCount = clickCount;
             } else {
               this.shoppingCartBooks.push({ id: bookId, title: book.title, clickCount: clickCount });
-              this.totalPrice += this.bookPrice;
+              this.totalPrice += this.bookPrice * clickCount;
             }
           });
         }
