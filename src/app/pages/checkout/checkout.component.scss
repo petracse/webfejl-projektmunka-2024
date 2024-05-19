@@ -1,0 +1,34 @@
+.change_contact {
+  text-align: center;
+  height: 100vh;
+}
+
+mat-card-header {
+  justify-content: center;
+}
+
+mat-card {
+  width: 50vw;
+  display: inline-block;
+  margin: auto;
+}
+
+form {
+  mat-form-field {
+    width: 80%;
+  }
+
+}
+
+button {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 480px) {
+  mat-card {
+    width: 90vw;
+  }
+
+}
+
+

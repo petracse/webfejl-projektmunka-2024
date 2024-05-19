@@ -19,6 +19,7 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
   bookPrice: number = 10;
   currencyPipe = inject(CustomCurrencyPipe)
   currentCurrency: string | null = null;
+  isCartEmpy: boolean = true;
 
   getCurrency(): string | null {
     return localStorage.getItem('selectedCurrency');
