@@ -18,13 +18,10 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
   totalPrice: number = 0;
   bookPrice: number = 10;
   currencyPipe = inject(CustomCurrencyPipe)
-  totalPriceFormatted: string = '';
-  bookPriceFormatted: string = '';
 
   ngOnInit(): void {
     this.loadShoppingCartBooks();
-    this.totalPriceFormatted = this.currencyPipe.transform(this.totalPrice, 'EUR') || '';
-    this.bookPriceFormatted = this.currencyPipe.transform(this.bookPrice, 'EUR') || '';
+
     this.subscription.add(
       this.bookService.clickCountChange.subscribe(() => {
         this.loadShoppingCartBooks();
@@ -91,6 +88,9 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
+  }
+  formatTotalPrice(totalPrice: number): string {
+    return this.currencyPipe.transform('EUR', totalPrice, 'EUR');
   }
 
 }
