@@ -18,8 +18,19 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
   totalPrice: number = 0;
   bookPrice: number = 10;
   currencyPipe = inject(CustomCurrencyPipe)
+  currentCurrency: string | null = null;
+
+  getCurrency(): string | null {
+    return localStorage.getItem('selectedCurrency');
+  }
 
   ngOnInit(): void {
+    if (this.getCurrency()) {
+      this.currentCurrency = this.getCurrency();
+    } else {
+      this.currentCurrency = 'EUR';
+    }
+
     this.loadShoppingCartBooks();
 
     this.subscription.add(
@@ -90,7 +101,7 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe()
   }
   formatTotalPrice(totalPrice: number): string {
-    return this.currencyPipe.transform('EUR', totalPrice, 'EUR');
+    return this.currencyPipe.transform(this.currentCurrency as string, totalPrice, 'EUR');
   }
 
 }

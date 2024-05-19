@@ -12,7 +12,7 @@ import {MatSidenav} from "@angular/material/sidenav";
   styleUrl: './main.component.scss'
 })
 export class MainComponent implements OnInit{
-  currencies: string[] = ['USD', 'EUR', 'HUF'];
+  currencies: string[] = ['EUR', 'USD', 'HUF'];
   selectedCurrency: string = this.currencies[0];
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
@@ -112,5 +112,14 @@ export class MainComponent implements OnInit{
   search() {
     this.currentPage = 1;
     this.loadBooks(this.currentPage)
+  }
+
+  setCurrency(currency: string): void {
+    localStorage.setItem('selectedCurrency', currency);
+  }
+
+  onCurrencySelected(currency: string) {
+    this.selectedCurrency = currency;
+    this.setCurrency(currency);
   }
 }

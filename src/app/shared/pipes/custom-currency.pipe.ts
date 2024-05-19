@@ -17,17 +17,9 @@ export class CustomCurrencyPipe implements PipeTransform {
 
     const currencyRates: any = {
       'EUR': {
-        'USD': 1.22,
-        'HUF': 387,
+        'USD': 1/1.22,
+        'HUF': 1/387,
         'EUR': 1
-      },
-      'USD': {
-        'EUR': 0.82,
-        'HUF': 356
-      },
-      'HUF': {
-        'EUR': 0.0026,
-        'USD': 0.0028
       }
     };
 

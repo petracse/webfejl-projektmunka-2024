@@ -4,16 +4,17 @@
 
 <mat-sidenav-container class="example-container">
   <mat-sidenav #sidenav mode="over" position="end">
-    <mat-toolbar>Válasszon valutát</mat-toolbar>
+    <mat-toolbar>Choose currency</mat-toolbar>
     <mat-form-field appearance="fill">
-      <mat-label>Valuta</mat-label>
-      <mat-select [(ngModel)]="selectedCurrency">
+      <mat-label>Currency</mat-label>
+      <mat-select [(value)]="selectedCurrency" (selectionChange)="onCurrencySelected($event.value)">
         <mat-option *ngFor="let currency of currencies" [value]="currency">
           {{ currency }}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </mat-sidenav>
+
   <mat-sidenav-content>
     <h1 *ngIf="authService.isUserLoggedIn()">Welcome {{authService.getUsername()}}!</h1>
 
