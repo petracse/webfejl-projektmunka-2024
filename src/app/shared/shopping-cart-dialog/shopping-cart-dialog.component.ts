@@ -15,6 +15,7 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
   bookService = inject(BookService)
   subscription: Subscription = new Subscription();
   totalPrice: number = 0;
+  bookPrice: number = 10;
 
 
   ngOnInit(): void {
@@ -49,7 +50,7 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
               this.shoppingCartBooks[index].clickCount = clickCount;
             } else {
               this.shoppingCartBooks.push({ id: bookId, title: book.title, clickCount: clickCount });
-              this.totalPrice += 10;
+              this.totalPrice += this.bookPrice;
             }
           });
         }
@@ -62,7 +63,7 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
     if (index !== -1) {
       this.shoppingCartBooks[index].clickCount++;
       this.bookService.updateClickCount(bookId, this.shoppingCartBooks[index].clickCount); // Frissítjük a clickCount-ot
-      this.totalPrice += 10;
+      this.totalPrice += this.bookPrice;
     }
   }
 
@@ -71,7 +72,7 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
     if (index !== -1 && this.shoppingCartBooks[index].clickCount > 0) {
       this.shoppingCartBooks[index].clickCount--;
       this.bookService.updateClickCount(bookId, this.shoppingCartBooks[index].clickCount); // Frissítjük a clickCount-ot
-      this.totalPrice -= 10;
+      this.totalPrice -= this.bookPrice;
     }
   }
 
