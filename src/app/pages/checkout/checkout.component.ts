@@ -2,7 +2,8 @@ import {Component, inject, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../shared/services/auth.service";
 import {MatDialog} from "@angular/material/dialog";
-import {ConfirmationDialogComponent} from "../../shared/confirmation-dialog/confirmation-dialog.component";
+import {Router} from "@angular/router";
+import {CustomCurrencyPipe} from "../../shared/pipes/custom-currency.pipe";
 
 @Component({
   selector: 'app-checkout',
@@ -15,6 +16,12 @@ export class CheckoutComponent implements OnInit{
   currentUser: any;
   authService: AuthService = inject(AuthService);
   dialog: MatDialog = inject(MatDialog);
+  shoppingCartBooks: any[] = [];
+  totalPrice: number = 0;
+  router = inject(Router);
+  currentCurrency: string = 'EUR';
+  currencyPipe = inject(CustomCurrencyPipe);
+
 
   checkoutErrorMessage: string | null = null;
   deleteDialogOpen: boolean = false;
@@ -66,6 +73,13 @@ export class CheckoutComponent implements OnInit{
   }
 
   ngOnInit() {
+    if (!history.state.shoppingCartBooks || !history.state.totalPrice || !history.state.currentCurrency) {
+      this.router.navigate(['/home']);
+    } else {
+      this.shoppingCartBooks = history.state.shoppingCartBooks;
+      this.totalPrice = history.state.totalPrice;
+      this.currentCurrency = history.state.currentCurrency;
+    }
     this.currentUser = JSON.parse(localStorage.getItem('user') as string);
     this.initializeForm();
     this.authService.getContactInfo(this.currentUser.uid as string).subscribe({
@@ -129,5 +143,9 @@ export class CheckoutComponent implements OnInit{
     } else {
       console.error('Form is invalid. Cannot submit.');
     }
+  }
+
+  formatTotalPrice(totalPrice: number): string {
+    return this.currencyPipe.transform(this.currentCurrency as string, totalPrice, 'EUR');
   }
 }

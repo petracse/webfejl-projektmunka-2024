@@ -1,3 +1,16 @@
+<div class="products">
+  <mat-card>
+    <mat-card-content>
+      <h1>Your Products:</h1>
+      <div class="book-item" *ngFor="let book of shoppingCartBooks">
+        <p>{{ book.author }} - {{ book.title }} - {{ book.clickCount }} piece</p>
+      </div>
+      <div class="total-price">Total Price: {{ formatTotalPrice(totalPrice) }}</div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
 <div class="change_contact">
   <mat-card>
     <mat-card-content>

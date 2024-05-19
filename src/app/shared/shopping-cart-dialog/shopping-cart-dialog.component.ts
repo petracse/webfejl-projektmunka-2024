@@ -63,7 +63,7 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
             if (index !== -1) {
               this.shoppingCartBooks[index].clickCount = clickCount;
             } else {
-              this.shoppingCartBooks.push({ id: bookId, title: book.title, clickCount: clickCount });
+              this.shoppingCartBooks.push({ id: bookId, author: book.author, title: book.title, clickCount: clickCount });
               this.totalPrice += this.bookPrice * clickCount;
             }
           });
@@ -107,6 +107,6 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
   }
 
   redirectToCheckout() {
-    this.router.navigateByUrl('/checkout');
+    this.router.navigate(['/checkout'], { state: { shoppingCartBooks: this.shoppingCartBooks , totalPrice: this.totalPrice, currentCurrency: this.currentCurrency} });
   }
 }
