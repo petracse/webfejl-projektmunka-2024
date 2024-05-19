@@ -12,6 +12,7 @@ const routes: Routes =[
     { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
     { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule), canActivate: [authGuard]},
     { path: 'checkout', loadChildren: () => import('./pages/checkout/checkout.module').then(m => m.CheckoutModule), canActivate: [checkoutGuard] },
+    { path: 'confirmation', loadChildren: () => import('./pages/confirmation/confirmation.module').then(m => m.ConfirmationModule) },
   { path: '**', redirectTo: '/not-found' }
 
 ];
