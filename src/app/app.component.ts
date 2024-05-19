@@ -5,6 +5,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ShoppingCartDialogComponent} from "./shared/shopping-cart-dialog/shopping-cart-dialog.component";
 import {Subscription} from "rxjs";
 import {MenuComponent} from "./shared/menu/menu.component";
+import {BookService} from "./shared/services/book.service";
 
 
 @Component({
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit, OnDestroy{
   dialog: MatDialog = inject(MatDialog);
   subscription!: Subscription;
   cartDialogRef: any;
+  bookService = inject(BookService);
 
   onToggleSidenav(sidenav: MatSidenav) {
     sidenav.toggle();
@@ -34,7 +36,7 @@ export class AppComponent implements OnInit, OnDestroy{
 
 
     //this.authService.ensureLowerCaseFieldsInBooksCollection().subscribe(() => {});
-    this.subscription = this.authService.clickCountChange.subscribe((bookId: string | void) => {
+    this.subscription = this.bookService.clickCountChange.subscribe((bookId: string | void) => {
       if (bookId && MenuComponent.isCartDialogBlocked) {
         this.handleBookClickCountZero();
       }

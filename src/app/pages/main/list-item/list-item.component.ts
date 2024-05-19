@@ -3,6 +3,7 @@ import {AuthService} from "../../../shared/services/auth.service";
 import {ConfirmationDialogComponent} from "../../../shared/confirmation-dialog/confirmation-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
+import {BookService} from "../../../shared/services/book.service";
 
 @Component({
   selector: 'app-list-item',
@@ -13,7 +14,7 @@ export class ListItemComponent implements OnInit{
   maxTitleLength: number = 33
   @Input() book: any;
   isFavorite: boolean = false;
-  authService = inject(AuthService)
+  bookService = inject(BookService)
   loginDialogOpen: boolean = false;
   dialog = inject(MatDialog)
   router = inject(Router);
@@ -30,20 +31,20 @@ export class ListItemComponent implements OnInit{
 
 
   toggleFavourite() {
-    if (this.authService.firebaseAuth.currentUser === null) {
+    if (this.bookService.firebaseAuth.currentUser === null) {
       this.showLoginOrSignup()
     } else {
-      this.authService.toggleFavorite(this.book.id, this.authService.firebaseAuth.currentUser!.uid).subscribe(() => {
+      this.bookService.toggleFavorite(this.book.id, this.bookService.firebaseAuth.currentUser!.uid).subscribe(() => {
         this.isFavorite = !this.isFavorite;
       });
     }
   }
 
   checkIfFavorite() {
-    if (this.authService.firebaseAuth.currentUser === null) {
+    if (this.bookService.firebaseAuth.currentUser === null) {
       this.isFavorite = false;
     } else {
-      this.authService.isFavorite(this.book.id, this.authService.firebaseAuth.currentUser!.uid).subscribe(isFav => {
+      this.bookService.isFavorite(this.book.id, this.bookService.firebaseAuth.currentUser!.uid).subscribe(isFav => {
         this.isFavorite = isFav;
       });
     }

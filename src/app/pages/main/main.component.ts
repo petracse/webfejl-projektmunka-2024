@@ -1,6 +1,8 @@
 import {Component, HostListener, inject, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from "../../shared/services/auth.service";
+
 import {Router} from "@angular/router";
+import {BookService} from "../../shared/services/book.service";
+import {AuthService} from "../../shared/services/auth.service";
 
 
 @Component({
@@ -9,6 +11,7 @@ import {Router} from "@angular/router";
   styleUrl: './main.component.scss'
 })
 export class MainComponent implements OnInit{
+  bookService = inject(BookService);
   authService = inject(AuthService);
   router = inject(Router);
   books: any[] = [];
@@ -54,7 +57,7 @@ export class MainComponent implements OnInit{
   loadBooks(page: number) {
     const startAt = (page - 1);
 
-    this.authService.getBooks(startAt, this.searchQuery.searchFilter, this.searchQuery.sortCriteria, this.searchQuery.sortOrder).subscribe((data: any) => {
+    this.bookService.getBooks(startAt, this.searchQuery.searchFilter, this.searchQuery.sortCriteria, this.searchQuery.sortOrder).subscribe((data: any) => {
       this.books = data.books;
       this.currentPage = page;
       this.totalPages = data.totalPages;

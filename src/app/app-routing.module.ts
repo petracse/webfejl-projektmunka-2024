@@ -12,6 +12,7 @@ const routes: Routes =[
     { path: 'signup', loadChildren: () => import('./pages/signup/signup.module').then(m => m.SignupModule) },
     { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
     { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) , canActivate: [authGuard]},
+    { path: 'checkout', loadChildren: () => import('./pages/checkout/checkout.module').then(m => m.CheckoutModule) },
   { path: '**', redirectTo: '/not-found' }
 
 ];

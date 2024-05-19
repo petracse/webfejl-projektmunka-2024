@@ -3,6 +3,7 @@ import {AuthService} from "../services/auth.service";
 import {ShoppingCartDialogComponent} from "../shopping-cart-dialog/shopping-cart-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Subscription} from "rxjs";
+import {BookService} from "../services/book.service";
 
 @Component({
   selector: 'app-menu',
@@ -13,6 +14,7 @@ export class MenuComponent implements OnInit, OnDestroy{
   @Output() onCloseSidenav: EventEmitter<boolean> = new EventEmitter();
   subscription!: Subscription;
   authService: AuthService = inject(AuthService);
+  bookService = inject(BookService);
   dialog: MatDialog = inject(MatDialog);
   cartDialogRef: any;
 
@@ -38,7 +40,7 @@ export class MenuComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    this.subscription = this.authService.clickCountChange.subscribe((bookId: string | void) => {
+    this.subscription = this.bookService.clickCountChange.subscribe((bookId: string | void) => {
       if (bookId && !MenuComponent.isCartDialogBlocked) {
         this.handleBookClickCountZero();
       }

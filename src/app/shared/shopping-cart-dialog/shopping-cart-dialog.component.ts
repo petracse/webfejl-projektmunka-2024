@@ -1,7 +1,7 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
-import {AuthService} from "../services/auth.service";
 import {Subscription} from "rxjs";
+import {BookService} from "../services/book.service";
 
 @Component({
   selector: 'app-shopping-cart-dialog',
@@ -12,7 +12,7 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
 
   shoppingCartBooks: any[] = [];
   dialogRef = inject(MatDialogRef<ShoppingCartDialogComponent>)
-  authService = inject(AuthService)
+  bookService = inject(BookService)
   subscription: Subscription = new Subscription();
   totalPrice: number = 0;
 
@@ -21,7 +21,7 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
     this.loadShoppingCartBooks();
 
     this.subscription.add(
-      this.authService.clickCountChange.subscribe(() => {
+      this.bookService.clickCountChange.subscribe(() => {
         this.loadShoppingCartBooks();
 
       })
@@ -43,12 +43,13 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
             this.shoppingCartBooks.splice(index, 1);
           }
         } else {
-          this.authService.getBookById(bookId).subscribe((book) => {
+          this.bookService.getBookById(bookId).subscribe((book) => {
             const index = this.shoppingCartBooks.findIndex(item => item.id === bookId);
             if (index !== -1) {
               this.shoppingCartBooks[index].clickCount = clickCount;
             } else {
               this.shoppingCartBooks.push({ id: bookId, title: book.title, clickCount: clickCount });
+              this.totalPrice += 10;
             }
           });
         }
@@ -69,7 +70,8 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
     const index = this.shoppingCartBooks.findIndex(book => book.id === bookId);
     if (index !== -1) {
       this.shoppingCartBooks[index].clickCount++;
-      this.authService.updateClickCount(bookId, this.shoppingCartBooks[index].clickCount); // Frissítjük a clickCount-ot
+      this.bookService.updateClickCount(bookId, this.shoppingCartBooks[index].clickCount); // Frissítjük a clickCount-ot
+      this.totalPrice += 10;
     }
   }
 
@@ -77,7 +79,8 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
     const index = this.shoppingCartBooks.findIndex(book => book.id === bookId);
     if (index !== -1 && this.shoppingCartBooks[index].clickCount > 0) {
       this.shoppingCartBooks[index].clickCount--;
-      this.authService.updateClickCount(bookId, this.shoppingCartBooks[index].clickCount); // Frissítjük a clickCount-ot
+      this.bookService.updateClickCount(bookId, this.shoppingCartBooks[index].clickCount); // Frissítjük a clickCount-ot
+      this.totalPrice -= 10;
     }
   }
 
