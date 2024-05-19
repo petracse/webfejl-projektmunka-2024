@@ -2,6 +2,7 @@ import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import {Subscription} from "rxjs";
 import {BookService} from "../services/book.service";
+import {CustomCurrencyPipe} from "../pipes/custom-currency.pipe";
 
 @Component({
   selector: 'app-shopping-cart-dialog',
@@ -16,11 +17,14 @@ export class ShoppingCartDialogComponent implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   totalPrice: number = 0;
   bookPrice: number = 10;
-
+  currencyPipe = inject(CustomCurrencyPipe)
+  totalPriceFormatted: string = '';
+  bookPriceFormatted: string = '';
 
   ngOnInit(): void {
     this.loadShoppingCartBooks();
-
+    this.totalPriceFormatted = this.currencyPipe.transform(this.totalPrice, 'EUR') || '';
+    this.bookPriceFormatted = this.currencyPipe.transform(this.bookPrice, 'EUR') || '';
     this.subscription.add(
       this.bookService.clickCountChange.subscribe(() => {
         this.loadShoppingCartBooks();

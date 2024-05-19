@@ -20,13 +20,17 @@ import {AngularFireModule} from "@angular/fire/compat";
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import { ShoppingCartDialogComponent } from './shared/shopping-cart-dialog/shopping-cart-dialog.component';
+import { CustomCurrencyPipePipe } from './shared/pipes/custom-currency-pipe.pipe';
+import { CustomCurrencyPipe } from './shared/pipes/custom-currency.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     ConfirmationDialogComponent,
-    ShoppingCartDialogComponent
+    ShoppingCartDialogComponent,
+    CustomCurrencyPipePipe,
+    CustomCurrencyPipe
   ],
   imports: [
     MatSidenavModule,
