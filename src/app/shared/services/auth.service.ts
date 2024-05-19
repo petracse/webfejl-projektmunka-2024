@@ -296,6 +296,22 @@ export class AuthService {
     });
   }
 
+  placeOrder(userData: any, shoppingCartBooks: any[], totalPrice: number): Observable<void> {
+    const orderData = {
+      userData,
+      books: shoppingCartBooks.map(book => ({
+        bookId: book.id,
+        bookCount: book.clickCount
+      })),
+      totalPrice,
+      orderDate: new Date().toISOString(),
+      status: 'pending'
+    };
+    const orderId = this.firestore.createId();
+    return from(this.firestore.collection('Orders').doc(orderId).set(orderData));
+  }
+
+
 
 
 }

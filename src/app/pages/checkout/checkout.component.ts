@@ -42,6 +42,25 @@ export class CheckoutComponent implements OnInit{
         phoneNumber: formData.phoneNumber
       };
 
+      this.authService.placeOrder(userData, this.shoppingCartBooks, this.totalPrice)
+        .subscribe({
+          next: () => {
+            console.log('Order placed successfully.');
+            for (let i = 0; i < localStorage.length; i++) {
+              const key = localStorage.key(i);
+              if (key && key.startsWith('clickCount_')) {
+                localStorage.removeItem(key);
+
+              }
+            }
+            this.router.navigate(['/confirmation']);
+          },
+          error: (error) => {
+            this.checkoutErrorMessage = `Error placing order: ${error.message}`;
+            console.error('Error placing order: ', error);
+          }
+        });
+
     } else {
       console.error('Form is invalid. Cannot submit.');
     }

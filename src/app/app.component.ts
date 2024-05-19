@@ -6,6 +6,7 @@ import {ShoppingCartDialogComponent} from "./shared/shopping-cart-dialog/shoppin
 import {Subscription} from "rxjs";
 import {MenuComponent} from "./shared/menu/menu.component";
 import {BookService} from "./shared/services/book.service";
+import {NavigationEnd, Router} from "@angular/router";
 
 
 
@@ -21,6 +22,8 @@ export class AppComponent implements OnInit, OnDestroy{
   subscription!: Subscription;
   cartDialogRef: any;
   bookService = inject(BookService);
+  isCheckoutPage: boolean = false;
+  router = inject(Router)
 
   onToggleSidenav(sidenav: MatSidenav) {
     sidenav.toggle();
@@ -35,7 +38,11 @@ export class AppComponent implements OnInit, OnDestroy{
       this.firestoreService.uploadBooks(booksData.default);
     });*/
 
-
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isCheckoutPage = event.url === '/checkout';
+      }
+    });
     //this.authService.ensureLowerCaseFieldsInBooksCollection().subscribe(() => {});
     this.subscription = this.bookService.clickCountChange.subscribe((bookId: string | void) => {
       if (bookId && MenuComponent.isCartDialogBlocked) {
