@@ -76,10 +76,3 @@ Use `ng help` or visit the Angular CLI documentation page for command reference 
 - Real backend integration
 - Accessibility and performance audits
 
-
-## License
-
-MIT (or project‑specific).
-<span style="display:none">[^3_1][^3_2][^3_3][^3_4][^3_5][^3_6][^3_7][^3_8][^3_9]</span>
-
-<div align="center">⁂</div>
