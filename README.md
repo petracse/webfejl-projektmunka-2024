@@ -25,3 +25,61 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Esetleg az npm build folyamatot is írd bele, és azt hogy ez egy fikciós könyv ecommerce oldal
+
+Here’s an English, raw Markdown README section tailored to the Angular project, including the npm build workflow and clarifying it’s a fictional book e‑commerce site.
+
+# WebDevFwProject
+
+A fictional book e‑commerce web application built with Angular, featuring product listing, search/filtering, cart management, and a simple checkout flow. The project scaffolding and development workflow use Angular CLI (v17.3.4).
+
+## Features
+
+- Browse and search a catalog of fictional books with category and keyword filtering.
+- View product details with pricing, and metadata.
+- Add/remove items to the cart and adjust quantities.
+- Persist cart state during navigation.
+
+
+## Prerequisites
+
+- Node.js LTS and npm installed
+- Angular CLI globally installed: `npm install -g @angular/cli`
+
+
+## Development server
+
+Run `npm install` once, then `ng serve` to start a dev server at `http://localhost:4200/`. The app auto‑reloads on source changes.
+
+## Code scaffolding
+
+Generate building blocks with Angular CLI:
+
+- Component: `ng generate component component-name`
+- Directive/Pipe/Service/Class/Guard/Interface/Enum/Module: `ng generate directive|pipe|service|class|guard|interface|enum|module`
+
+
+## Build
+
+- Development build: `ng build` (outputs to `dist/`).
+- Production build: `ng build --configuration production` for optimized bundles (AOT, budgets, minification).
+- Analyze bundle: `ng build --configuration production --stats-json` then inspect with preferred analyzer.
+
+## Further help
+
+Use `ng help` or visit the Angular CLI documentation page for command reference and best practices.
+
+## Roadmap (optional)
+
+- Authentication and user accounts
+- Order history and wishlists
+- Real backend integration
+- Accessibility and performance audits
+
+
+## License
+
+MIT (or project‑specific).
+<span style="display:none">[^3_1][^3_2][^3_3][^3_4][^3_5][^3_6][^3_7][^3_8][^3_9]</span>
+
+<div align="center">⁂</div>
